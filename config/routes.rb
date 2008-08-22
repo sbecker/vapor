@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/register',                  :controller => 'users',    :action => 'create'
   map.signup   '/signup',                    :controller => 'users',    :action => 'new'
   map.activate '/activate/:activation_code', :controller => 'users',    :action => 'activate', :activation_code => nil
+
+  map.dashboard '/dashboard',                :controller => 'dashboard', :action => 'index'
   
   # Restful Authentication Resource Routes
   map.resources :users, :member => { :suspend   => :put,
