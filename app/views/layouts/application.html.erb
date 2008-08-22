@@ -10,6 +10,7 @@
   <body>
     <% if logged_in? %>
       <%= link_to "Dashboard", dashboard_path %> |
+      <%= link_to "Images", images_path %> |
       <%= link_to "Account", account_path %> |
       <%= link_to "Logout", logout_path %>
     <% else %>

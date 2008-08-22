@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :images
-
   # Restful Authentication Named Routes
   map.logout   '/logout',                    :controller => 'sessions', :action => 'destroy'
   map.login    '/login',                     :controller => 'sessions', :action => 'new'
@@ -20,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Vapor Resource Routes
   map.resource :account
+  map.resources :images
 
   map.root :controller => 'dashboard'
 

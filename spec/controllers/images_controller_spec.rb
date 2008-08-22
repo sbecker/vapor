@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ImagesController do
+  before do
+    mock_logged_in
+  end
 
   def mock_image(stubs={})
     @mock_image ||= mock_model(Image, stubs)
