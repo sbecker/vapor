@@ -1,0 +1,48 @@
+<h1>Editing image</h1>
+
+<% form_for(@image) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :architecture %><br />
+    <%= f.text_field :architecture %>
+  </p>
+  <p>
+    <%= f.label :aws_id %><br />
+    <%= f.text_field :aws_id %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :is_public %><br />
+    <%= f.check_box :is_public %>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :owner_id %><br />
+    <%= f.text_field :owner_id %>
+  </p>
+  <p>
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </p>
+  <p>
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @image %> |
+<%= link_to 'Back', images_path %>

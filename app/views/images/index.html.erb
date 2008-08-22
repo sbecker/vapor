@@ -1,0 +1,36 @@
+<h1>Listing images</h1>
+
+<table>
+  <tr>
+    <th>Architecture</th>
+    <th>Aws</th>
+    <th>Description</th>
+    <th>Is public</th>
+    <th>Location</th>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>State</th>
+    <th>Type</th>
+  </tr>
+
+<% for image in @images %>
+  <tr>
+    <td><%=h image.architecture %></td>
+    <td><%=h image.aws_id %></td>
+    <td><%=h image.description %></td>
+    <td><%=h image.is_public %></td>
+    <td><%=h image.location %></td>
+    <td><%=h image.name %></td>
+    <td><%=h image.owner_id %></td>
+    <td><%=h image.state %></td>
+    <td><%=h image.type %></td>
+    <td><%= link_to 'Show', image %></td>
+    <td><%= link_to 'Edit', edit_image_path(image) %></td>
+    <td><%= link_to 'Destroy', image, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New image', new_image_path %>

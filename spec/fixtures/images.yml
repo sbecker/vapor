@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  architecture: MyString
+  aws_id: MyString
+  description: MyText
+  is_public: false
+  location: MyString
+  name: MyString
+  owner_id: MyString
+  state: MyString
+  type: MyString
+
+two:
+  architecture: MyString
+  aws_id: MyString
+  description: MyText
+  is_public: false
+  location: MyString
+  name: MyString
+  owner_id: MyString
+  state: MyString
+  type: MyString
