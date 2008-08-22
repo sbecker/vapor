@@ -4,9 +4,9 @@ describe "/dashboard/index" do
   before(:each) do
     render 'dashboard/index'
   end
-  
-  #Delete this example and add some real ones or delete this file
-  it "should tell you where to find the file" do
+
+  it "should have a heading for 'Dashboard'" do
     response.should have_tag('h2', %r[Dashboard])
   end
+
 end
