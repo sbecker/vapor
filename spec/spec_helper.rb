@@ -51,3 +51,7 @@ end
 
 # Restful Authentication Test Helper
 include AuthenticatedTestHelper
+
+def mock_logged_in
+  @controller.stub!(:login_required).and_return(true)
+end

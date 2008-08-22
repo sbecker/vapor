@@ -1,10 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe DashboardController do
-  fixtures :users
-
   before do
-    login_as :quentin
+    mock_logged_in
   end
 
   describe "GET 'index'" do
