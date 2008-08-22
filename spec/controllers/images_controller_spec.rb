@@ -53,16 +53,6 @@ describe ImagesController do
     
   end
 
-  describe "responding to GET new" do
-  
-    it "should expose a new image as @image" do
-      Image.should_receive(:new).and_return(mock_image)
-      get :new
-      assigns[:image].should equal(mock_image)
-    end
-
-  end
-
   describe "responding to GET edit" do
   
     it "should expose the requested image as @image" do
@@ -71,42 +61,6 @@ describe ImagesController do
       assigns[:image].should equal(mock_image)
     end
 
-  end
-
-  describe "responding to POST create" do
-
-    describe "with valid params" do
-      
-      it "should expose a newly created image as @image" do
-        Image.should_receive(:new).with({'these' => 'params'}).and_return(mock_image(:save => true))
-        post :create, :image => {:these => 'params'}
-        assigns(:image).should equal(mock_image)
-      end
-
-      it "should redirect to the created image" do
-        Image.stub!(:new).and_return(mock_image(:save => true))
-        post :create, :image => {}
-        response.should redirect_to(image_url(mock_image))
-      end
-      
-    end
-    
-    describe "with invalid params" do
-
-      it "should expose a newly created but unsaved image as @image" do
-        Image.stub!(:new).with({'these' => 'params'}).and_return(mock_image(:save => false))
-        post :create, :image => {:these => 'params'}
-        assigns(:image).should equal(mock_image)
-      end
-
-      it "should re-render the 'new' template" do
-        Image.stub!(:new).and_return(mock_image(:save => false))
-        post :create, :image => {}
-        response.should render_template('new')
-      end
-      
-    end
-    
   end
 
   describe "responding to PUT udpate" do
@@ -153,22 +107,6 @@ describe ImagesController do
         response.should render_template('edit')
       end
 
-    end
-
-  end
-
-  describe "responding to DELETE destroy" do
-
-    it "should destroy the requested image" do
-      Image.should_receive(:find).with("37").and_return(mock_image)
-      mock_image.should_receive(:destroy)
-      delete :destroy, :id => "37"
-    end
-  
-    it "should redirect to the images list" do
-      Image.stub!(:find).and_return(mock_image(:destroy => true))
-      delete :destroy, :id => "1"
-      response.should redirect_to(images_url)
     end
 
   end
