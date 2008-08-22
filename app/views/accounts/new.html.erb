@@ -1,0 +1,35 @@
+<h1>New account</h1>
+
+<% form_for(@account) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :aws_account_number %><br />
+    <%= f.text_field :aws_account_number %>
+  </p>
+  <p>
+    <%= f.label :aws_access_key %><br />
+    <%= f.text_field :aws_access_key %>
+  </p>
+  <p>
+    <%= f.label :aws_secret_access_key %><br />
+    <%= f.text_field :aws_secret_access_key %>
+  </p>
+  <p>
+    <%= f.label :aws_x_509_key %><br />
+    <%= f.text_area :aws_x_509_key %>
+  </p>
+  <p>
+    <%= f.label :aws_x_509_certificate %><br />
+    <%= f.text_area :aws_x_509_certificate %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', accounts_path %>

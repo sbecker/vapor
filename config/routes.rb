@@ -14,6 +14,9 @@ ActionController::Routing::Routes.draw do |map|
                                      :purge     => :delete }
   map.resource :session
 
+  # Vapor Resource Routes
+  map.resources :accounts
+
   map.root :controller => 'dashboard'
 
   # # Install the default routes as the lowest priority.

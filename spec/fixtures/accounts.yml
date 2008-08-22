@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  aws_account_number: MyString
+  aws_access_key: MyString
+  aws_secret_access_key: MyString
+  aws_x_509_key: MyText
+  aws_x_509_certificate: MyText
+
+two:
+  name: MyString
+  aws_account_number: MyString
+  aws_access_key: MyString
+  aws_secret_access_key: MyString
+  aws_x_509_key: MyText
+  aws_x_509_certificate: MyText

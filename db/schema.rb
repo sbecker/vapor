@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080822045945) do
+ActiveRecord::Schema.define(:version => 20080822062340) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "aws_account_number"
+    t.string   "aws_access_key"
+    t.string   "aws_secret_access_key"
+    t.text     "aws_x_509_key"
+    t.text     "aws_x_509_certificate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40

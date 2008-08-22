@@ -1,0 +1,30 @@
+<h1>Listing accounts</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Aws account number</th>
+    <th>Aws access key</th>
+    <th>Aws secret access key</th>
+    <th>Aws x 509 key</th>
+    <th>Aws x 509 certificate</th>
+  </tr>
+
+<% for account in @accounts %>
+  <tr>
+    <td><%=h account.name %></td>
+    <td><%=h account.aws_account_number %></td>
+    <td><%=h account.aws_access_key %></td>
+    <td><%=h account.aws_secret_access_key %></td>
+    <td><%=h account.aws_x_509_key %></td>
+    <td><%=h account.aws_x_509_certificate %></td>
+    <td><%= link_to 'Show', account %></td>
+    <td><%= link_to 'Edit', edit_account_path(account) %></td>
+    <td><%= link_to 'Destroy', account, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New account', new_account_path %>

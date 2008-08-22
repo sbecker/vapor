@@ -1,0 +1,33 @@
+<p>
+  <b>Name:</b>
+  <%=h @account.name %>
+</p>
+
+<p>
+  <b>Aws account number:</b>
+  <%=h @account.aws_account_number %>
+</p>
+
+<p>
+  <b>Aws access key:</b>
+  <%=h @account.aws_access_key %>
+</p>
+
+<p>
+  <b>Aws secret access key:</b>
+  <%=h @account.aws_secret_access_key %>
+</p>
+
+<p>
+  <b>Aws x 509 key:</b>
+  <%=h @account.aws_x_509_key %>
+</p>
+
+<p>
+  <b>Aws x 509 certificate:</b>
+  <%=h @account.aws_x_509_certificate %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>
