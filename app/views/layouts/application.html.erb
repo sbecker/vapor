@@ -9,16 +9,18 @@
   </head>
   <body>
     <% if logged_in? %>
+      <%= link_to "Dashboard", dashboard_path %> |
+      <%= link_to "Account", account_path %> |
       <%= link_to "Logout", logout_path %>
     <% else %>
       <%= link_to "Login",  login_path %> |
       <%= link_to "Signup", signup_path %>
     <% end %>
-    
+
     <h1>Vapor</h1>
-    
+
     <% if flash[:notice] %><div id="notice"><%= flash[:notice] %></div><% end %>
-    
+
     <%= yield %>
   </body>
 </html>

@@ -7,12 +7,22 @@ describe "/layouts/application" do
     response.should have_tag('h1', %r[Vapor])
   end
 
-
   describe "when logged in" do
-    it "should have a 'Logout' link" do
+    before do
       template.stub!(:logged_in?).and_return(true)
       render 'layouts/application'
+    end
+
+    it "should have a 'Logout' link" do
       response.should have_tag('a', %r[Logout])
+    end
+
+    it "should have an 'Account' link" do
+      response.should have_tag('a', %r[Account])
+    end
+
+    it "should have a 'Dashboard' link" do
+      response.should have_tag('a', %r[Dashboard])
     end
   end
 
