@@ -6,7 +6,9 @@ ActionController::Routing::Routes.draw do |map|
   map.signup   '/signup',                    :controller => 'users',    :action => 'new'
   map.activate '/activate/:activation_code', :controller => 'users',    :action => 'activate', :activation_code => nil
 
+  # Vapor Named Routes
   map.dashboard '/dashboard',                :controller => 'dashboard', :action => 'index'
+  
   
   # Restful Authentication Resource Routes
   map.resources :users, :member => { :suspend   => :put,
@@ -15,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   # Vapor Resource Routes
-  map.resources :accounts
+  map.resource :account
 
   map.root :controller => 'dashboard'
 

@@ -1,21 +1,14 @@
 class AccountsController < ApplicationController
   before_filter :login_required
+  before_filter :find_account, :only => [:show, :edit, :update, :destroy]
 
-  # GET /accounts
-  # GET /accounts.xml
-  def index
-    @accounts = Account.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @accounts }
-    end
-  end
-
-  # GET /accounts/1
-  # GET /accounts/1.xml
+  # GET /account
+  # GET /account.xml
   def show
-    @account = Account.find(params[:id])
+    unless @account
+      redirect_to new_account_path
+      return
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -23,10 +16,10 @@ class AccountsController < ApplicationController
     end
   end
 
-  # GET /accounts/new
-  # GET /accounts/new.xml
+  # GET /account/new
+  # GET /account/new.xml
   def new
-    @account = Account.new
+    @account = current_user.build_account
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,21 +27,21 @@ class AccountsController < ApplicationController
     end
   end
 
-  # GET /accounts/1/edit
+  # GET /account/edit
   def edit
-    @account = Account.find(params[:id])
   end
 
-  # POST /accounts
-  # POST /accounts.xml
+  # POST /account
+  # POST /account.xml
   def create
-    @account = Account.new(params[:account])
+    @account = current_user.build_account(params[:account])
 
     respond_to do |format|
       if @account.save
+        current_user.save # retain account id
         flash[:notice] = 'Account was successfully created.'
-        format.html { redirect_to(@account) }
-        format.xml  { render :xml => @account, :status => :created, :location => @account }
+        format.html { redirect_to(account_path) }
+        format.xml  { render :xml => @account, :status => :created, :location => account_path }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @account.errors, :status => :unprocessable_entity }
@@ -56,15 +49,13 @@ class AccountsController < ApplicationController
     end
   end
 
-  # PUT /accounts/1
-  # PUT /accounts/1.xml
+  # PUT /account
+  # PUT /account.xml
   def update
-    @account = Account.find(params[:id])
-
     respond_to do |format|
       if @account.update_attributes(params[:account])
         flash[:notice] = 'Account was successfully updated.'
-        format.html { redirect_to(@account) }
+        format.html { redirect_to(account_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,15 +64,19 @@ class AccountsController < ApplicationController
     end
   end
 
-  # DELETE /accounts/1
-  # DELETE /accounts/1.xml
+  # DELETE /account
+  # DELETE /account.xml
   def destroy
-    @account = Account.find(params[:id])
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to(accounts_url) }
+      format.html { redirect_to(account_path) }
       format.xml  { head :ok }
     end
   end
+  
+  protected
+    def find_account
+      @account = current_user.account
+    end
 end

@@ -1,6 +1,6 @@
 <h1>Editing account</h1>
 
-<% form_for(@account) do |f| %>
+<% form_for(@account, :url => account_path) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -32,5 +32,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @account %> |
-<%= link_to 'Back', accounts_path %>
+<%= link_to 'Show', account_path %> |
+<%= link_to 'Back', account_path %>

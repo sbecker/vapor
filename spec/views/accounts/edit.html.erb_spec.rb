@@ -18,7 +18,7 @@ describe "/accounts/edit.html.erb" do
   it "should render edit form" do
     render "/accounts/edit.html.erb"
     
-    response.should have_tag("form[action=#{account_path(@account)}][method=post]") do
+    response.should have_tag("form[action=#{account_path}][method=post]") do
       with_tag('input#account_name[name=?]', "account[name]")
       with_tag('input#account_aws_account_number[name=?]', "account[aws_account_number]")
       with_tag('input#account_aws_access_key[name=?]', "account[aws_access_key]")

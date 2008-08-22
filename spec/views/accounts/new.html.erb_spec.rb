@@ -18,7 +18,7 @@ describe "/accounts/new.html.erb" do
   it "should render new form" do
     render "/accounts/new.html.erb"
     
-    response.should have_tag("form[action=?][method=post]", accounts_path) do
+    response.should have_tag("form[action=?][method=post]", account_path) do
       with_tag("input#account_name[name=?]", "account[name]")
       with_tag("input#account_aws_account_number[name=?]", "account[aws_account_number]")
       with_tag("input#account_aws_access_key[name=?]", "account[aws_access_key]")
