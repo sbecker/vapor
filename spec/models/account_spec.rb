@@ -15,4 +15,11 @@ describe Account do
   it "should create a new instance given valid attributes" do
     Account.create!(@valid_attributes)
   end
+
+  describe "associations" do
+    it "should have many users" do
+      # No options on this association but ActiveMatchers complain unless .with_options({:extend=>[]}) is added. - SMB 8/22/08
+      Account.should have_many(:users).with_options({:extend=>[]})
+    end
+  end
 end
