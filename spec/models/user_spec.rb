@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe User do
+describe User, "associations" do
+  it "should belong to an account" do
+    User.should belong_to(:account)
+  end
+end
+
+describe User, "restful-authentication logic" do
   fixtures :users
 
   describe 'being created' do

@@ -3,6 +3,11 @@ gem 'rubyist-aasm'
 require 'aasm'
 
 class User < ActiveRecord::Base
+  belongs_to :account
+
+  # ###############################
+  # BEGIN restful-authentication fu
+  # ###############################
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
@@ -21,14 +26,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email,    :case_sensitive => false
   validates_format_of       :email,    :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD
 
-  
-
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation
-
-
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -40,13 +41,23 @@ class User < ActiveRecord::Base
     u = find_in_state :first, :active, :conditions => {:login => login} # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
+  # #############################
+  # END restful-authentication fu
+  # #############################
+
 
   protected
     
+    # ###############################
+    # BEGIN restful-authentication fu
+    # ###############################
     def make_activation_code
         self.deleted_at = nil
         self.activation_code = self.class.make_token
     end
+    # #############################
+    # END restful-authentication fu
+    # #############################
 
 
 end
