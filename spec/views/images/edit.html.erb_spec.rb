@@ -20,15 +20,21 @@ describe "/images/edit.html.erb" do
     render "/images/edit.html.erb"
     
     response.should have_tag("form[action=#{image_path(@image)}][method=post]") do
-      with_tag('input#image_architecture[name=?]', "image[architecture]")
-      with_tag('textarea#image_description[name=?]', "image[description]")
-      with_tag('input#image_is_public[name=?]', "image[is_public]")
-      with_tag('input#image_location[name=?]', "image[location]")
       with_tag('input#image_name[name=?]', "image[name]")
-      with_tag('input#image_state[name=?]', "image[state]")
-      with_tag('input#image_type[name=?]', "image[type]")
+      with_tag('textarea#image_description[name=?]', "image[description]")
     end
+
+    response.should have_text(/value\ for\ architecture/)
+    response.should have_text(/als/)
+    response.should have_text(/value\ for\ location/)
+    response.should have_text(/value\ for\ state/)
+    response.should have_text(/value\ for\ type/)
+
+    response.should_not have_tag('input#image_architecture[name=?]', "image[architecture]")
+    response.should_not have_tag('input#image_is_public[name=?]', "image[is_public]")
+    response.should_not have_tag('input#image_location[name=?]', "image[location]")
+    response.should_not have_tag('input#image_state[name=?]', "image[state]")
+    response.should_not have_tag('input#image_type[name=?]', "image[type]")
   end
 end
-
 

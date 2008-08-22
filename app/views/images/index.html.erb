@@ -2,28 +2,28 @@
 
 <table>
   <tr>
-    <th>Architecture</th>
-    <th>Aws</th>
-    <th>Description</th>
-    <th>Is public</th>
-    <th>Location</th>
     <th>Name</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Architecture</th>
+    <th>AWS ID</th>
+    <th>Location</th>
+    <th>Is public</th>
     <th>Owner</th>
     <th>State</th>
-    <th>Type</th>
   </tr>
 
 <% for image in @images %>
   <tr>
+    <td><%=h image.name %></td>
+    <td><%=h image.description %></td>
+    <td><%=h image.type %></td>
     <td><%=h image.architecture %></td>
     <td><%=h image.aws_id %></td>
-    <td><%=h image.description %></td>
-    <td><%=h image.is_public %></td>
     <td><%=h image.location %></td>
-    <td><%=h image.name %></td>
+    <td><%=h image.is_public %></td>
     <td><%=h image.owner_id %></td>
     <td><%=h image.state %></td>
-    <td><%=h image.type %></td>
     <td><%= link_to 'Show', image %></td>
     <td><%= link_to 'Edit', edit_image_path(image) %></td>
   </tr>
