@@ -26,6 +26,11 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
 
+  #### TODO: Fix this. Specifying these gem dependencies is not working, despite the gems existing. Site still works fine. - SMB 8/22/08
+  #### config.gem "rubyist-aasm"
+  #### config.gem "xml-simple"
+  #### config.gem "amazon-ec2"
+
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
