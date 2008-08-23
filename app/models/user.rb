@@ -5,6 +5,8 @@ require 'aasm'
 class User < ActiveRecord::Base
   belongs_to :account
 
+  delegate :images, :to => :account
+
   # ###############################
   # BEGIN restful-authentication fu
   # ###############################

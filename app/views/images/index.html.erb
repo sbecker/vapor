@@ -17,7 +17,7 @@
   <tr>
     <td><%=h image.name %></td>
     <td><%=h image.description %></td>
-    <td><%=h image.type %></td>
+    <td><%=h image.image_type %></td>
     <td><%=h image.architecture %></td>
     <td><%=h image.aws_id %></td>
     <td><%=h image.location %></td>
@@ -30,3 +30,4 @@
 <% end %>
 </table>
 
+<%= link_to "Sync with EC2", sync_images_path, :method => :post %>

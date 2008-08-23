@@ -11,7 +11,7 @@ describe "/images/show.html.erb" do
       :location => "value for location",
       :name => "value for name",
       :state => "value for state",
-      :type => "value for type"
+      :image_type => "value for image_type"
     )
   end
 
@@ -23,7 +23,7 @@ describe "/images/show.html.erb" do
     response.should have_text(/value\ for\ location/)
     response.should have_text(/value\ for\ name/)
     response.should have_text(/value\ for\ state/)
-    response.should have_text(/value\ for\ type/)
+    response.should have_text(/value\ for\ image_type/)
   end
 end
 

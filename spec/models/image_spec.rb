@@ -11,7 +11,7 @@ describe Image do
       :name => "value for name",
       :owner_id => "value for owner_id",
       :state => "value for state",
-      :type => "value for type"
+      :image_type => "value for image_type"
     }
   end
 
@@ -23,6 +23,14 @@ describe Image do
     # Want a better way to test this.
     it "should have an all_public named scope" do
       Image.singleton_methods.should include("all_public")
+    end
+
+    it "should have an all_private named scope" do
+      Image.singleton_methods.should include("all_private")
+    end
+
+    it "should have an available named scope" do
+      Image.singleton_methods.should include("available")
     end
   end
 
@@ -87,30 +95,30 @@ describe Image do
       @ec2 = EC2::Base.new(:access_key_id => "not a secret", :secret_access_key => "not a key")
     end
 
-    describe "refresh list for account" do
+    def stub_ec2_image_response_full
+      @ec2.stub!(:make_request).with('DescribeImages', {}).and_return(stub("response", :body => @describe_image_response_body, :is_a? => true))
+    end
+
+    def stub_ec2_image_response_blank
+      @ec2.stub!(:describe_images).and_return(stub("response", :imagesSet => stub("imagesSet", :item => [])))
+    end
+
+    describe "sync account" do
       before do
         @account = Account.new
         @account.id = 1
         @account.stub!(:ec2).and_return(@ec2)
       end
 
-      def stub_ec2_image_response_full
-        @ec2.stub!(:make_request).with('DescribeImages', {}).and_return(stub("response", :body => @describe_image_response_body, :is_a? => true))
-      end
-
-      def stub_ec2_image_response_blank
-        @ec2.stub!(:describe_images).and_return(stub("response", :imagesSet => stub("imagesSet", :item => [])))
-      end
-
       it "should call describe_images on the account's ec2 object" do
         @ec2.should_receive(:describe_images).and_return(stub("response", :imagesSet => stub("imagesSet", :item => [])))
-        Image.refresh_list_for_account(@account)
+        Image.sync_ec2_for_account(@account)
       end
 
       it "should get a list of all images currently in the DB for this account" do
         stub_ec2_image_response_blank
         @account.should_receive(:images).and_return([])
-        Image.refresh_list_for_account(@account)
+        Image.sync_ec2_for_account(@account)
       end
 
       it "should create records for ec2 images that don't exist in db" do
@@ -122,7 +130,7 @@ describe Image do
 
         Image.should_receive(:create_from_ec2).once
 
-        Image.refresh_list_for_account(@account)
+        Image.sync_ec2_for_account(@account)
       end
 
       it "should update records for ec2 images that already exist in db" do
@@ -134,7 +142,7 @@ describe Image do
 
         Image.should_receive(:update_from_ec2).twice
 
-        Image.refresh_list_for_account(@account)
+        Image.sync_ec2_for_account(@account)
       end
 
       it "should mark db records as deregistered if they no longer exist on ec2" do
@@ -143,78 +151,78 @@ describe Image do
         missing_image.should_receive(:update_attribute).with(:state, "deregistered")
         @account.should_receive(:images).and_return([missing_image])
 
-        Image.refresh_list_for_account(@account)
+        Image.sync_ec2_for_account(@account)
+      end
+    end
+
+    describe "create new" do
+      before do
+        stub_ec2_image_response_full
+        @image = Image.new
+        @ec2_image = @ec2.describe_images.imagesSet.item[0]
       end
 
-     describe "create from ec2" do
-       before do
-         stub_ec2_image_response_full
-         @image = Image.new
-         @ec2_image = @ec2.describe_images.imagesSet.item[0]
-       end
+      it "should set the architecture" do
+        @image.should_receive(:architecture=).with(@ec2_image.architecture)
+      end
 
-       it "should set the architecture" do
-         @image.should_receive(:architecture=).with(@ec2_image.architecture)
-       end
+      it "should set the aws id" do
+        @image.should_receive(:aws_id=).with(@ec2_image.imageId)
+      end
 
-       it "should set the aws id" do
-         @image.should_receive(:aws_id=).with(@ec2_image.imageId)
-       end
+      it "should set is_public" do
+        @image.should_receive(:is_public=).with(@ec2_image.isPublic == "true")
+      end
 
-       it "should set is_public" do
-         @image.should_receive(:is_public=).with(@ec2_image.isPublic == "true")
-       end
+      it "should set the location" do
+        @image.should_receive(:location=).with(@ec2_image.imageLocation)
+      end
 
-       it "should set the location" do
-         @image.should_receive(:location=).with(@ec2_image.imageLocation)
-       end
+      it "should set the owner_id" do
+        @image.should_receive(:owner_id=).with(@ec2_image.imageOwnerId)
+      end
 
-       it "should set the owner_id" do
-         @image.should_receive(:owner_id=).with(@ec2_image.imageOwnerId)
-       end
+      it "should set the state" do
+        @image.should_receive(:state=).with(@ec2_image.imageState)
+      end
 
-       it "should set the state" do
-         @image.should_receive(:state=).with(@ec2_image.imageState)
-       end
+      it "should set the type" do
+        @image.should_receive(:image_type=).with(@ec2_image.imageType)
+      end
 
-       it "should set the type" do
-         @image.should_receive(:type=).with(@ec2_image.imageType)
-       end
+      it "should save the image" do
+        @image.should_receive(:save)
+      end
 
-       it "should save the image" do
-         @image.should_receive(:save)
-       end
-
-       after do
-         Image.create_from_ec2(@image, @ec2_image)
-       end
-     end
-
-     describe "update from ec2" do
-       before do
-         stub_ec2_image_response_full
-         @image = Image.new
-         @ec2_image = @ec2.describe_images.imagesSet.item[0]
-       end
-
-       it "should set is_public" do
-         @image.should_receive(:is_public=).with(@ec2_image.isPublic == "true")
-       end
-
-       it "should set the state" do
-         @image.should_receive(:state=).with(@ec2_image.imageState)
-       end
-
-       it "should save the image" do
-         @image.should_receive(:save)
-       end
-
-       after do
-         Image.update_from_ec2(@image, @ec2_image)
-       end
-     end
-
+      after do
+        Image.create_from_ec2(@image, @ec2_image)
+      end
     end
+
+    describe "update existing" do
+      before do
+        stub_ec2_image_response_full
+        @image = Image.new
+        @ec2_image = @ec2.describe_images.imagesSet.item[0]
+      end
+
+      it "should set is_public" do
+        @image.should_receive(:is_public=).with(@ec2_image.isPublic == "true")
+      end
+
+      it "should set the state" do
+        @image.should_receive(:state=).with(@ec2_image.imageState)
+      end
+
+      it "should save the image" do
+        @image.should_receive(:save)
+      end
+
+      after do
+        Image.update_from_ec2(@image, @ec2_image)
+      end
+    end
+
   end
 
 end

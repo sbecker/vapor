@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.xml
   def index
-    @images = Image.find(:all)
+    @images = current_user.images.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,10 +12,16 @@ class ImagesController < ApplicationController
     end
   end
 
+  # POST /images/sync
+  def sync
+    Image.sync_ec2_for_account(current_user.account)
+    redirect_to images_path
+  end
+
   # GET /images/1
   # GET /images/1.xml
   def show
-    @image = Image.find(params[:id])
+    @image = current_user.images.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,13 +31,13 @@ class ImagesController < ApplicationController
 
   # GET /images/1/edit
   def edit
-    @image = Image.find(params[:id])
+    @image = current_user.images.find(params[:id])
   end
 
   # PUT /images/1
   # PUT /images/1.xml
   def update
-    @image = Image.find(params[:id])
+    @image = current_user.images.find(params[:id])
 
     respond_to do |format|
       if @image.update_attributes(params[:image])

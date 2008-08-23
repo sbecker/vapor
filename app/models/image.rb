@@ -1,12 +1,14 @@
 class Image < ActiveRecord::Base
   # would just use "public" but this causes weird nil.call errors in rspec - SMB 8/22/08
   # see http://www.nabble.com/Mysterious-interaction-between-RSpec-1.1.4-and-has_finder-named_scope-tt17810058.html#a17810058
-  named_scope :all_public, :conditions => {:is_public => true}
+  named_scope :all_public,  :conditions => {:is_public => true}
+  named_scope :all_private, :conditions => {:is_public => false}
+  named_scope :available,   :conditions => {:state     => 'available'}
 
   attr_accessible :name, :description
 
   class << self
-    def refresh_list_for_account(account)
+    def sync_ec2_for_account(account)
       ec2_images = account.ec2.describe_images.imagesSet.item
       existing_images = account.images
 
@@ -39,7 +41,7 @@ class Image < ActiveRecord::Base
       image.location     = ec2_image.imageLocation
       image.owner_id     = ec2_image.imageOwnerId
       image.state        = ec2_image.imageState
-      image.type         = ec2_image.imageType
+      image.image_type   = ec2_image.imageType
 
       image.save
     end

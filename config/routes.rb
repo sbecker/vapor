@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Vapor Resource Routes
   map.resource :account
-  map.resources :images
+  map.resources :images, :collection => {:sync => :post}
 
   map.root :controller => 'dashboard'
 

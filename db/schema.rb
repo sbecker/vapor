@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20080823011517) do
     t.string   "name"
     t.string   "owner_id"
     t.string   "state"
-    t.string   "type"
+    t.string   "image_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"

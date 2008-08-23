@@ -9,7 +9,7 @@ class CreateImages < ActiveRecord::Migration
       t.string :name
       t.string :owner_id
       t.string :state
-      t.string :type
+      t.string :image_type
 
       t.timestamps
     end

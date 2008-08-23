@@ -12,7 +12,7 @@ describe "/images/index.html.erb" do
         :location => "value for location",
         :name => "value for name",
         :state => "value for state",
-        :type => "value for type"
+        :image_type => "value for image_type"
       ),
       stub_model(Image,
         :architecture => "value for architecture",
@@ -21,7 +21,7 @@ describe "/images/index.html.erb" do
         :location => "value for location",
         :name => "value for name",
         :state => "value for state",
-        :type => "value for type"
+        :image_type => "value for image_type"
       )
     ]
   end
@@ -34,7 +34,9 @@ describe "/images/index.html.erb" do
     response.should have_tag("tr>td", "value for location", 2)
     response.should have_tag("tr>td", "value for name", 2)
     response.should have_tag("tr>td", "value for state", 2)
-    response.should have_tag("tr>td", "value for type", 2)
+    response.should have_tag("tr>td", "value for image_type", 2)
+
+    response.should have_tag("a", "Sync with EC2")
   end
 end
 

@@ -14,7 +14,7 @@ describe "/images/edit.html.erb" do
       :location => "value for location",
       :name => "value for name",
       :state => "value for state",
-      :type => "value for type"
+      :image_type => "value for image_type"
     )
     assigns[:image] = @image
   end
@@ -31,7 +31,7 @@ describe "/images/edit.html.erb" do
     response.should have_text(/als/)
     response.should have_text(/value\ for\ location/)
     response.should have_text(/value\ for\ state/)
-    response.should have_text(/value\ for\ type/)
+    response.should have_text(/value\ for\ image_type/)
     response.should have_text(/value\ for\ aws\ id/)
     response.should have_text(/value\ for\ owner\ id/)
 
@@ -39,7 +39,7 @@ describe "/images/edit.html.erb" do
     response.should_not have_tag('input#image_is_public[name=?]', "image[is_public]")
     response.should_not have_tag('input#image_location[name=?]', "image[location]")
     response.should_not have_tag('input#image_state[name=?]', "image[state]")
-    response.should_not have_tag('input#image_type[name=?]', "image[type]")
+    response.should_not have_tag('input#image_type[name=?]', "image[image_type]")
   end
 end
 
