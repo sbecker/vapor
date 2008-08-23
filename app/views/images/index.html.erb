@@ -1,5 +1,16 @@
 <h1>Listing images</h1>
 
+<p>[
+  <%= link_to 'Personal', images_path %> |
+  <%= link_to 'Amazon', others_images_path(:owner_id => Account::Owners::Amazon) %> |
+  <%= link_to 'Alestic', others_images_path(:owner_id => Account::Owners::Alestic) %> |
+  <%= link_to 'RBuilder', others_images_path(:owner_id => Account::Owners::RBuilder) %> |
+  <%= link_to 'RedHat', others_images_path(:owner_id => Account::Owners::RedHat) %> |
+  <%= link_to 'RightScale', others_images_path(:owner_id => Account::Owners::RightScale) %> |
+  <%= link_to 'Scalr', others_images_path(:owner_id => Account::Owners::Scalr) %> |
+  <%= link_to 'Others', others_images_path %>
+]</p>
+
 <table>
   <tr>
     <th>Name</th>

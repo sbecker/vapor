@@ -4,12 +4,17 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.xml
   def index
-    @images = current_user.images.all
+    @images = current_user.images.all(:conditions => {:owner_id => current_user.account.aws_account_number})
+    respond_to_list
+  end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @images }
+  def others
+    if params[:owner_id]
+      @images = current_user.images.all(:conditions => {:owner_id => params[:owner_id]})
+    else
+      @images = current_user.images.all(:conditions => ['owner_id != ? AND owner_id != ?', current_user.account.aws_account_number, Account::Owners::Amazon])
     end
+    respond_to_list
   end
 
   # POST /images/sync
@@ -50,4 +55,12 @@ class ImagesController < ApplicationController
       end
     end
   end
+
+  private
+    def respond_to_list
+      respond_to do |format|
+        format.html { render :action => 'index' } # index.html.erb
+        format.xml  { render :xml => @images }
+      end
+    end
 end

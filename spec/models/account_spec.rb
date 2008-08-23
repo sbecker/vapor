@@ -52,4 +52,30 @@ describe Account do
       get_account_ec2_proxy
     end
   end
+
+  describe "owner id shortcuts" do
+    it "should have 'Alestic'" do
+      Account::Owners::Alestic.should_not be_nil
+    end
+
+    it "should have 'Amazon'" do
+      Account::Owners::Amazon.should_not be_nil
+    end
+
+    it "should have 'RBuilder'" do
+      Account::Owners::RBuilder.should_not be_nil
+    end
+
+    it "should have 'RedHat'" do
+      Account::Owners::RedHat.should_not be_nil
+    end
+
+    it "should have 'RightScale'" do
+      Account::Owners::RightScale.should_not be_nil
+    end
+
+    it "should have 'Scalr'" do
+      Account::Owners::Scalr.should_not be_nil
+    end
+  end
 end
