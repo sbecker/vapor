@@ -17,15 +17,15 @@
   </p>
   <p>
     <%= f.label :aws_secret_access_key %><br />
-    <%= f.text_field :aws_secret_access_key %>
+    <%= f.text_field :aws_secret_access_key, :value => truncate(@account.aws_secret_access_key, 20) %>
   </p>
   <p>
     <%= f.label :aws_x_509_key %><br />
-    <%= f.text_area :aws_x_509_key %>
+    <%= f.text_area :aws_x_509_key, :value => truncate(@account.aws_x_509_key, 60) %>
   </p>
   <p>
     <%= f.label :aws_x_509_certificate %><br />
-    <%= f.text_area :aws_x_509_certificate %>
+    <%= f.text_area :aws_x_509_certificate, :value => truncate(@account.aws_x_509_certificate, 60) %>
   </p>
   <p>
     <%= f.submit "Update" %>
