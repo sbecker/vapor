@@ -18,12 +18,19 @@ describe Image do
   it "should create a new instance given valid attributes" do
     Image.create!(@valid_attributes)
   end
-  
+
+  describe "named scopes" do
+    it "should have a public named scope" do
+      # Want a better way to test this.
+      Image.singleton_methods.should include("public")
+    end
+  end
+
   describe "accessible attributes" do
     before do
       @image = Image.new(@valid_attributes)
     end
-    
+
     it "should include 'name'" do
       @image.name.should == @valid_attributes[:name]
     end

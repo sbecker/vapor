@@ -4,16 +4,19 @@ describe "/images/edit.html.erb" do
   include ImagesHelper
   
   before(:each) do
-    assigns[:image] = @image = stub_model(Image,
+    @image = mock_model(Image,
       :new_record? => false,
       :architecture => "value for architecture",
       :description => "value for description",
+      :aws_id => "value for aws id",
+      :owner_id => "value for owner id",
       :is_public => false,
       :location => "value for location",
       :name => "value for name",
       :state => "value for state",
       :type => "value for type"
     )
+    assigns[:image] = @image
   end
 
   it "should render edit form" do
@@ -29,6 +32,8 @@ describe "/images/edit.html.erb" do
     response.should have_text(/value\ for\ location/)
     response.should have_text(/value\ for\ state/)
     response.should have_text(/value\ for\ type/)
+    response.should have_text(/value\ for\ aws\ id/)
+    response.should have_text(/value\ for\ owner\ id/)
 
     response.should_not have_tag('input#image_architecture[name=?]', "image[architecture]")
     response.should_not have_tag('input#image_is_public[name=?]', "image[is_public]")

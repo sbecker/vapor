@@ -22,6 +22,11 @@ describe Account do
       # No options on this association but ActiveMatchers complain unless .with_options({:extend=>[]}) is added. - SMB 8/22/08
       Account.should have_many(:users).with_options({:extend=>[]})
     end
+
+    it "should have many images" do
+      # No options on this association but ActiveMatchers complain unless .with_options({:extend=>[]}) is added. - SMB 8/22/08
+      Account.should have_many(:images).with_options({:extend=>[]})
+    end
   end
 
   describe "ec2 proxy" do
