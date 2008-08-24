@@ -8,6 +8,8 @@ class ImagesController < ApplicationController
     respond_to_list
   end
 
+  # GET /others
+  # GET /others.xml
   def others
     if params[:owner_id]
       @images = current_user.images.all(:conditions => {:owner_id => params[:owner_id]})
