@@ -11,7 +11,7 @@ describe ImagesController do
   def mock_image(stubs={})
     @mock_image ||= mock_model(Image, stubs)
   end
-  
+
   describe "responding to GET index" do
 
     it "should expose all of current_user's images as @images" do
@@ -66,13 +66,13 @@ describe ImagesController do
 
   describe "responding to POST sync" do
     before do
-      @account = mock_model(Account)
-      @current_user.stub!(:account).and_return(@account)
-      Image.stub!(:sync_ec2_for_account)
+      account = mock_model(Account)
+      account.stub!(:sync_images_with_ec2)
+      @current_user.stub!(:account).and_return(account)
     end
 
-    it "should call sync_ec2_for_account" do
-      Image.should_receive(:sync_ec2_for_account).with(@account)
+    it "should call sync_images_with_ec2 on current user's account" do
+      @current_user.account.should_receive(:sync_images_with_ec2)
       post :sync
     end
 
@@ -89,7 +89,7 @@ describe ImagesController do
       get :show, :id => "37"
       assigns[:image].should equal(mock_image)
     end
-    
+
     describe "with mime type of xml" do
 
       it "should render the requested image as xml" do
@@ -101,11 +101,11 @@ describe ImagesController do
       end
 
     end
-    
+
   end
 
   describe "responding to GET edit" do
-  
+
     it "should expose the requested image as @image" do
       @user_images.should_receive(:find).with("37").and_return(mock_image)
       get :edit, :id => "37"

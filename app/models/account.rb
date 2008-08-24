@@ -12,6 +12,10 @@ class Account < ActiveRecord::Base
     Scalr      = '788921246207'
   end
 
+  def sync_images_with_ec2
+    EC2Sync::Image.new(self).sync!
+  end
+
   def ec2
     @ec2 ||= EC2::Base.new(:access_key_id => aws_access_key, :secret_access_key => aws_secret_access_key)
   end

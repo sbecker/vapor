@@ -19,7 +19,7 @@ class ImagesController < ApplicationController
 
   # POST /images/sync
   def sync
-    Image.sync_ec2_for_account(current_user.account)
+    current_user.account.sync_images_with_ec2
     redirect_to images_path
   end
 

@@ -78,4 +78,15 @@ describe Account do
       Account::Owners::Scalr.should_not be_nil
     end
   end
+
+  describe "sync images with ec2" do
+    it "should delegate syncing to the EC2Sync::Image class" do
+      ec2sync_image = mock_model(EC2Sync::Image)
+
+      EC2Sync::Image.should_receive(:new).with(@account).and_return(ec2sync_image)
+      ec2sync_image.should_receive(:sync!)
+
+      @account.sync_images_with_ec2
+    end
+  end
 end
