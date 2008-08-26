@@ -5,7 +5,7 @@ describe ImagesController do
     mock_logged_in
     @user_images = mock("Image")
     @current_user.stub!(:images).and_return(@user_images)
-    @current_user.stub!(:account).and_return(mock_model(Account, :aws_account_number => "1234"))
+    @current_user.stub!(:account).and_return(mock_model(Account, :id => 1, :aws_account_number => "1234"))
   end
 
   def mock_image(stubs={})
@@ -15,7 +15,7 @@ describe ImagesController do
   describe "responding to GET index" do
 
     it "should expose all of current_user's images as @images" do
-      @user_images.should_receive(:all).with({:conditions=>{:owner_id => @current_user.account.aws_account_number}}).and_return([mock_image])
+      @user_images.should_receive(:all).and_return([mock_image])
       get :index
       assigns[:images].should == [mock_image]
     end
@@ -34,19 +34,12 @@ describe ImagesController do
 
   end
 
-  describe "responding to GET others" do
-
-    it "should expose all other images besides current user's and amazon's as @images" do
-      finder_options = {:conditions=>["owner_id != ? AND owner_id != ?", @current_user.account.aws_account_number, Account::Owners::Amazon]}
-      @user_images.should_receive(:all).with(finder_options).and_return([mock_image])
-      get :others
-      assigns[:images].should == [mock_image]
-    end
+  describe "responding to GET vendors" do
 
     it "should expose a specfic owner's images as @images if passed an owner_id param" do
       owner_id = "some_owner_id"
-      @user_images.should_receive(:all).with({:conditions => {:owner_id => owner_id}}).and_return([mock_image])
-      get :others, :owner_id => owner_id
+      Image.should_receive(:all).with({:order => 'location', :conditions => {:owner_id => owner_id}}).and_return([mock_image])
+      get :vendors, :owner_id => owner_id
       assigns[:images].should == [mock_image]
     end
 
@@ -54,7 +47,29 @@ describe ImagesController do
 
       it "should render all images as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        @user_images.should_receive(:all).and_return(images = mock("Array of Images"))
+        Image.should_receive(:all).and_return(images = mock("Array of Images"))
+        images.should_receive(:to_xml).and_return("generated XML")
+        get :vendors, :owner_id => "some_owner_id"
+        response.body.should == "generated XML"
+      end
+
+    end
+
+  end
+
+  describe "responding to GET others" do
+
+    it "should expose all other images besides current user's and amazon's as @images" do
+      Image.should_receive(:others).with(@current_user.account.id).and_return([mock_image])
+      get :others
+      assigns[:images].should == [mock_image]
+    end
+
+    describe "with mime type of xml" do
+
+      it "should render all images as xml" do
+        request.env["HTTP_ACCEPT"] = "application/xml"
+        Image.should_receive(:others).and_return(images = mock("Array of Images"))
         images.should_receive(:to_xml).and_return("generated XML")
         get :others
         response.body.should == "generated XML"

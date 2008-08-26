@@ -18,7 +18,7 @@ class EC2Sync::Image
 
   def create_and_update_listed
     ec2_images.each do |ec2_image|
-      local_image = local_images.detect{|i| i.aws_id == ec2_image.imageId } || @account.images.new
+      local_image = local_images.detect{|i| i.aws_id == ec2_image.imageId } || Image.new
       update_from_ec2(local_image, ec2_image)
     end
   end
@@ -31,6 +31,7 @@ class EC2Sync::Image
   end
 
   def update_from_ec2(local_image, ec2_image)
+    local_image.account_id   = ec2_image.imageOwnerId == @account.aws_account_number ? @account.id : nil
     local_image.architecture = ec2_image.architecture
     local_image.aws_id       = ec2_image.imageId
     local_image.is_public    = ec2_image.isPublic == "true"

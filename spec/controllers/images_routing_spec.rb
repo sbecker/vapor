@@ -6,6 +6,10 @@ describe ImagesController do
       route_for(:controller => "images", :action => "index").should == "/images"
     end
   
+    it "should map #vendors" do
+      route_for(:controller => "images", :action => "vendors").should == "/images/vendors"
+    end
+  
     it "should map #others" do
       route_for(:controller => "images", :action => "others").should == "/images/others"
     end
@@ -38,6 +42,10 @@ describe ImagesController do
   describe "route recognition" do
     it "should generate params for #index" do
       params_from(:get, "/images").should == {:controller => "images", :action => "index"}
+    end
+  
+    it "should generate params for #vendors" do
+      params_from(:get, "/images/vendors").should == {:controller => "images", :action => "vendors"}
     end
   
     it "should generate params for #others" do

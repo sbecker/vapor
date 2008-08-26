@@ -37,6 +37,7 @@ describe EC2Sync::Image do
 
     @account = Account.new
     @account.id = 1
+    @account.aws_account_number = "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA"
     @account.stub!(:ec2).and_return(@ec2)
 
     @ec2sync_image = EC2Sync::Image.new(@account)
@@ -54,6 +55,7 @@ describe EC2Sync::Image do
     mock_model(Image, {
       :aws_id        => "ami-61a54008",
       :aws_id=       => true,
+      :account_id=   => true,
       :architecture= => true,
       :is_public=    => true,
       :state=        => true,
@@ -106,7 +108,7 @@ describe EC2Sync::Image do
     end
 
     it "should create a new images for this account if ec2 images doesn't exist in db" do
-      @account_images.should_receive(:new).once.and_return(Image.new)
+      Image.should_receive(:new).once.and_return(mock_image)
     end
 
     it "should update new or existing records with ec2 data" do
@@ -135,6 +137,15 @@ describe EC2Sync::Image do
       stub_ec2_image_response_full
       @image = Image.new
       @ec2_image = @ec2.describe_images.imagesSet.item[0]
+    end
+
+    it "should set the account_id to the account's id if the image owner id matches the account's aws_account_number" do
+      @image.should_receive(:account_id=).with(@account.id)
+    end
+
+    it "should set the account_id to nil if the image owner id does not match the account's aws_account_number" do
+      @ec2_image.stub!(:imageOwnerId).and_return("not_a_match")
+      @image.should_receive(:account_id=).with(nil)
     end
 
     it "should set the architecture" do

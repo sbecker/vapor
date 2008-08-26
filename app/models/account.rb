@@ -2,8 +2,8 @@ class Account < ActiveRecord::Base
   has_many :users
   has_many :images, :order => 'location'
 
-  # Common Owner IDs
-  module Owners
+  # Common Vendor Owner IDs
+  module Vendors
     Alestic    = '063491364108'
     Amazon     = 'amazon'
     RBuilder   = '099034111737'

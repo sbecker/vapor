@@ -4,18 +4,21 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.xml
   def index
-    @images = current_user.images.all(:conditions => {:owner_id => current_user.account.aws_account_number})
+    @images = current_user.images.all
+    respond_to_list
+  end
+
+  # GET /vendors
+  # GET /vendors.xml
+  def vendors
+    @images = Image.all(:conditions => {:owner_id => params[:owner_id]}, :order => 'location')
     respond_to_list
   end
 
   # GET /others
   # GET /others.xml
   def others
-    if params[:owner_id]
-      @images = current_user.images.all(:conditions => {:owner_id => params[:owner_id]})
-    else
-      @images = current_user.images.all(:conditions => ['owner_id != ? AND owner_id != ?', current_user.account.aws_account_number, Account::Owners::Amazon])
-    end
+    @images = Image.others(current_user.account.id)
     respond_to_list
   end
 
