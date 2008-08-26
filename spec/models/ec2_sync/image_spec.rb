@@ -40,6 +40,7 @@ describe EC2Sync::Image do
     @account.aws_account_number = "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA"
     @account.stub!(:ec2).and_return(@ec2)
 
+    Account.stub!(:all).and_return([@account])
     @ec2sync_image = EC2Sync::Image.new(@account)
   end
 
@@ -139,7 +140,7 @@ describe EC2Sync::Image do
       @ec2_image = @ec2.describe_images.imagesSet.item[0]
     end
 
-    it "should set the account_id to the account's id if the image owner id matches the account's aws_account_number" do
+    it "should set the account_id if the image owner id matches any account's aws_account_number in the database" do
       @image.should_receive(:account_id=).with(@account.id)
     end
 

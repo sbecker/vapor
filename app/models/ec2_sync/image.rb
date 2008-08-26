@@ -1,6 +1,7 @@
 class EC2Sync::Image
   def initialize(account)
     @account = account
+    @account_ids_from_owner_ids = Hash[*(Account.all.map{|a| [a.aws_account_number, a.id] }.flatten)]
   end
 
   def sync!
@@ -31,7 +32,7 @@ class EC2Sync::Image
   end
 
   def update_from_ec2(local_image, ec2_image)
-    local_image.account_id   = ec2_image.imageOwnerId == @account.aws_account_number ? @account.id : nil
+    local_image.account_id   = @account_ids_from_owner_ids[ec2_image.imageOwnerId]
     local_image.architecture = ec2_image.architecture
     local_image.aws_id       = ec2_image.imageId
     local_image.is_public    = ec2_image.isPublic == "true"

@@ -9,11 +9,11 @@ class Image < ActiveRecord::Base
 
   def self.others(account_id)
     find(:all, :order => 'location', :conditions => "(account_id != #{account_id} OR account_id IS NULL)" + 
-                                                    " AND owner_id != '#{Account::Vendors::Alestic}'" +
-                                                    " AND owner_id != '#{Account::Vendors::Amazon}'" +
-                                                    " AND owner_id != '#{Account::Vendors::RBuilder}'" +
-                                                    " AND owner_id != '#{Account::Vendors::RedHat}'" +
-                                                    " AND owner_id != '#{Account::Vendors::RightScale}'" +
+                                                    " AND owner_id != '#{Account::Vendors::Alestic}'"     +
+                                                    " AND owner_id != '#{Account::Vendors::Amazon}'"      +
+                                                    " AND owner_id != '#{Account::Vendors::RBuilder}'"    +
+                                                    " AND owner_id != '#{Account::Vendors::RedHat}'"      +
+                                                    " AND owner_id != '#{Account::Vendors::RightScale}'"  +
                                                     " AND owner_id != '#{Account::Vendors::Scalr}'")
   end
 end
