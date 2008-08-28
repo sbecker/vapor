@@ -94,8 +94,10 @@ describe EC2Sync::Image do
   end
 
   describe "local images" do
-    it "should get a list of all images currently in the DB for this account" do
-      @account.should_receive(:images).and_return([])
+    it "should get a list of all 'available' images currently in the DB that are either public or belong to this account" do
+      available = mock("available")
+      Image.stub!(:available).and_return(available)
+      available.should_receive(:all).with(:conditions => ["is_public = ? OR account_id = ?", true, @account.id]).and_return([])
       @ec2sync_image.local_images
     end
   end
@@ -103,9 +105,7 @@ describe EC2Sync::Image do
   describe "create and update listed" do
     before do
       stub_ec2_image_response_full # ec2 returns both ami-61a54008 AND ami-61a54008
-      @account_images = [mock_image(:aws_id => "ami-61a54008")] # local db only contains one of them
-      @account_images.stub!(:new)
-      @account.stub!(:images).and_return(@account_images)
+      Image.stub!(:available).and_return(mock("available", :all => [mock_image(:aws_id => "ami-61a54008")])) # local db only contains one of them
     end
 
     it "should create a new images for this account if ec2 images doesn't exist in db" do
@@ -125,7 +125,7 @@ describe EC2Sync::Image do
     it "should mark db records as deregistered if they no longer exist on ec2" do
       stub_ec2_image_response_blank # ec2 returns an empty array
       missing_image = mock_model(Image, :aws_id => "long_gone") # local db contains a record
-      @account.stub!(:images).and_return([missing_image])
+      Image.stub!(:available).and_return(mock("available", :all => [missing_image]))
 
       missing_image.should_receive(:update_attribute).with(:state, "deregistered")
 
