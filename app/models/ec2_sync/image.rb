@@ -1,7 +1,8 @@
 class EC2Sync::Image
   def initialize(account)
     @account = account
-    @account_ids_from_owner_ids = Hash[*(Account.all.map{|a| [a.aws_account_number, a.id] }.flatten)]
+    all_accounts = Account.all(:select => "aws_account_number, id")
+    @account_ids_from_owner_ids = Hash[*(all_accounts.map{|a| [a.aws_account_number, a.id] }.flatten)]
   end
 
   def sync!

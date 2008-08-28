@@ -21,12 +21,12 @@ describe Image do
 
   describe "named scopes" do
     # Want a better way to test this.
-    it "should have an all_public named scope" do
-      Image.singleton_methods.should include("all_public")
+    it "should have an are_public named scope" do
+      Image.singleton_methods.should include("are_public")
     end
 
-    it "should have an all_private named scope" do
-      Image.singleton_methods.should include("all_private")
+    it "should have an not_public named scope" do
+      Image.singleton_methods.should include("not_public")
     end
 
     it "should have an available named scope" do

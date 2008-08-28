@@ -11,14 +11,14 @@ class ImagesController < ApplicationController
   # GET /vendors
   # GET /vendors.xml
   def vendors
-    @images = Image.available.all(:conditions => {:owner_id => params[:owner_id]})
+    @images = Image.available.are_public.all(:conditions => {:owner_id => params[:owner_id]})
     respond_to_list
   end
 
   # GET /others
   # GET /others.xml
   def others
-    @images = Image.available.others(current_user.account.id)
+    @images = Image.available.are_public.others(current_user.account.id)
     respond_to_list
   end
 
