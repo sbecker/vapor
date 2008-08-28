@@ -61,7 +61,7 @@ describe Image do
   describe "others" do
     it "should find images that are not in the standard vendor list and don't belong to the current user's account" do
       account_id = 1
-      Image.should_receive(:find).with(:all, :order => 'location', :conditions => "(account_id != #{account_id} OR account_id IS NULL)" + 
+      Image.should_receive(:all).with(:conditions => "(account_id != #{account_id} OR account_id IS NULL)" +
         " AND owner_id != '#{Account::Vendors::Alestic}'" +
         " AND owner_id != '#{Account::Vendors::Amazon}'" +
         " AND owner_id != '#{Account::Vendors::RBuilder}'" +

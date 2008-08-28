@@ -14,7 +14,7 @@ class EC2Sync::Image
   end
 
   def local_images
-    @local_images ||= Image.available.all(:conditions => ["is_public = ? OR account_id = ?", true, @account.id])
+    @local_images ||= ::Image.available.all(:conditions => ["is_public = ? OR account_id = ?", true, @account.id])
   end
 
   def create_and_update_listed

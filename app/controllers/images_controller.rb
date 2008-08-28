@@ -4,21 +4,21 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.xml
   def index
-    @images = current_user.images.all
+    @images = current_user.images.available
     respond_to_list
   end
 
   # GET /vendors
   # GET /vendors.xml
   def vendors
-    @images = Image.all(:conditions => {:owner_id => params[:owner_id]}, :order => 'location')
+    @images = Image.available.all(:conditions => {:owner_id => params[:owner_id]})
     respond_to_list
   end
 
   # GET /others
   # GET /others.xml
   def others
-    @images = Image.others(current_user.account.id)
+    @images = Image.available.others(current_user.account.id)
     respond_to_list
   end
 
