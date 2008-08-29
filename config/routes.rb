@@ -17,7 +17,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   # Vapor Resource Routes
-  map.resource :account
+  map.resource  :account
+  map.resources :key_pairs
   map.resources :images, :collection => {:vendors => :get,
                                          :others  => :get,
                                          :sync    => :post}

@@ -1,6 +1,7 @@
 class Account < ActiveRecord::Base
   has_many :users
-  has_many :images, :order => 'location'
+  has_many :key_pairs, :order => 'name'
+  has_many :images,    :order => 'location'
 
   # Common Vendor Owner IDs
   module Vendors

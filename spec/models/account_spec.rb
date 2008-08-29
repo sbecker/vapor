@@ -18,13 +18,16 @@ describe Account do
   end
 
   describe "associations" do
+    # Have-many associations have {:extend=>[]} because ActiveMatchers rspec extension complains unless its added. - SMB 8/22/08
     it "should have many users" do
-      # No options on this association but ActiveMatchers complain unless .with_options({:extend=>[]}) is added. - SMB 8/22/08
       Account.should have_many(:users).with_options({:extend=>[]})
     end
 
+    it "should have many key pairs" do
+      Account.should have_many(:key_pairs).with_options({:extend=>[], :order=>"name"})
+    end
+
     it "should have many images" do
-      # No options on this association but ActiveMatchers complain unless .with_options({:extend=>[]}) is added. - SMB 8/22/08
       Account.should have_many(:images).with_options({:extend=>[], :order=>"location"})
     end
   end

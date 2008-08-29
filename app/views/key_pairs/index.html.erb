@@ -1,0 +1,22 @@
+<h2>Listing Key Pairs</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Created At</th>
+  </tr>
+
+<% for key_pair in @key_pairs %>
+  <tr>
+    <td><%=h key_pair.name %></td>
+    <td><%=h key_pair.created_at %></td>
+    <td><%= link_to 'Show', key_pair %></td>
+    <td><%= link_to 'Edit', edit_key_pair_path(key_pair) %></td>
+    <td><%= link_to 'Destroy', key_pair, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Key Pair', new_key_pair_path %>
