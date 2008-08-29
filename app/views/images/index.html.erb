@@ -37,6 +37,7 @@
     <td><%=h image.state %></td>
     <td><%= link_to 'Show', image %></td>
     <td><%= link_to 'Edit', edit_image_path(image) %></td>
+    <td>Search: <%= aws_search_link "Amazon", h(image.aws_id) %> | <%= google_search_link "Google", h(image.aws_id) %></td>
   </tr>
 <% end %>
 </table>
