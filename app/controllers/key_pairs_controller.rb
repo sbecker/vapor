@@ -1,10 +1,11 @@
 class KeyPairsController < ApplicationController
   before_filter :login_required
+  before_filter :find_keypair, :only => [:show, :destroy]
 
   # GET /key_pairs
   # GET /key_pairs.xml
   def index
-    @key_pairs = KeyPair.find(:all)
+    @key_pairs = current_account.key_pairs.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +16,6 @@ class KeyPairsController < ApplicationController
   # GET /key_pairs/1
   # GET /key_pairs/1.xml
   def show
-    @key_pair = KeyPair.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @key_pair }
@@ -26,7 +25,7 @@ class KeyPairsController < ApplicationController
   # GET /key_pairs/new
   # GET /key_pairs/new.xml
   def new
-    @key_pair = KeyPair.new
+    @key_pair = current_account.key_pairs.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,7 +36,7 @@ class KeyPairsController < ApplicationController
   # POST /key_pairs
   # POST /key_pairs.xml
   def create
-    @key_pair = KeyPair.new(params[:key_pair])
+    @key_pair = current_account.key_pairs.new(params[:key_pair])
 
     respond_to do |format|
       if @key_pair.save
@@ -54,7 +53,6 @@ class KeyPairsController < ApplicationController
   # DELETE /key_pairs/1
   # DELETE /key_pairs/1.xml
   def destroy
-    @key_pair = KeyPair.find(params[:id])
     @key_pair.destroy
 
     respond_to do |format|
@@ -62,4 +60,9 @@ class KeyPairsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+    def find_keypair
+      @key_pair = current_account.key_pairs.find(params[:id])
+    end
 end
