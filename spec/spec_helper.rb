@@ -54,6 +54,7 @@ include AuthenticatedTestHelper
 
 def mock_logged_in
   @controller.stub!(:login_required).and_return(true)
-  @current_user = mock_model(User)
+  @current_user = mock_model(User, :account => mock_model(Account))
   @controller.stub!(:current_user).and_return(@current_user)
+  @current_account = @current_user.account
 end

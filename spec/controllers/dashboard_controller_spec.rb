@@ -7,7 +7,7 @@ describe DashboardController do
 
   describe "GET 'index'" do
     before do
-      @current_user.stub!(:images).and_return(mock("Images", :count => 1))
+      @current_account.stub!(:images).and_return(mock("Images", :count => 1))
     end
 
     it "should be successful" do
@@ -23,7 +23,7 @@ describe DashboardController do
       end
 
       it "should get a count of the current user's images" do
-        @current_user.images.should_receive(:count).and_return(1)
+        @current_account.images.should_receive(:count).and_return(1)
         get 'index'
       end
 

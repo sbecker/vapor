@@ -11,4 +11,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # :secret => '77ad623625b2138d3e161d8fcd7808a4'
   
   filter_parameter_logging :password, :salt, :aws_access_key, :aws_secret_access_key, :aws_x_509_key, :aws_x_509_certificate
+
+  # TODO - In the future this can be useful for account switching once user's can have multiple accounts
+  def current_account
+    current_user ? current_user.account : nil
+  end
+
 end
