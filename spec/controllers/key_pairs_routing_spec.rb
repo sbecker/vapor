@@ -6,6 +6,10 @@ describe KeyPairsController do
       route_for(:controller => "key_pairs", :action => "index").should == "/key_pairs"
     end
   
+    it "should map #sync" do
+      route_for(:controller => "key_pairs", :action => "sync").should == "/key_pairs/sync"
+    end
+  
     it "should map #new" do
       route_for(:controller => "key_pairs", :action => "new").should == "/key_pairs/new"
     end
@@ -30,6 +34,10 @@ describe KeyPairsController do
   describe "route recognition" do
     it "should generate params for #index" do
       params_from(:get, "/key_pairs").should == {:controller => "key_pairs", :action => "index"}
+    end
+  
+    it "should generate params for #sync" do
+      params_from(:post, "/key_pairs/sync").should == {:controller => "key_pairs", :action => "sync"}
     end
   
     it "should generate params for #new" do

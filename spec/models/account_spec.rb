@@ -92,4 +92,15 @@ describe Account do
       @account.sync_images_with_ec2
     end
   end
+
+  describe "sync key pairs with ec2" do
+    it "should delegate syncing to the EC2Sync::KeyPair class" do
+      ec2sync_key_pair = mock_model(EC2Sync::KeyPair)
+
+      EC2Sync::KeyPair.should_receive(:new).with(@account).and_return(ec2sync_key_pair)
+      ec2sync_key_pair.should_receive(:sync!)
+
+      @account.sync_key_pairs_with_ec2
+    end
+  end
 end

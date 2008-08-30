@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe KeyPairsController do
 
   before do
-    mock_logged_in
+    stub_logged_in
     @current_account.stub!(:key_pairs).and_return([])
   end
 
@@ -31,6 +31,24 @@ describe KeyPairsController do
 
     end
 
+  end
+
+  describe "responding to POST sync" do
+    before do
+      account = mock_model(Account)
+      account.stub!(:sync_key_pairs_with_ec2)
+      @current_user.stub!(:account).and_return(account)
+    end
+
+    it "should call sync_images_with_ec2 on current user's account" do
+      @current_user.account.should_receive(:sync_key_pairs_with_ec2)
+      post :sync
+    end
+
+    it "should redirect to index" do
+      post :sync
+      response.should redirect_to(key_pairs_path)
+    end
   end
 
   describe "responding to GET show" do
@@ -78,7 +96,7 @@ describe KeyPairsController do
       it "should redirect to the created key_pair" do
         @current_account.key_pairs.stub!(:new).and_return(mock_key_pair(:save => true))
         post :create, :key_pair => {}
-        response.should redirect_to(key_pair_url(mock_key_pair))
+        response.should redirect_to(key_pair_path(mock_key_pair))
       end
 
     end
@@ -112,7 +130,7 @@ describe KeyPairsController do
     it "should redirect to the key_pairs list" do
       @current_account.key_pairs.stub!(:find).and_return(mock_key_pair(:destroy => true))
       delete :destroy, :id => "1"
-      response.should redirect_to(key_pairs_url)
+      response.should redirect_to(key_pairs_path)
     end
 
   end

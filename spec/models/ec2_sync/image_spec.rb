@@ -33,13 +33,7 @@ describe EC2Sync::Image do
     </DescribeImagesResponse>
     RESPONSE
 
-    @ec2 = EC2::Base.new(:access_key_id => "not a secret", :secret_access_key => "not a key")
-
-    @account = Account.new
-    @account.id = 1
-    @account.aws_account_number = "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA"
-    @account.stub!(:ec2).and_return(@ec2)
-
+    stub_account_with_ec2
     Account.stub!(:all).and_return([@account])
     @ec2sync_image = EC2Sync::Image.new(@account)
   end
@@ -108,7 +102,7 @@ describe EC2Sync::Image do
       Image.stub!(:available).and_return(mock("available", :all => [mock_image(:aws_id => "ami-61a54008")])) # local db only contains one of them
     end
 
-    it "should create a new images for this account if ec2 images doesn't exist in db" do
+    it "should create a new image for this account if ec2 image doesn't exist in db" do
       Image.should_receive(:new).once.and_return(mock_image)
     end
 

@@ -52,9 +52,18 @@ end
 # Restful Authentication Test Helper
 include AuthenticatedTestHelper
 
-def mock_logged_in
+def stub_logged_in
   @controller.stub!(:login_required).and_return(true)
   @current_user = mock_model(User, :account => mock_model(Account))
   @controller.stub!(:current_user).and_return(@current_user)
   @current_account = @current_user.account
+end
+
+def stub_account_with_ec2
+  @ec2 = EC2::Base.new(:access_key_id => "not a secret", :secret_access_key => "not a key")
+
+  @account = Account.new
+  @account.id = 1
+  @account.aws_account_number = "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA"
+  @account.stub!(:ec2).and_return(@ec2)
 end

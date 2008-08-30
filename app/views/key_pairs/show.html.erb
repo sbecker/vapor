@@ -13,16 +13,5 @@
   <%=h @key_pair.private_key %>
 </p>
 
-<p>
-  <b>Account:</b>
-  <%=h @key_pair.account_id %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%=h @key_pair.user_id %>
-</p>
-
-
 <%= link_to 'Edit', edit_key_pair_path(@key_pair) %> |
 <%= link_to 'Back', key_pairs_path %>

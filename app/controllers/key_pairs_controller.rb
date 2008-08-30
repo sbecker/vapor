@@ -13,6 +13,12 @@ class KeyPairsController < ApplicationController
     end
   end
 
+  # POST /key_pairs/sync
+  def sync
+    current_account.sync_key_pairs_with_ec2
+    redirect_to key_pairs_path
+  end
+
   # GET /key_pairs/1
   # GET /key_pairs/1.xml
   def show

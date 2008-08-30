@@ -16,11 +16,15 @@ describe "/key_pairs/index.html.erb" do
         :private_key => "value for private_key"
       )
     ]
+    render "/key_pairs/index.html.erb"
   end
 
   it "should render list of key_pairs" do
-    render "/key_pairs/index.html.erb"
     response.should have_tag("tr>td", "value for name", 2)
+  end
+
+  it "should render a link to sync with ec2" do
+    response.should have_tag("a[href=/key_pairs/sync]", "Sync with EC2")
   end
 end
 

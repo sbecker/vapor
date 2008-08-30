@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AccountsController do
   before do
-    mock_logged_in
+    stub_logged_in
   end
   
   def mock_account(stubs={})
