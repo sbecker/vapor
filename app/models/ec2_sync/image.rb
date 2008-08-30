@@ -1,47 +1,41 @@
-class EC2Sync::Image
-  def initialize(account)
-    @account = account
+class EC2Sync::Image < EC2Sync::Base
+  def get_locals
+    ::Image.available.all(:conditions => ["is_public = ? OR account_id = ?", true, @account.id])
+  end
+
+  def get_remotes
+    @account.ec2.describe_images.imagesSet.item
+  end
+
+  def new_local
+    ::Image.new
+  end
+
+  def is_equal?(local, remote)
+    local.aws_id == remote.imageId
+  end
+
+  def get_account_ids_from_owner_ids
     all_accounts = Account.all(:select => "aws_account_number, id")
-    @account_ids_from_owner_ids = Hash[*(all_accounts.map{|a| [a.aws_account_number, a.id] }.flatten)]
+    Hash[*(all_accounts.map{|a| [a.aws_account_number, a.id] }.flatten)]
   end
 
-  def sync!
-    create_and_update_listed
-    deregister_unlisted
+  def account_ids_from_owner_ids
+    @account_ids_from_owner_ids ||= get_account_ids_from_owner_ids
   end
 
-  def ec2_images
-    @ec2_images ||= @account.ec2.describe_images.imagesSet.item
+  def update_from_remote(local, remote)
+    local.account_id   = account_ids_from_owner_ids[remote.imageOwnerId]
+    local.architecture = remote.architecture
+    local.aws_id       = remote.imageId
+    local.is_public    = remote.isPublic == "true"
+    local.location     = remote.imageLocation
+    local.owner_id     = remote.imageOwnerId
+    local.state        = remote.imageState
+    local.image_type   = remote.imageType
   end
 
-  def local_images
-    @local_images ||= ::Image.available.all(:conditions => ["is_public = ? OR account_id = ?", true, @account.id])
-  end
-
-  def create_and_update_listed
-    ec2_images.each do |ec2_image|
-      local_image = local_images.detect{|i| i.aws_id == ec2_image.imageId } || Image.new
-      update_from_ec2(local_image, ec2_image)
-    end
-  end
-
-  def deregister_unlisted
-    missing_images = local_images.reject {|i| ec2_images.detect{|e| i.aws_id == e.imageId } }
-    missing_images.each do |missing_image|
-      missing_image.update_attribute(:state, "deregistered")
-    end
-  end
-
-  def update_from_ec2(local_image, ec2_image)
-    local_image.account_id   = @account_ids_from_owner_ids[ec2_image.imageOwnerId]
-    local_image.architecture = ec2_image.architecture
-    local_image.aws_id       = ec2_image.imageId
-    local_image.is_public    = ec2_image.isPublic == "true"
-    local_image.location     = ec2_image.imageLocation
-    local_image.owner_id     = ec2_image.imageOwnerId
-    local_image.state        = ec2_image.imageState
-    local_image.image_type   = ec2_image.imageType
-
-    local_image.save
+  def handle_missing(local)
+    local.update_attribute(:state, "deregistered")
   end
 end
