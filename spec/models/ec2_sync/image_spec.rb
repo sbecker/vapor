@@ -2,63 +2,37 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe EC2Sync::Image do
   before do
-    # borrowed from the amazon-ec2 gem test suite
-    @describe_image_response_body = <<-RESPONSE
-    <DescribeImagesResponse xmlns="http://ec2.amazonaws.com/doc/2007-03-01">
-      <imagesSet>
-        <item>
-          <imageId>ami-61a54008</imageId>
-          <imageLocation>foobar1/image.manifest.xml</imageLocation>
-          <imageState>available</imageState>
-          <imageOwnerId>AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA</imageOwnerId>
-          <isPublic>true</isPublic>
-          <productCodes>
-            <item>
-              <productCode>774F4FF8</productCode>
-            </item>
-          </productCodes>
-          <imageType>machine</imageType>
-          <architecture>i386</architecture>
-        </item>
-        <item>
-          <imageId>ami-61a54009</imageId>
-          <imageLocation>foobar2/image.manifest.xml</imageLocation>
-          <imageState>deregistered</imageState>
-          <imageOwnerId>ZZZZTLBUXIEON5NQVUUX6OMPWBZIZZZZ</imageOwnerId>
-          <isPublic>false</isPublic>
-          <imageType>ramdisk</imageType>
-          <architecture>x86_64</architecture>
-        </item>
-      </imagesSet>
-    </DescribeImagesResponse>
-    RESPONSE
-
     stub_account_with_ec2
     Account.stub!(:all).and_return([@account])
     @ec2sync_image = EC2Sync::Image.new(@account)
   end
 
   def stub_ec2_image_response_full
-    @ec2.stub!(:make_request).with('DescribeImages', {}).and_return(stub("response", :body => @describe_image_response_body, :is_a? => true))
+    @ec2sync_image.stub!(:ec2_images).and_return([
+      mock("item",
+        :imageId       => "ami-61a54008",
+        :imageLocation => "foobar1/image.manifest.xml",
+        :imageState    => "available",
+        :imageOwnerId  => "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA",
+        :isPublic      => "true",
+        :productCodes  => mock("productCodes", :item => [mock("item", :productCode => "774F4FF8")]),
+        :imageType     => "machine",
+        :architecture  => "i386"
+      ),
+      mock("item",
+        :imageId       => "ami-61a54009",
+        :imageLocation => "foobar2/image.manifest.xml",
+        :imageState    => "deregistered",
+        :imageOwnerId  => "ZZZZTLBUXIEON5NQVUUX6OMPWBZIZZZZ",
+        :isPublic      => "false",
+        :imageType     => "ramdisk",
+        :architecture  => "x86_64"
+      )
+    ])
   end
 
   def stub_ec2_image_response_blank
-    @ec2.stub!(:describe_images).and_return(stub("response", :imagesSet => stub("imagesSet", :item => [])))
-  end
-
-  def mock_image(options={})
-    mock_model(Image, {
-      :aws_id        => "ami-61a54008",
-      :aws_id=       => true,
-      :account_id=   => true,
-      :architecture= => true,
-      :is_public=    => true,
-      :state=        => true,
-      :location=     => true,
-      :image_type=   => true,
-      :owner_id=     => true,
-      :save          => true
-    }.merge(options))
+    @ec2sync_image.stub!(:ec2_images).and_return([])
   end
 
   describe "sync" do
@@ -98,12 +72,13 @@ describe EC2Sync::Image do
 
   describe "create and update listed" do
     before do
-      stub_ec2_image_response_full # ec2 returns both ami-61a54008 AND ami-61a54008
-      Image.stub!(:available).and_return(mock("available", :all => [mock_image(:aws_id => "ami-61a54008")])) # local db only contains one of them
+      stub_ec2_image_response_full # ec2 returns two records
+      Image.stub!(:available).and_return(mock("available", :all => [mock_model(Image, :aws_id => "ami-61a54008")])) # local db only contains one of them
+      @ec2sync_image.stub!(:update_from_ec2)
     end
 
     it "should create a new image for this account if ec2 image doesn't exist in db" do
-      Image.should_receive(:new).once.and_return(mock_image)
+      Image.should_receive(:new).once
     end
 
     it "should update new or existing records with ec2 data" do
@@ -131,7 +106,7 @@ describe EC2Sync::Image do
     before do
       stub_ec2_image_response_full
       @image = Image.new
-      @ec2_image = @ec2.describe_images.imagesSet.item[0]
+      @ec2_image = @ec2sync_image.ec2_images[0]
     end
 
     it "should set the account_id if the image owner id matches any account's aws_account_number in the database" do
