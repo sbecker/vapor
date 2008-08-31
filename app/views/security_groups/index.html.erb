@@ -1,0 +1,24 @@
+<h1>Listing Security Groups</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Permissions</th>
+  </tr>
+
+<% for security_group in @security_groups %>
+  <tr>
+    <td><%=h security_group.name %></td>
+    <td><%=h security_group.description %></td>
+    <td><%=h security_group.permissions %></td>
+    <td><%= link_to 'Show', security_group %></td>
+    <td><%= link_to 'Edit', edit_security_group_path(security_group) %></td>
+    <td><%= link_to 'Destroy', security_group, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Security Group', new_security_group_path %>

@@ -32,6 +32,10 @@ describe "/layouts/application" do
     it "should have an 'Key Pairs' link" do
       response.should have_tag('a', %r[Key Pairs])
     end
+
+    it "should have an 'Security Groups' link" do
+      response.should have_tag('a', %r[Security Groups])
+    end
   end
 
   describe "when not logged in" do

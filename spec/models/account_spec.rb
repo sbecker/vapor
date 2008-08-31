@@ -30,6 +30,10 @@ describe Account do
     it "should have many images" do
       Account.should have_many(:images).with_options({:extend=>[], :order=>"location"})
     end
+
+    it "should have many security groups" do
+      Account.should have_many(:security_groups).with_options({:extend=>[], :order=>"name"})
+    end
   end
 
   describe "ec2 proxy" do

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080829215444) do
+ActiveRecord::Schema.define(:version => 20080831082558) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20080829215444) do
     t.text     "private_key"
     t.integer  "account_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "security_groups", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "owner_id"
+    t.text     "permissions"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
   # Restful Authentication Named Routes
   map.logout   '/logout',                    :controller => 'sessions', :action => 'destroy'
   map.login    '/login',                     :controller => 'sessions', :action => 'new'
@@ -22,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :images,    :collection => {:vendors => :get,
                                             :others  => :get,
                                             :sync    => :post}
+  map.resources :security_groups
 
   map.root :controller => 'dashboard'
 
