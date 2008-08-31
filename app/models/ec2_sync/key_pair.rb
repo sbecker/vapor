@@ -4,7 +4,7 @@ class EC2Sync::KeyPair < EC2Sync::Base
   end
 
   def get_remotes
-    @account.ec2.describe_keypairs.keySet.item
+    @account.ec2.describe_keypairs
   end
 
   def new_local
@@ -12,12 +12,12 @@ class EC2Sync::KeyPair < EC2Sync::Base
   end
 
   def is_equal?(local, remote)
-    local.name == remote.keyName && local.fingerprint == remote.keyFingerprint
+    local.name == remote[:aws_key_name] && local.fingerprint == remote[:aws_fingerprint]
   end
 
   def update_from_remote(local, remote)
-    local.name        = remote.keyName
-    local.fingerprint = remote.keyFingerprint
+    local.name        = remote[:aws_key_name]
+    local.fingerprint = remote[:aws_fingerprint]
   end
 
   def handle_missing(local)

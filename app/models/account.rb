@@ -22,6 +22,7 @@ class Account < ActiveRecord::Base
   end
 
   def ec2
-    @ec2 ||= EC2::Base.new(:access_key_id => aws_access_key, :secret_access_key => aws_secret_access_key)
+    # @ec2 ||= EC2::Base.new(:access_key_id => aws_access_key, :secret_access_key => aws_secret_access_key)
+    @ec2 ||= RightAws::Ec2.new(aws_access_key, aws_secret_access_key)
   end
 end

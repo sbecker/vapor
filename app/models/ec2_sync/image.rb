@@ -4,7 +4,7 @@ class EC2Sync::Image < EC2Sync::Base
   end
 
   def get_remotes
-    @account.ec2.describe_images.imagesSet.item
+    @account.ec2.describe_images
   end
 
   def new_local
@@ -12,7 +12,7 @@ class EC2Sync::Image < EC2Sync::Base
   end
 
   def is_equal?(local, remote)
-    local.aws_id == remote.imageId
+    local.aws_id == remote[:aws_id]
   end
 
   def get_account_ids_from_owner_ids
@@ -25,14 +25,14 @@ class EC2Sync::Image < EC2Sync::Base
   end
 
   def update_from_remote(local, remote)
-    local.account_id   = account_ids_from_owner_ids[remote.imageOwnerId]
-    local.architecture = remote.architecture
-    local.aws_id       = remote.imageId
-    local.is_public    = remote.isPublic == "true"
-    local.location     = remote.imageLocation
-    local.owner_id     = remote.imageOwnerId
-    local.state        = remote.imageState
-    local.image_type   = remote.imageType
+    local.account_id   = account_ids_from_owner_ids[remote[:aws_owner]]
+    local.architecture = remote[:aws_architecture]
+    local.aws_id       = remote[:aws_id]
+    local.is_public    = remote[:aws_is_public]
+    local.location     = remote[:aws_location]
+    local.owner_id     = remote[:aws_owner]
+    local.state        = remote[:aws_state]
+    local.image_type   = remote[:aws_image_type]
   end
 
   def handle_missing(local)

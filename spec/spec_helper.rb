@@ -60,7 +60,7 @@ def stub_logged_in
 end
 
 def stub_account_with_ec2
-  @ec2 = EC2::Base.new(:access_key_id => "not a secret", :secret_access_key => "not a key")
+  @ec2 = RightAws::Ec2.new("not a secret", "not a key")
 
   @account = Account.new
   @account.id = 1

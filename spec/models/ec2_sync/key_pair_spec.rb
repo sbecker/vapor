@@ -9,7 +9,7 @@ describe EC2Sync::KeyPair do
 
   describe "get remotes" do
     it "should call describe_keypairs on the account's ec2 object" do
-      @ec2.should_receive(:describe_keypairs).and_return(mock("response", :keySet => mock("keySet", :item => [])))
+      @ec2.should_receive(:describe_keypairs).and_return([])
       @ec2sync_key_pair.get_remotes
     end
   end
@@ -32,28 +32,28 @@ describe EC2Sync::KeyPair do
     it "should compare key pairs by both name and figerprint" do
       @ec2sync_key_pair.is_equal?(
         mock('local', :name => "foo", :fingerprint => "xyz"),
-        mock('remote', :keyName => "foo", :keyFingerprint => "xyz")
+        {:aws_key_name => "foo", :aws_fingerprint => "xyz"}
       ).should be_true
     end
 
     it "should not be equal if names match but fingerprints do not" do
       @ec2sync_key_pair.is_equal?(
         mock('local', :name => "foo", :fingerprint => "xyz"),
-        mock('remote', :keyName => "foo", :keyFingerprint => "abc")
+        {:aws_key_name => "foo", :aws_fingerprint => "abc"}
       ).should be_false
     end
 
     it "should not be equal if fingerprints match but names do not" do
       @ec2sync_key_pair.is_equal?(
         mock('local', :name => "foo", :fingerprint => "xyz"),
-        mock('remote', :keyName => "bar", :keyFingerprint => "xyz")
+        {:aws_key_name => "bar", :aws_fingerprint => "xyz"}
       ).should be_false
     end
 
     it "should not be equal if neither name or fingerprint match" do
       @ec2sync_key_pair.is_equal?(
         mock('local', :name => "foo", :fingerprint => "xyz"),
-        mock('remote', :keyName => "bar", :keyFingerprint => "abc")
+        {:aws_key_name => "bar", :aws_fingerprint => "abc"}
       ).should be_false
     end
   end
@@ -61,15 +61,15 @@ describe EC2Sync::KeyPair do
   describe "update from remote" do
     before do
       @local = ::KeyPair.new
-      @remote = mock('item', :keyName => "foo", :keyFingerprint => "xyz")
+      @remote = {:aws_key_name => "foo", :aws_fingerprint => "xyz"}
     end
 
     it "should set the name" do
-      @local.should_receive(:name=).with(@remote.keyName)
+      @local.should_receive(:name=).with(@remote[:aws_key_name])
     end
 
     it "should set the fingerprint" do
-      @local.should_receive(:fingerprint=).with(@remote.keyFingerprint)
+      @local.should_receive(:fingerprint=).with(@remote[:aws_fingerprint])
     end
 
     after do

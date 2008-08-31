@@ -9,7 +9,7 @@ describe EC2Sync::Image do
 
   describe "get remotes" do
     it "should call describe_images on the account's ec2 object" do
-      @ec2.should_receive(:describe_images).and_return(stub("response", :imagesSet => stub("imagesSet", :item => [])))
+      @ec2.should_receive(:describe_images).and_return([])
       @ec2sync_image.get_remotes
     end
   end
@@ -32,24 +32,23 @@ describe EC2Sync::Image do
 
   describe "equality" do
     it "should compare local aws_id to remote imageId" do
-      @ec2sync_image.is_equal?(mock('local', :aws_id => "123"), mock('remote', :imageId => "123")).should be_true
-      @ec2sync_image.is_equal?(mock('local', :aws_id => "123"), mock('remote', :imageId => "456")).should be_false
+      @ec2sync_image.is_equal?(mock("local", :aws_id => "123"), {:aws_id => "123"}).should be_true
+      @ec2sync_image.is_equal?(mock("local", :aws_id => "123"), {:aws_id => "456"}).should be_false
     end
   end
 
   describe "update from remote" do
     before do
       @local = Image.new
-      @remote = mock("item",
-        :imageId       => "ami-61a54008",
-        :imageLocation => "foobar1/image.manifest.xml",
-        :imageState    => "available",
-        :imageOwnerId  => "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA",
-        :isPublic      => "true",
-        :productCodes  => mock("productCodes", :item => [mock("item", :productCode => "774F4FF8")]),
-        :imageType     => "machine",
-        :architecture  => "i386"
-      )
+      @remote = {
+        :aws_id           => "ami-61a54008",
+        :aws_location     => "foobar1/image.manifest.xml",
+        :aws_state        => "available",
+        :aws_owner        => "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA",
+        :aws_is_public    => true,
+        :aws_image_type   => "machine",
+        :aws_architecture => "i386"
+      }
     end
 
     it "should set the account_id if the image owner id matches any account's aws_account_number in the database" do
@@ -57,36 +56,36 @@ describe EC2Sync::Image do
     end
 
     it "should set the account_id to nil if the image owner id does not match the account's aws_account_number" do
-      @remote.stub!(:imageOwnerId).and_return("not_a_match")
+      @remote[:aws_owner] = "not_a_match"
       @local.should_receive(:account_id=).with(nil)
     end
 
     it "should set the architecture" do
-      @local.should_receive(:architecture=).with(@remote.architecture)
+      @local.should_receive(:architecture=).with(@remote[:aws_architecture])
     end
 
     it "should set the aws id" do
-      @local.should_receive(:aws_id=).with(@remote.imageId)
+      @local.should_receive(:aws_id=).with(@remote[:aws_id])
     end
 
     it "should set is_public" do
-      @local.should_receive(:is_public=).with(@remote.isPublic == "true")
+      @local.should_receive(:is_public=).with(@remote[:aws_is_public])
     end
 
     it "should set the location" do
-      @local.should_receive(:location=).with(@remote.imageLocation)
+      @local.should_receive(:location=).with(@remote[:aws_location])
     end
 
     it "should set the owner_id" do
-      @local.should_receive(:owner_id=).with(@remote.imageOwnerId)
+      @local.should_receive(:owner_id=).with(@remote[:aws_owner])
     end
 
     it "should set the state" do
-      @local.should_receive(:state=).with(@remote.imageState)
+      @local.should_receive(:state=).with(@remote[:aws_state])
     end
 
     it "should set the type" do
-      @local.should_receive(:image_type=).with(@remote.imageType)
+      @local.should_receive(:image_type=).with(@remote[:aws_image_type])
     end
 
     after do

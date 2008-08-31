@@ -1,2 +1,1 @@
-# requires amazon-ec2 gem
-require 'EC2'
+require 'right_aws'

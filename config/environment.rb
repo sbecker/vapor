@@ -28,8 +28,8 @@ Rails::Initializer.run do |config|
 
   #### TODO: Fix this. Specifying these gem dependencies is not working, despite the gems existing. Site still works fine. - SMB 8/22/08
   #### config.gem "rubyist-aasm"
-  #### config.gem "xml-simple"
-  #### config.gem "amazon-ec2"
+  #### config.gem "right_http_connection"
+  #### config.gem "right_aws"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

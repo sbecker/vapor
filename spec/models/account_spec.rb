@@ -41,8 +41,8 @@ describe Account do
       @account.ec2
     end
 
-    it "should return an instance of EC2::Base" do
-      get_account_ec2_proxy.class.should == EC2::Base
+    it "should return an instance of RightAws::Ec2" do
+      get_account_ec2_proxy.class.should == RightAws::Ec2
     end
 
     it "should use the aws_access_key" do
