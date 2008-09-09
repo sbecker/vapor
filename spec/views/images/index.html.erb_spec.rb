@@ -50,10 +50,6 @@ describe "/images/index.html.erb" do
     response.should have_tag("tr>td", "value for image_type", 2)
   end
 
-  it "should render a link to sync with ec2" do
-    response.should have_tag("a[href=/images/sync]", "Sync with EC2")
-  end
-
   it "should have search links" do
     response.should have_tag("a", "Amazon")
     response.should have_tag("a", "Google")

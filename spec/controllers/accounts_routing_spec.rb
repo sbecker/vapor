@@ -21,6 +21,10 @@ describe AccountsController do
     it "should map #destroy" do
       route_for(:controller => "accounts", :action => "destroy").should == "/account"
     end
+
+    it "should map #sync" do
+      route_for(:controller => "accounts", :action => "sync").should == "/account/sync"
+    end
   end
 
   describe "route recognition" do
@@ -46,6 +50,10 @@ describe AccountsController do
   
     it "should generate params for #destroy" do
       params_from(:delete, "/account").should == {:controller => "accounts", :action => "destroy"}
+    end
+  
+    it "should generate params for #sync" do
+      params_from(:post, "/account/sync").should == {:controller => "accounts", :action => "sync"}
     end
   end
 end

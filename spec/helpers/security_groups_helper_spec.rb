@@ -1,11 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SecurityGroupsHelper do
-  
-  #Delete this example and add some real ones or delete this file
-  it "should be included in the object returned by #helper" do
-    included_modules = (class << helper; self; end).send :included_modules
-    included_modules.should include(SecurityGroupsHelper)
+  include SecurityGroupsHelper
+
+  it "should format permissions " do
+    format_permissions([
+      {:owner => "owner", :group => "group"},
+      {:protocol => "tcp", :cidr_ips => "0.0.0.0/0", :from_port => "22", :to_port => "80"},
+    ]).should == "Group: group, Owner: owner<br />Protocol: tcp, CIDR IP: 0.0.0.0/0, From Port: 22, To Port: 80<br />"
   end
-  
+
 end

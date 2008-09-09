@@ -14,6 +14,7 @@
       <%= link_to "Key Pairs", key_pairs_path %> |
       <%= link_to "Security Groups", security_groups_path %> |
       <%= link_to "Account", account_path %> |
+      <%= link_to "Sync with EC2", sync_account_path, :method => :post %> |
       <%= link_to "Logout", logout_path %>
     <% else %>
       <%= link_to "Login",  login_path %> |

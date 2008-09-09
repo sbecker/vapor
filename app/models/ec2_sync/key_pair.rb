@@ -4,7 +4,7 @@ class EC2Sync::KeyPair < EC2Sync::Base
   end
 
   def get_remotes
-    @account.ec2.describe_keypairs
+    @account.ec2.describe_key_pairs
   end
 
   def new_local

@@ -4,11 +4,11 @@ describe AccountsController do
   before do
     stub_logged_in
   end
-  
+
   def mock_account(stubs={})
     @mock_account ||= mock_model(Account, stubs)
   end
-  
+
   describe "responding to GET show" do
 
     it "should expose the requested account as @account" do
@@ -16,7 +16,7 @@ describe AccountsController do
       get :show
       assigns[:account].should equal(mock_account)
     end
-    
+
     it "should redirect to the new action if @account doesn't exist yet" do
       @current_user.should_receive(:account).and_return(nil)
       get :show
@@ -34,11 +34,11 @@ describe AccountsController do
       end
 
     end
-    
+
   end
 
   describe "responding to GET new" do
-  
+
     it "should expose a new account as @account" do
       @current_user.should_receive(:build_account).and_return(mock_account)
       get :new
@@ -164,6 +164,24 @@ describe AccountsController do
       response.should redirect_to(account_path)
     end
 
+  end
+
+  describe "responding to POST sync" do
+    before do
+      account = mock_model(Account)
+      account.stub!(:sync_with_ec2)
+      @current_user.stub!(:account).and_return(account)
+    end
+
+    it "should call sync_with_ec2 on current user's account" do
+      @current_user.account.should_receive(:sync_with_ec2)
+      post :sync
+    end
+
+    it "should redirect to account 'show' page" do
+      post :sync
+      response.should redirect_to(account_path)
+    end
   end
 
 end

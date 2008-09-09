@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :login_required
-  before_filter :find_account, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_account, :only => [:show, :edit, :update, :destroy, :sync]
 
   # GET /account
   # GET /account.xml
@@ -74,7 +74,13 @@ class AccountsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
+  # POST /account/sync
+  def sync
+    @account.sync_with_ec2
+    redirect_to account_path
+  end
+
   protected
     def find_account
       @account = current_user.account

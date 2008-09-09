@@ -8,12 +8,12 @@ describe "/security_groups/index.html.erb" do
       stub_model(SecurityGroup,
         :name => "value for name",
         :description => "value for description",
-        :permissions => "value for permissions"
+        :permissions => [{:owner => "owner", :group => "group"}]
       ),
       stub_model(SecurityGroup,
         :name => "value for name",
         :description => "value for description",
-        :permissions => "value for permissions"
+        :permissions => [{:owner => "owner", :group => "group"}]
       )
     ]
   end
@@ -22,7 +22,8 @@ describe "/security_groups/index.html.erb" do
     render "/security_groups/index.html.erb"
     response.should have_tag("tr>td", "value for name", 2)
     response.should have_tag("tr>td", "value for description", 2)
-    response.should have_tag("tr>td", "value for permissions", 2)
+    response.should have_tag("tr>td", "Group: group, Owner: owner", 2)
   end
+
 end
 

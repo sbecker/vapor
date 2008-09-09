@@ -22,12 +22,6 @@ class ImagesController < ApplicationController
     respond_to_list
   end
 
-  # POST /images/sync
-  def sync
-    current_account.sync_images_with_ec2
-    redirect_to images_path
-  end
-
   # GET /images/1
   # GET /images/1.xml
   def show

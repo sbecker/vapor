@@ -18,11 +18,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   # Vapor Resource Routes
-  map.resource  :account
-  map.resources :key_pairs, :collection => {:sync    => :post}
-  map.resources :images,    :collection => {:vendors => :get,
-                                            :others  => :get,
-                                            :sync    => :post}
+  map.resource  :account, :member     => {:sync    => :post}
+  map.resources :images,  :collection => {:vendors => :get, :others  => :get}
+  map.resources :key_pairs
   map.resources :security_groups
 
   map.root :controller => 'dashboard'

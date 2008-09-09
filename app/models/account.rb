@@ -14,12 +14,9 @@ class Account < ActiveRecord::Base
     Scalr      = '788921246207'
   end
 
-  def sync_key_pairs_with_ec2
-    EC2Sync::KeyPair.new(self).sync!
-  end
-
-  def sync_images_with_ec2
-    EC2Sync::Image.new(self).sync!
+  def sync_with_ec2
+    sync_models = [EC2Sync::KeyPair, EC2Sync::Image, EC2Sync::SecurityGroup]
+    sync_models.each {|m| m.new(self).sync! }
   end
 
   def ec2

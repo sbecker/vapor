@@ -9,7 +9,7 @@ describe EC2Sync::KeyPair do
 
   describe "get remotes" do
     it "should call describe_keypairs on the account's ec2 object" do
-      @ec2.should_receive(:describe_keypairs).and_return([])
+      @ec2.should_receive(:describe_key_pairs).and_return([])
       @ec2sync_key_pair.get_remotes
     end
   end

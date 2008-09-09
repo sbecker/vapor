@@ -33,24 +33,6 @@ describe KeyPairsController do
 
   end
 
-  describe "responding to POST sync" do
-    before do
-      account = mock_model(Account)
-      account.stub!(:sync_key_pairs_with_ec2)
-      @current_user.stub!(:account).and_return(account)
-    end
-
-    it "should call sync_images_with_ec2 on current user's account" do
-      @current_user.account.should_receive(:sync_key_pairs_with_ec2)
-      post :sync
-    end
-
-    it "should redirect to index" do
-      post :sync
-      response.should redirect_to(key_pairs_path)
-    end
-  end
-
   describe "responding to GET show" do
 
     it "should expose the requested key_pair as @key_pair" do

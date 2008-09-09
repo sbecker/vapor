@@ -21,6 +21,10 @@ describe "/layouts/application" do
       response.should have_tag('a', %r[Account])
     end
 
+    it "should have a 'Sync with EC2' link" do
+      response.should have_tag("a", %r[Sync with EC2])
+    end
+
     it "should have a 'Dashboard' link" do
       response.should have_tag('a', %r[Dashboard])
     end

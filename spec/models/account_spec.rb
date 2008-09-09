@@ -86,25 +86,33 @@ describe Account do
     end
   end
 
-  describe "sync images with ec2" do
-    it "should delegate syncing to the EC2Sync::Image class" do
-      ec2sync_image = mock_model(EC2Sync::Image)
+  describe "sync with ec2" do
+    before do
+      EC2Sync::Image.stub!(:new).and_return(mock("EC2Sync::Image", :sync! => true))
+      EC2Sync::KeyPair.stub!(:new).and_return(mock("EC2Sync::KeyPair", :sync! => true))
+      EC2Sync::SecurityGroup.stub!(:new).and_return(mock("EC2Sync::SecurityGroup", :sync! => true))
+    end
 
+    it "should sync images" do
+      ec2sync_image = mock_model(EC2Sync::Image)
       EC2Sync::Image.should_receive(:new).with(@account).and_return(ec2sync_image)
       ec2sync_image.should_receive(:sync!)
-
-      @account.sync_images_with_ec2
     end
-  end
 
-  describe "sync key pairs with ec2" do
-    it "should delegate syncing to the EC2Sync::KeyPair class" do
+    it "should sync key pairs" do
       ec2sync_key_pair = mock_model(EC2Sync::KeyPair)
-
       EC2Sync::KeyPair.should_receive(:new).with(@account).and_return(ec2sync_key_pair)
       ec2sync_key_pair.should_receive(:sync!)
+    end
 
-      @account.sync_key_pairs_with_ec2
+    it "should security groups" do
+      ec2sync_security_group = mock_model(EC2Sync::SecurityGroup)
+      EC2Sync::SecurityGroup.should_receive(:new).with(@account).and_return(ec2sync_security_group)
+      ec2sync_security_group.should_receive(:sync!)
+    end
+
+    after do
+      @account.sync_with_ec2
     end
   end
 end
