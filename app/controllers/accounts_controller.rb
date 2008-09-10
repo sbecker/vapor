@@ -78,7 +78,7 @@ class AccountsController < ApplicationController
   # POST /account/sync
   def sync
     @account.sync_with_ec2
-    redirect_to account_path
+    redirect_to dashboard_path
   end
 
   protected

@@ -178,9 +178,9 @@ describe AccountsController do
       post :sync
     end
 
-    it "should redirect to account 'show' page" do
+    it "should redirect to dashboard page" do
       post :sync
-      response.should redirect_to(account_path)
+      response.should redirect_to(dashboard_path)
     end
   end
 
