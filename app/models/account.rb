@@ -17,12 +17,17 @@ class Account < ActiveRecord::Base
   end
 
   def sync_with_ec2
-    sync_models = [EC2Sync::Address, EC2Sync::AvailabilityZone, EC2Sync::KeyPair, EC2Sync::Image, EC2Sync::SecurityGroup]
+    sync_models = [
+      EC2Sync::Address,
+      EC2Sync::AvailabilityZone,
+      EC2Sync::KeyPair,
+      EC2Sync::Image,
+      EC2Sync::SecurityGroup
+    ]
     sync_models.each {|m| m.new(self).sync! }
   end
 
   def ec2
-    # @ec2 ||= EC2::Base.new(:access_key_id => aws_access_key, :secret_access_key => aws_secret_access_key)
     @ec2 ||= RightAws::Ec2.new(aws_access_key, aws_secret_access_key)
   end
 end
