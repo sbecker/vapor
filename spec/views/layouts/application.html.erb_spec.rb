@@ -29,6 +29,10 @@ describe "/layouts/application" do
       response.should have_tag('a', %r[Dashboard])
     end
 
+    it "should have an 'Addresses' link" do
+      response.should have_tag('a', %r[Addresses])
+    end
+
     it "should have an 'Images' link" do
       response.should have_tag('a', %r[Images])
     end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  account_id: 1
+  instance_id: MyString
+  public_ip: MyString
+
+two:
+  account_id: 1
+  instance_id: MyString
+  public_ip: MyString

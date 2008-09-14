@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080831082558) do
+ActiveRecord::Schema.define(:version => 20080913233124) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,22 @@ ActiveRecord::Schema.define(:version => 20080831082558) do
     t.string   "aws_secret_access_key"
     t.text     "aws_x_509_key"
     t.text     "aws_x_509_certificate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "addresses", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "instance_id"
+    t.string   "public_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "availability_zones", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

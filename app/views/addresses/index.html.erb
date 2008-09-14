@@ -1,0 +1,22 @@
+<h2>Listing Addresses</h2>
+
+<table>
+  <tr>
+    <th>Instance</th>
+    <th>Public IP</th>
+  </tr>
+
+<% for address in @addresses %>
+  <tr>
+    <td><%=h address.instance_id %></td>
+    <td><%=h address.public_ip %></td>
+    <td><%= link_to 'Show', address %></td>
+    <td><%= link_to 'Edit', edit_address_path(address) %></td>
+    <td><%= link_to 'Destroy', address, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New address', new_address_path %>

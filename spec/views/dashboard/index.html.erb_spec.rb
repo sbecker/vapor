@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/dashboard/index" do
   before(:each) do
-    assigns[:ec2_stats] = {:image_count => 1, :key_pair_count => 2, :security_group_count => 3}
+    assigns[:ec2_stats] = {:address_count => 4, :image_count => 1, :key_pair_count => 2, :security_group_count => 3}
     render 'dashboard/index'
   end
 
@@ -11,6 +11,10 @@ describe "/dashboard/index" do
   end
 
   describe "EC2 Stats for current account" do
+
+    it "should list number of addresses" do
+      response.should have_tag('li', %r[Addresses: 4])
+    end
 
     it "should list number of images" do
       response.should have_tag('li', %r[Images: 1])

@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-
   # Restful Authentication Named Routes
   map.logout   '/logout',                    :controller => 'sessions', :action => 'destroy'
   map.login    '/login',                     :controller => 'sessions', :action => 'new'
@@ -9,16 +8,16 @@ ActionController::Routing::Routes.draw do |map|
 
   # Vapor Named Routes
   map.dashboard '/dashboard',                :controller => 'dashboard', :action => 'index'
-  
-  
+
   # Restful Authentication Resource Routes
+  map.resource  :session
   map.resources :users, :member => { :suspend   => :put,
                                      :unsuspend => :put,
                                      :purge     => :delete }
-  map.resource :session
 
   # Vapor Resource Routes
   map.resource  :account, :member     => {:sync    => :post}
+  map.resources :addresses
   map.resources :images,  :collection => {:vendors => :get, :others  => :get}
   map.resources :key_pairs
   map.resources :security_groups

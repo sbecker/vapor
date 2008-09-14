@@ -23,6 +23,14 @@ describe Account do
       Account.should have_many(:users).with_options({:extend=>[]})
     end
 
+    it "should have many addresses" do
+      Account.should have_many(:addresses).with_options({:extend=>[], :order=>"public_ip"})
+    end
+
+    it "should have many availability zones" do
+      Account.should have_many(:availability_zones).with_options({:extend=>[], :order=>"name"})
+    end
+
     it "should have many key pairs" do
       Account.should have_many(:key_pairs).with_options({:extend=>[], :order=>"name"})
     end
@@ -88,9 +96,23 @@ describe Account do
 
   describe "sync with ec2" do
     before do
+      EC2Sync::Address.stub!(:new).and_return(mock("EC2Sync::Address", :sync! => true))
+      EC2Sync::AvailabilityZone.stub!(:new).and_return(mock("EC2Sync::AvailabilityZone", :sync! => true))
       EC2Sync::Image.stub!(:new).and_return(mock("EC2Sync::Image", :sync! => true))
       EC2Sync::KeyPair.stub!(:new).and_return(mock("EC2Sync::KeyPair", :sync! => true))
       EC2Sync::SecurityGroup.stub!(:new).and_return(mock("EC2Sync::SecurityGroup", :sync! => true))
+    end
+
+    it "should sync addresses" do
+      ec2sync_address = mock_model(EC2Sync::Address)
+      EC2Sync::Address.should_receive(:new).with(@account).and_return(ec2sync_address)
+      ec2sync_address.should_receive(:sync!)
+    end
+
+    it "should sync images" do
+      ec2sync_availability_zone = mock_model(EC2Sync::AvailabilityZone)
+      EC2Sync::AvailabilityZone.should_receive(:new).with(@account).and_return(ec2sync_availability_zone)
+      ec2sync_availability_zone.should_receive(:sync!)
     end
 
     it "should sync images" do

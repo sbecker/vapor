@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
 
   def index
     @ec2_stats = {
+      :address_count        => current_account.addresses.count,
       :image_count          => current_account.images.count,
       :key_pair_count       => current_account.key_pairs.count,
       :security_group_count => current_account.security_groups.count
