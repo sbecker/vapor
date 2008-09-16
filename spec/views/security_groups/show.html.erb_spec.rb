@@ -5,17 +5,17 @@ describe "/security_groups/show.html.erb" do
   
   before(:each) do
     assigns[:security_group] = @security_group = stub_model(SecurityGroup,
-      :name => "value for name",
-      :description => "value for description",
-      :permissions => "value for permissions"
+      :aws_group_name => "value for aws_group_name",
+      :aws_description => "value for aws_description",
+      :aws_perms => "value for aws_perms"
     )
   end
 
   it "should render attributes in <p>" do
     render "/security_groups/show.html.erb"
-    response.should have_text(/value\ for\ name/)
-    response.should have_text(/value\ for\ description/)
-    response.should have_text(/value\ for\ permissions/)
+    response.should have_text(/value\ for\ aws_group_name/)
+    response.should have_text(/value\ for\ aws_description/)
+    response.should have_text(/value\ for\ aws_perms/)
   end
 end
 

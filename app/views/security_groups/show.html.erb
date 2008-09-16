@@ -1,16 +1,21 @@
 <p>
   <b>Name:</b>
-  <%=h @security_group.name %>
+  <%=h @security_group.aws_group_name %>
 </p>
 
 <p>
   <b>Description:</b>
-  <%=h @security_group.description %>
+  <%=h @security_group.aws_description %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%=h @security_group.aws_owner %>
 </p>
 
 <p>
   <b>Permissions:</b>
-  <%=h @security_group.permissions %>
+  <%=h @security_group.aws_perms %>
 </p>
 
 

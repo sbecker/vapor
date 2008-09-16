@@ -6,21 +6,21 @@ describe "/key_pairs/index.html.erb" do
   before(:each) do
     assigns[:key_pairs] = [
       stub_model(KeyPair,
-        :name => "value for name",
-        :fingerprint => "value for fingerprint",
-        :private_key => "value for private_key"
+        :aws_key_name    => "value for aws_key_name",
+        :aws_fingerprint => "value for fingerprint",
+        :aws_material    => "value for aws_material"
       ),
       stub_model(KeyPair,
-        :name => "value for name",
-        :fingerprint => "value for fingerprint",
-        :private_key => "value for private_key"
+        :aws_key_name    => "value for aws_key_name",
+        :aws_fingerprint => "value for fingerprint",
+        :aws_material    => "value for aws_material"
       )
     ]
     render "/key_pairs/index.html.erb"
   end
 
   it "should render list of key_pairs" do
-    response.should have_tag("tr>td", "value for name", 2)
+    response.should have_tag("tr>td", "value for aws_key_name", 2)
   end
 end
 

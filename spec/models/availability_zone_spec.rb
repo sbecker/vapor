@@ -4,8 +4,8 @@ describe AvailabilityZone do
   before(:each) do
     @valid_attributes = {
       :account_id => "1",
-      :name => "value for name",
-      :state => "value for state"
+      :zone_name  => "value for zone_name",
+      :zone_state => "value for zone_state"
     }
   end
 

@@ -8,7 +8,7 @@
 
 <% for key_pair in @key_pairs %>
   <tr>
-    <td><%=h key_pair.name %></td>
+    <td><%=h key_pair.aws_key_name %></td>
     <td><%=h key_pair.created_at %></td>
     <td><%= link_to 'Show', key_pair %></td>
     <td><%= link_to 'Destroy', key_pair, :confirm => 'Are you sure?', :method => :delete %></td>

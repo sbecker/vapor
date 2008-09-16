@@ -3,15 +3,15 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Image do
   before(:each) do
     @valid_attributes = {
-      :architecture => "value for architecture",
-      :aws_id => "value for aws_id",
-      :description => "value for description",
-      :is_public => false,
-      :location => "value for location",
-      :name => "value for name",
-      :owner_id => "value for owner_id",
-      :state => "value for state",
-      :image_type => "value for image_type"
+      :aws_architecture => "value for aws_architecture",
+      :aws_id           => "value for aws_id",
+      :aws_is_public    => false,
+      :aws_location     => "value for aws_location",
+      :aws_owner        => "value for aws_owner",
+      :aws_state        => "value for aws_state",
+      :aws_image_type   => "value for aws_image_type",
+      :description      => "value for description",
+      :name             => "value for name"
     }
   end
 
@@ -62,12 +62,12 @@ describe Image do
     it "should find images that are not in the standard vendor list and don't belong to the current user's account" do
       account_id = 1
       Image.should_receive(:all).with(:conditions => "(account_id != #{account_id} OR account_id IS NULL)" +
-        " AND owner_id != '#{Account::Vendors::Alestic}'" +
-        " AND owner_id != '#{Account::Vendors::Amazon}'" +
-        " AND owner_id != '#{Account::Vendors::RBuilder}'" +
-        " AND owner_id != '#{Account::Vendors::RedHat}'" +
-        " AND owner_id != '#{Account::Vendors::RightScale}'" +
-        " AND owner_id != '#{Account::Vendors::Scalr}'"
+        " AND aws_owner != '#{Account::Vendors::Alestic}'" +
+        " AND aws_owner != '#{Account::Vendors::Amazon}'" +
+        " AND aws_owner != '#{Account::Vendors::RBuilder}'" +
+        " AND aws_owner != '#{Account::Vendors::RedHat}'" +
+        " AND aws_owner != '#{Account::Vendors::RightScale}'" +
+        " AND aws_owner != '#{Account::Vendors::Scalr}'"
       )
       Image.others(account_id)
     end

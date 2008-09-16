@@ -7,24 +7,24 @@ describe "/images/index.html.erb" do
   before(:each) do
     assigns[:images] = [
       stub_model(Image,
-        :architecture => "value for architecture",
-        :description => "value for description",
-        :is_public => false,
-        :aws_id => "value for aws id",
-        :location => "value for location",
-        :name => "value for name",
-        :state => "value for state",
-        :image_type => "value for image_type"
+        :aws_architecture => "value for architecture",
+        :aws_is_public    => false,
+        :aws_id           => "value for aws id",
+        :aws_location     => "value for location",
+        :aws_state        => "value for state",
+        :aws_image_type   => "value for image_type",
+        :description      => "value for description",
+        :name             => "value for name"
       ),
       stub_model(Image,
-        :architecture => "value for architecture",
-        :description => "value for description",
-        :is_public => false,
-        :aws_id => "value for aws id",
-        :location => "value for location",
-        :name => "value for name",
-        :state => "value for state",
-        :image_type => "value for image_type"
+        :aws_architecture => "value for architecture",
+        :aws_is_public    => false,
+        :aws_id           => "value for aws id",
+        :aws_location     => "value for location",
+        :aws_state        => "value for state",
+        :aws_image_type   => "value for image_type",
+        :description      => "value for description",
+        :name             => "value for name"
       )
     ]
 

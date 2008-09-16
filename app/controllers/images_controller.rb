@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
   # GET /vendors
   # GET /vendors.xml
   def vendors
-    @images = Image.available.are_public.all(:conditions => {:owner_id => params[:owner_id]})
+    @images = Image.available.are_public.all(:conditions => {:aws_owner => params[:aws_owner]})
     respond_to_list
   end
 

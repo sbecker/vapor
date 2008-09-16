@@ -3,11 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Account do
   before(:each) do
     @valid_attributes = {
-      :name => "value for name",
-      :aws_account_number => "value for aws_account_number",
-      :aws_access_key => "value for aws_access_key",
+      :name                  => "value for name",
+      :aws_account_number    => "value for aws_account_number",
+      :aws_access_key        => "value for aws_access_key",
       :aws_secret_access_key => "value for aws_secret_access_key",
-      :aws_x_509_key => "value for aws_x_509_key",
+      :aws_x_509_key         => "value for aws_x_509_key",
       :aws_x_509_certificate => "value for aws_x_509_certificate"
     }
     @account = Account.new(@valid_attributes)
@@ -28,19 +28,19 @@ describe Account do
     end
 
     it "should have many availability zones" do
-      Account.should have_many(:availability_zones).with_options({:extend=>[], :order=>"name"})
+      Account.should have_many(:availability_zones).with_options({:extend=>[], :order=>"zone_name"})
     end
 
     it "should have many key pairs" do
-      Account.should have_many(:key_pairs).with_options({:extend=>[], :order=>"name"})
+      Account.should have_many(:key_pairs).with_options({:extend=>[], :order=>"aws_key_name"})
     end
 
     it "should have many images" do
-      Account.should have_many(:images).with_options({:extend=>[], :order=>"location"})
+      Account.should have_many(:images).with_options({:extend=>[], :order=>"aws_location"})
     end
 
     it "should have many security groups" do
-      Account.should have_many(:security_groups).with_options({:extend=>[], :order=>"name"})
+      Account.should have_many(:security_groups).with_options({:extend=>[], :order=>"aws_group_name"})
     end
   end
 
@@ -95,45 +95,46 @@ describe Account do
   end
 
   describe "sync with ec2" do
-    before do
-      EC2Sync::Address.stub!(:new).and_return(mock("EC2Sync::Address", :sync! => true))
-      EC2Sync::AvailabilityZone.stub!(:new).and_return(mock("EC2Sync::AvailabilityZone", :sync! => true))
-      EC2Sync::Image.stub!(:new).and_return(mock("EC2Sync::Image", :sync! => true))
-      EC2Sync::KeyPair.stub!(:new).and_return(mock("EC2Sync::KeyPair", :sync! => true))
-      EC2Sync::SecurityGroup.stub!(:new).and_return(mock("EC2Sync::SecurityGroup", :sync! => true))
-    end
-
-    it "should sync addresses" do
-      ec2sync_address = mock_model(EC2Sync::Address)
-      EC2Sync::Address.should_receive(:new).with(@account).and_return(ec2sync_address)
-      ec2sync_address.should_receive(:sync!)
-    end
-
-    it "should sync images" do
-      ec2sync_availability_zone = mock_model(EC2Sync::AvailabilityZone)
-      EC2Sync::AvailabilityZone.should_receive(:new).with(@account).and_return(ec2sync_availability_zone)
-      ec2sync_availability_zone.should_receive(:sync!)
-    end
-
-    it "should sync images" do
-      ec2sync_image = mock_model(EC2Sync::Image)
-      EC2Sync::Image.should_receive(:new).with(@account).and_return(ec2sync_image)
-      ec2sync_image.should_receive(:sync!)
-    end
-
-    it "should sync key pairs" do
-      ec2sync_key_pair = mock_model(EC2Sync::KeyPair)
-      EC2Sync::KeyPair.should_receive(:new).with(@account).and_return(ec2sync_key_pair)
-      ec2sync_key_pair.should_receive(:sync!)
-    end
-
-    it "should security groups" do
-      ec2sync_security_group = mock_model(EC2Sync::SecurityGroup)
-      EC2Sync::SecurityGroup.should_receive(:new).with(@account).and_return(ec2sync_security_group)
-      ec2sync_security_group.should_receive(:sync!)
-    end
-
-    after do
+    # before do
+    #   EC2Sync::Address.stub!(:new).and_return(mock("EC2Sync::Address", :sync! => true))
+    #   EC2Sync::AvailabilityZone.stub!(:new).and_return(mock("EC2Sync::AvailabilityZone", :sync! => true))
+    #   EC2Sync::Image.stub!(:new).and_return(mock("EC2Sync::Image", :sync! => true))
+    #   EC2Sync::KeyPair.stub!(:new).and_return(mock("EC2Sync::KeyPair", :sync! => true))
+    #   EC2Sync::SecurityGroup.stub!(:new).and_return(mock("EC2Sync::SecurityGroup", :sync! => true))
+    # end
+    # 
+    # it "should sync addresses" do
+    #   ec2sync_address = mock_model(EC2Sync::Address)
+    #   EC2Sync::Address.should_receive(:new).with(@account).and_return(ec2sync_address)
+    #   ec2sync_address.should_receive(:sync!)
+    # end
+    # 
+    # it "should sync images" do
+    #   ec2sync_availability_zone = mock_model(EC2Sync::AvailabilityZone)
+    #   EC2Sync::AvailabilityZone.should_receive(:new).with(@account).and_return(ec2sync_availability_zone)
+    #   ec2sync_availability_zone.should_receive(:sync!)
+    # end
+    # 
+    # it "should sync images" do
+    #   ec2sync_image = mock_model(EC2Sync::Image)
+    #   EC2Sync::Image.should_receive(:new).with(@account).and_return(ec2sync_image)
+    #   ec2sync_image.should_receive(:sync!)
+    # end
+    # 
+    # it "should sync key pairs" do
+    #   ec2sync_key_pair = mock_model(EC2Sync::KeyPair)
+    #   EC2Sync::KeyPair.should_receive(:new).with(@account).and_return(ec2sync_key_pair)
+    #   ec2sync_key_pair.should_receive(:sync!)
+    # end
+    # 
+    # it "should security groups" do
+    #   ec2sync_security_group = mock_model(EC2Sync::SecurityGroup)
+    #   EC2Sync::SecurityGroup.should_receive(:new).with(@account).and_return(ec2sync_security_group)
+    #   ec2sync_security_group.should_receive(:sync!)
+    # end
+    
+    it "should call EC2Sync.sync_account with self" do
+      EC2Sync.should_receive(:sync_account).with(@account)
       @account.sync_with_ec2
     end
   end

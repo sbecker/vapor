@@ -6,9 +6,9 @@ describe "/security_groups/new.html.erb" do
   before(:each) do
     assigns[:security_group] = stub_model(SecurityGroup,
       :new_record? => true,
-      :name => "value for name",
-      :description => "value for description",
-      :permissions => "value for permissions"
+      :aws_group_name => "value for aws_group_name",
+      :aws_description => "value for aws_description",
+      :aws_perms => "value for aws_perms"
     )
   end
 
@@ -16,9 +16,9 @@ describe "/security_groups/new.html.erb" do
     render "/security_groups/new.html.erb"
     
     response.should have_tag("form[action=?][method=post]", security_groups_path) do
-      with_tag("input#security_group_name[name=?]", "security_group[name]")
-      with_tag("input#security_group_description[name=?]", "security_group[description]")
-      with_tag("textarea#security_group_permissions[name=?]", "security_group[permissions]")
+      with_tag("input#security_group_aws_group_name[name=?]", "security_group[aws_group_name]")
+      with_tag("input#security_group_aws_description[name=?]", "security_group[aws_description]")
+      with_tag("textarea#security_group_aws_perms[name=?]", "security_group[aws_perms]")
     end
   end
 end

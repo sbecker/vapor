@@ -1,16 +1,16 @@
 <p>
   <b>Name:</b>
-  <%=h @key_pair.name %>
+  <%=h @key_pair.aws_key_name %>
 </p>
 
 <p>
   <b>Fingerprint:</b>
-  <%=h @key_pair.fingerprint %>
+  <%=h @key_pair.aws_fingerprint %>
 </p>
 
 <p>
-  <b>Private key:</b>
-  <%=h @key_pair.private_key %>
+  <b>Material:</b>
+  <%=h @key_pair.aws_material %>
 </p>
 
 <%= link_to 'Edit', edit_key_pair_path(@key_pair) %> |

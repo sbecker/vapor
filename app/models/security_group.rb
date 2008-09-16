@@ -1,5 +1,5 @@
 class SecurityGroup < ActiveRecord::Base
   belongs_to :account
 
-  serialize :permissions
+  serialize :aws_perms
 end

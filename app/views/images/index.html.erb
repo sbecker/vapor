@@ -2,12 +2,12 @@
 
 <p>[
   <%= link_to 'Personal', images_path %> |
-  <%= link_to 'Amazon',     vendors_images_path(:owner_id => Account::Vendors::Amazon) %> |
-  <%= link_to 'Alestic',    vendors_images_path(:owner_id => Account::Vendors::Alestic) %> |
-  <%= link_to 'RBuilder',   vendors_images_path(:owner_id => Account::Vendors::RBuilder) %> |
-  <%= link_to 'RedHat',     vendors_images_path(:owner_id => Account::Vendors::RedHat) %> |
-  <%= link_to 'RightScale', vendors_images_path(:owner_id => Account::Vendors::RightScale) %> |
-  <%= link_to 'Scalr',      vendors_images_path(:owner_id => Account::Vendors::Scalr) %> |
+  <%= link_to 'Amazon',     vendors_images_path(:aws_owner => Account::Vendors::Amazon) %> |
+  <%= link_to 'Alestic',    vendors_images_path(:aws_owner => Account::Vendors::Alestic) %> |
+  <%= link_to 'RBuilder',   vendors_images_path(:aws_owner => Account::Vendors::RBuilder) %> |
+  <%= link_to 'RedHat',     vendors_images_path(:aws_owner => Account::Vendors::RedHat) %> |
+  <%= link_to 'RightScale', vendors_images_path(:aws_owner => Account::Vendors::RightScale) %> |
+  <%= link_to 'Scalr',      vendors_images_path(:aws_owner => Account::Vendors::Scalr) %> |
   <%= link_to 'Others',     others_images_path %>
 ]</p>
 
@@ -28,13 +28,13 @@
   <tr>
     <td><%=h image.name %></td>
     <td><%=h image.description %></td>
-    <td><%=h image.image_type %></td>
-    <td><%=h image.architecture %></td>
+    <td><%=h image.aws_image_type %></td>
+    <td><%=h image.aws_architecture %></td>
     <td><%=h image.aws_id %></td>
-    <td><%=h image.location %></td>
-    <td><%=h image.is_public %></td>
-    <td><%=h image.owner_id %></td>
-    <td><%=h image.state %></td>
+    <td><%=h image.aws_location %></td>
+    <td><%=h image.aws_is_public %></td>
+    <td><%=h image.aws_owner %></td>
+    <td><%=h image.aws_state %></td>
     <td><%= link_to 'Show', image %></td>
     <td><%= link_to 'Edit', edit_image_path(image) %></td>
     <td>Search: <%= aws_search_link "Amazon", h(image.aws_id) %> | <%= google_search_link "Google", h(image.aws_id) %></td>

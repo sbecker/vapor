@@ -5,16 +5,16 @@ describe "/images/edit.html.erb" do
   
   before(:each) do
     @image = mock_model(Image,
-      :new_record? => false,
-      :architecture => "value for architecture",
-      :description => "value for description",
-      :aws_id => "value for aws id",
-      :owner_id => "value for owner id",
-      :is_public => false,
-      :location => "value for location",
-      :name => "value for name",
-      :state => "value for state",
-      :image_type => "value for image_type"
+      :new_record?      => false,
+      :aws_architecture => "value for aws architecture",
+      :aws_id           => "value for aws id",
+      :aws_image_type   => "value for aws image type",
+      :aws_is_public    => false,
+      :aws_location     => "value for aws location",
+      :aws_owner        => "value for aws owner",
+      :aws_state        => "value for aws state",
+      :description      => "value for description",
+      :name             => "value for name"
     )
     assigns[:image] = @image
   end
@@ -27,19 +27,13 @@ describe "/images/edit.html.erb" do
       with_tag('textarea#image_description[name=?]', "image[description]")
     end
 
-    response.should have_text(/value\ for\ architecture/)
+    response.should have_text(/value\ for\ aws\ architecture/)
     response.should have_text(/als/)
-    response.should have_text(/value\ for\ location/)
-    response.should have_text(/value\ for\ state/)
-    response.should have_text(/value\ for\ image_type/)
+    response.should have_text(/value\ for\ aws\ location/)
+    response.should have_text(/value\ for\ aws\ state/)
+    response.should have_text(/value\ for\ aws\ image\ type/)
     response.should have_text(/value\ for\ aws\ id/)
-    response.should have_text(/value\ for\ owner\ id/)
-
-    response.should_not have_tag('input#image_architecture[name=?]', "image[architecture]")
-    response.should_not have_tag('input#image_is_public[name=?]', "image[is_public]")
-    response.should_not have_tag('input#image_location[name=?]', "image[location]")
-    response.should_not have_tag('input#image_state[name=?]', "image[state]")
-    response.should_not have_tag('input#image_type[name=?]', "image[image_type]")
+    response.should have_text(/value\ for\ aws\ owner/)
   end
 end
 

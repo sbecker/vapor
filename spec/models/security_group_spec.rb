@@ -3,11 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe SecurityGroup do
   before(:each) do
     @valid_attributes = {
-      :account_id => "1",
-      :name => "value for name",
-      :description => "value for description",
-      :owner_id => "value for owner_id",
-      :permissions => "value for permissions"
+      :account_id      => "1",
+      :aws_group_name  => "value for aws_group_name",
+      :aws_description => "value for aws_description",
+      :aws_owner       => "value for aws_owner",
+      :aws_perms       => "value for aws_perms"
     }
   end
 

@@ -5,17 +5,17 @@ describe "/key_pairs/show.html.erb" do
   
   before(:each) do
     assigns[:key_pair] = @key_pair = stub_model(KeyPair,
-      :name => "value for name",
-      :fingerprint => "value for fingerprint",
-      :private_key => "value for private_key"
+      :aws_key_name    => "value for aws_key_name",
+      :aws_fingerprint => "value for aws_fingerprint",
+      :aws_material    => "value for aws_material"
     )
   end
 
   it "should render attributes in <p>" do
     render "/key_pairs/show.html.erb"
-    response.should have_text(/value\ for\ name/)
-    response.should have_text(/value\ for\ fingerprint/)
-    response.should have_text(/value\ for\ private_key/)
+    response.should have_text(/value\ for\ aws_key_name/)
+    response.should have_text(/value\ for\ aws_fingerprint/)
+    response.should have_text(/value\ for\ aws_material/)
   end
 end
 

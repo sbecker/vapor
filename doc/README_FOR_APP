@@ -1,2 +1,44 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+Remaining unimplemented models
+
+Image (needs some more columns)
+      :aws_product_codes
+      :aws_ramdisk_id
+      :aws_kernel_id
+
+Instance
+      :aws_image_id          => "ami-e444444d",
+      :aws_reason            => "",   # ???
+      :aws_instance_id       => "i-123f1234",
+      :aws_reservation_id    => "r-aabbccdd",
+      :aws_state             => "running",
+      :dns_name              => "domU-12-34-67-89-01-C9.usma2.compute.amazonaws.com",
+      :ssh_key_name          => "staging",
+      :aws_groups            => ["default"],
+      :private_dns_name      => "domU-12-34-67-89-01-C9.usma2.compute.amazonaws.com",
+      :aws_instance_type     => "m1.small",
+      :aws_launch_time       => "2008-1-1T00:00:00.000Z",
+      :aws_availability_zone => "us-east-1b",
+      :aws_kernel_id         => "aki-ba3adfd3",
+      :aws_ramdisk_id        => "ari-badbad00"
+
+      :aws_owner          => "000000000888"
+      :aws_state_code     => "16"
+
+Snapshot
+      progress    => :aws_progress   => "100%",
+      status      => :aws_status     => "completed",
+      aws_id      => :aws_id         => "snap-72a5401b",
+      volume_id   => :aws_volume_id  => "vol-5582673c",
+      started_at  => :aws_started_at => "2008-02-23T02:50:48.000Z"
+
+Volume
+      size              => :aws_size              => 94,
+      zone              => :zone                  => "merlot",
+      snapshot_id       => :snapshot_id           => nil,
+      status            => :aws_status            => "in-use",
+      aws_id            => :aws_id                => "vol-60957009",
+      created_at        => :aws_created_at        => Wed Jun 18 08:19:20s UTC 2008,
+      device            => :aws_device            => "/dev/sdc",
+      attachment_status => :aws_attachment_status => "attached",
+      attached_at       => :aws_attached_at       => Wed Jun 18 08:19:28 UTC 2008,
+      instance_id       => :aws_instance_id       => "i-c014c0a9",

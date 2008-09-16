@@ -35,12 +35,12 @@ describe ImagesController do
 
   describe "responding to GET vendors" do
 
-    it "should expose a specfic owner's public images as @images if passed an owner_id param" do
-      owner_id = "some_owner_id"
+    it "should expose a specfic owner's public images as @images if passed an aws_owner param" do
+      aws_owner = "some_aws_owner"
       are_public = mock("Public images")
       Image.stub!(:available).and_return(mock("available", :are_public => are_public))
-      are_public.should_receive(:all).with({:conditions => {:owner_id => owner_id}}).and_return([mock_image])
-      get :vendors, :owner_id => owner_id
+      are_public.should_receive(:all).with({:conditions => {:aws_owner => aws_owner}}).and_return([mock_image])
+      get :vendors, :aws_owner => aws_owner
       assigns[:images].should == [mock_image]
     end
 

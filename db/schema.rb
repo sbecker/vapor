@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080913233124) do
+ActiveRecord::Schema.define(:version => 20080915220325) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -32,31 +32,31 @@ ActiveRecord::Schema.define(:version => 20080913233124) do
 
   create_table "availability_zones", :force => true do |t|
     t.integer  "account_id"
-    t.string   "name"
-    t.string   "state"
+    t.string   "zone_name"
+    t.string   "zone_state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "images", :force => true do |t|
-    t.string   "architecture"
+    t.string   "aws_architecture"
     t.string   "aws_id"
     t.text     "description"
-    t.boolean  "is_public"
-    t.string   "location"
+    t.boolean  "aws_is_public"
+    t.string   "aws_location"
     t.string   "name"
-    t.string   "owner_id"
-    t.string   "state"
-    t.string   "image_type"
+    t.string   "aws_owner"
+    t.string   "aws_state"
+    t.string   "aws_image_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"
   end
 
   create_table "key_pairs", :force => true do |t|
-    t.string   "name"
-    t.string   "fingerprint"
-    t.text     "private_key"
+    t.string   "aws_key_name"
+    t.string   "aws_fingerprint"
+    t.text     "aws_material"
     t.integer  "account_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -65,10 +65,10 @@ ActiveRecord::Schema.define(:version => 20080913233124) do
 
   create_table "security_groups", :force => true do |t|
     t.integer  "account_id"
-    t.string   "name"
-    t.string   "description"
-    t.string   "owner_id"
-    t.text     "permissions"
+    t.string   "aws_group_name"
+    t.string   "aws_description"
+    t.string   "aws_owner"
+    t.text     "aws_perms"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
