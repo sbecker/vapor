@@ -6,6 +6,7 @@ class Image < ActiveRecord::Base
   named_scope :available,  :order => 'aws_location', :conditions => {:aws_state     => 'available'}
 
   attr_accessible :name, :description
+  serialize :aws_product_codes
 
   def self.others(account_id)
     all(:conditions => "(account_id != #{account_id} OR account_id IS NULL)"  +
@@ -16,7 +17,4 @@ class Image < ActiveRecord::Base
                        " AND aws_owner != '#{Account::Vendors::RightScale}'"  +
                        " AND aws_owner != '#{Account::Vendors::Scalr}'")
   end
-
-  # TODO - this is temporary, remove once additional attributes added
-  attr_writer :aws_product_codes, :aws_ramdisk_id, :aws_kernel_id
 end

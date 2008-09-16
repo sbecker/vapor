@@ -25,20 +25,20 @@ Instance
       :aws_state_code     => "16"
 
 Snapshot
-      progress    => :aws_progress   => "100%",
-      status      => :aws_status     => "completed",
-      aws_id      => :aws_id         => "snap-72a5401b",
-      volume_id   => :aws_volume_id  => "vol-5582673c",
-      started_at  => :aws_started_at => "2008-02-23T02:50:48.000Z"
+      :aws_progress   => "100%",
+      :aws_status     => "completed",
+      :aws_id         => "snap-72a5401b",
+      :aws_volume_id  => "vol-5582673c",
+      :aws_started_at => "2008-02-23T02:50:48.000Z"
 
 Volume
-      size              => :aws_size              => 94,
-      zone              => :zone                  => "merlot",
-      snapshot_id       => :snapshot_id           => nil,
-      status            => :aws_status            => "in-use",
-      aws_id            => :aws_id                => "vol-60957009",
-      created_at        => :aws_created_at        => Wed Jun 18 08:19:20s UTC 2008,
-      device            => :aws_device            => "/dev/sdc",
-      attachment_status => :aws_attachment_status => "attached",
-      attached_at       => :aws_attached_at       => Wed Jun 18 08:19:28 UTC 2008,
-      instance_id       => :aws_instance_id       => "i-c014c0a9",
+      :aws_size              => 94,
+      :zone                  => "merlot",
+      :snapshot_id           => nil,
+      :aws_status            => "in-use",
+      :aws_id                => "vol-60957009",
+      :aws_created_at        => Wed Jun 18 08:19:20s UTC 2008,
+      :aws_device            => "/dev/sdc",
+      :aws_attachment_status => "attached",
+      :aws_attached_at       => Wed Jun 18 08:19:28 UTC 2008,
+      :aws_instance_id       => "i-c014c0a9",

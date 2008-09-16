@@ -95,44 +95,6 @@ describe Account do
   end
 
   describe "sync with ec2" do
-    # before do
-    #   EC2Sync::Address.stub!(:new).and_return(mock("EC2Sync::Address", :sync! => true))
-    #   EC2Sync::AvailabilityZone.stub!(:new).and_return(mock("EC2Sync::AvailabilityZone", :sync! => true))
-    #   EC2Sync::Image.stub!(:new).and_return(mock("EC2Sync::Image", :sync! => true))
-    #   EC2Sync::KeyPair.stub!(:new).and_return(mock("EC2Sync::KeyPair", :sync! => true))
-    #   EC2Sync::SecurityGroup.stub!(:new).and_return(mock("EC2Sync::SecurityGroup", :sync! => true))
-    # end
-    # 
-    # it "should sync addresses" do
-    #   ec2sync_address = mock_model(EC2Sync::Address)
-    #   EC2Sync::Address.should_receive(:new).with(@account).and_return(ec2sync_address)
-    #   ec2sync_address.should_receive(:sync!)
-    # end
-    # 
-    # it "should sync images" do
-    #   ec2sync_availability_zone = mock_model(EC2Sync::AvailabilityZone)
-    #   EC2Sync::AvailabilityZone.should_receive(:new).with(@account).and_return(ec2sync_availability_zone)
-    #   ec2sync_availability_zone.should_receive(:sync!)
-    # end
-    # 
-    # it "should sync images" do
-    #   ec2sync_image = mock_model(EC2Sync::Image)
-    #   EC2Sync::Image.should_receive(:new).with(@account).and_return(ec2sync_image)
-    #   ec2sync_image.should_receive(:sync!)
-    # end
-    # 
-    # it "should sync key pairs" do
-    #   ec2sync_key_pair = mock_model(EC2Sync::KeyPair)
-    #   EC2Sync::KeyPair.should_receive(:new).with(@account).and_return(ec2sync_key_pair)
-    #   ec2sync_key_pair.should_receive(:sync!)
-    # end
-    # 
-    # it "should security groups" do
-    #   ec2sync_security_group = mock_model(EC2Sync::SecurityGroup)
-    #   EC2Sync::SecurityGroup.should_receive(:new).with(@account).and_return(ec2sync_security_group)
-    #   ec2sync_security_group.should_receive(:sync!)
-    # end
-    
     it "should call EC2Sync.sync_account with self" do
       EC2Sync.should_receive(:sync_account).with(@account)
       @account.sync_with_ec2
