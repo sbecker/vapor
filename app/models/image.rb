@@ -17,4 +17,9 @@ class Image < ActiveRecord::Base
                        " AND aws_owner != '#{Account::Vendors::RightScale}'"  +
                        " AND aws_owner != '#{Account::Vendors::Scalr}'")
   end
+
+  def aws_owner=(val)
+    self.account_id = Account.ids_from_account_numbers[val]
+    write_attribute :aws_owner, val
+  end
 end

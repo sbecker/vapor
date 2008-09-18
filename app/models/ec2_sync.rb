@@ -1,5 +1,11 @@
 class EC2Sync
+  def self.refresh_lookup_hashes
+    Account.ids_from_account_numbers(true) # used in images sync
+  end
+
   def self.sync_account(account)
+    refresh_lookup_hashes
+
     {
       :address           => :public_ip,
       :availability_zone => :zone_name,
@@ -10,7 +16,7 @@ class EC2Sync
       ###:snapshot          => :aws_id,
       ###:volume            => :aws_id
     }.each_pair do |model_name, unique_attribute|
-      self.new(account, model_name, unique_attribute).sync!
+      new(account, model_name, unique_attribute).sync!
     end
   end
 

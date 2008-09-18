@@ -1,10 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe EC2Sync do
-  describe "class methods" do
+  describe "syncing an account" do
     before do
       @account = mock('account')
       @mock_sync = mock('EC2Sync', :sync! => true)
+      EC2Sync.stub!(:new).and_return(@mock_sync)
+    end
+
+    it "should refresh the lookup hashes" do
+      EC2Sync.should_receive(:refresh_lookup_hashes)
     end
 
     it "should sync all ec2 resources for account" do
@@ -17,6 +22,13 @@ describe EC2Sync do
 
     after do
       EC2Sync.sync_account(@account)
+    end
+  end
+
+  describe "refreshing lookup hashes" do
+    it "should refresh the account ids from account numbers hash" do
+      Account.should_receive(:ids_from_account_numbers).with(true)
+      EC2Sync.refresh_lookup_hashes
     end
   end
 

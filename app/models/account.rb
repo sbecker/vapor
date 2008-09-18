@@ -16,6 +16,14 @@ class Account < ActiveRecord::Base
     Scalr      = '788921246207'
   end
 
+  def self.ids_from_account_numbers(refresh=false)
+    if refresh || !defined? @@ids_from_account_numbers
+      all_accounts = all(:select => "aws_account_number, id")
+      @@ids_from_account_numbers = Hash[*(all_accounts.map{|a| [a.aws_account_number, a.id] }.flatten)]
+    end
+    return @@ids_from_account_numbers
+  end
+
   def sync_with_ec2
     EC2Sync.sync_account(self)
   end

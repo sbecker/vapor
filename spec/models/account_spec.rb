@@ -100,4 +100,32 @@ describe Account do
       @account.sync_with_ec2
     end
   end
+
+  describe "ids from account numbers hash" do
+    before do
+      @mock_accounts = [
+        mock('account1', :id => 1, :aws_account_number => "foo"),
+        mock('account2', :id => 2, :aws_account_number => "bar")
+      ]
+      Account.stub!(:all).and_return(@mock_accounts)
+    end
+
+    it "should only query the db once if class attribute isn't set or if refresh flag is set" do
+      Account.should_receive(:all).once.and_return(@mock_accounts)
+      Account.ids_from_account_numbers(true)
+      Account.ids_from_account_numbers(false)
+    end
+
+    it "should query the db for all accounts and get their id and account number" do
+      Account.should_receive(:all).with(:select => "aws_account_number, id").and_return(@mock_accounts)
+      Account.ids_from_account_numbers(true)
+    end
+
+    it "should return a hash, with account numberrs as keys and ids as values" do
+      Account.ids_from_account_numbers(true).should == {
+        'foo' => 1,
+        'bar' => 2
+      }
+    end
+  end
 end

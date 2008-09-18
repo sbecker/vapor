@@ -72,4 +72,32 @@ describe Image do
       Image.others(account_id)
     end
   end
+
+  describe "setting aws_owner" do
+    before do
+      @image = Image.new
+    end
+
+    it "should also set the account id" do
+      @image.should_receive(:account_id=)
+    end
+
+    it "should query the Account model for the account id from the supplied aws_owner string" do
+      Account.should_receive(:ids_from_account_numbers).and_return({})
+    end
+
+    it "should set the account id to a value if the aws owner matches a key in the hash" do
+      Account.stub!(:ids_from_account_numbers).and_return({'foo' => 25})
+      @image.should_receive(:account_id=).with(25)
+    end
+
+    it "should set the account id to nil if the aws owner does not matche a key in the hash" do
+      Account.stub!(:ids_from_account_numbers).and_return({'bar' => 25})
+      @image.should_receive(:account_id=).with(nil)
+    end
+
+    after do
+      @image.aws_owner = "foo"
+    end
+  end
 end
