@@ -1,10 +1,11 @@
 class Account < ActiveRecord::Base
-  has_many :users
   has_many :addresses,          :order => 'public_ip'
   has_many :availability_zones, :order => 'zone_name'
   has_many :key_pairs,          :order => 'aws_key_name'
   has_many :images,             :order => 'aws_location'
+  has_many :instances
   has_many :security_groups,    :order => 'aws_group_name'
+  has_many :users
 
   # Common Vendor Owner IDs
   module Vendors

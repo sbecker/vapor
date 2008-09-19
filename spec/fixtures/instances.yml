@@ -1,0 +1,43 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  account_id: 1
+  ami_launch_index: 1
+  aws_availability_zone: MyString
+  aws_groups: MyString
+  aws_image_id: MyString
+  aws_instance_id: MyString
+  aws_instance_type: MyString
+  aws_kernel_id: MyString
+  aws_launch_time: 2008-09-19 14:28:41
+  aws_owner: MyString
+  aws_product_codes: MyString
+  aws_ramdisk_id: MyString
+  aws_reason: MyString
+  aws_reservation_id: MyString
+  aws_state: MyString
+  aws_state_code: MyString
+  dns_name: MyString
+  private_dns_name: MyString
+  ssh_key_name: MyString
+
+two:
+  account_id: 1
+  ami_launch_index: 1
+  aws_availability_zone: MyString
+  aws_groups: MyString
+  aws_image_id: MyString
+  aws_instance_id: MyString
+  aws_instance_type: MyString
+  aws_kernel_id: MyString
+  aws_launch_time: 2008-09-19 14:28:41
+  aws_owner: MyString
+  aws_product_codes: MyString
+  aws_ramdisk_id: MyString
+  aws_reason: MyString
+  aws_reservation_id: MyString
+  aws_state: MyString
+  aws_state_code: MyString
+  dns_name: MyString
+  private_dns_name: MyString
+  ssh_key_name: MyString

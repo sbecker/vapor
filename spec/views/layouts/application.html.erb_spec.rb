@@ -13,36 +13,44 @@ describe "/layouts/application" do
       render 'layouts/application'
     end
 
-    it "should have a 'Logout' link" do
-      response.should have_tag('a', %r[Logout])
+    describe "ec2 resource links" do
+      it "should have an 'Addresses' link" do
+        response.should have_tag('a', %r[Addresses])
+      end
+
+      it "should have an 'Images' link" do
+        response.should have_tag('a', %r[Images])
+      end
+
+      it "should have an 'Instances' link" do
+        response.should have_tag('a', %r[Instances])
+      end
+
+      it "should have an 'Key Pairs' link" do
+        response.should have_tag('a', %r[Key Pairs])
+      end
+
+      it "should have an 'Security Groups' link" do
+        response.should have_tag('a', %r[Security Groups])
+      end
     end
 
-    it "should have an 'Account' link" do
-      response.should have_tag('a', %r[Account])
-    end
+    describe "system links" do
+      it "should have a 'Dashboard' link" do
+        response.should have_tag('a', %r[Dashboard])
+      end
 
-    it "should have a 'Sync with EC2' link" do
-      response.should have_tag("a", %r[Sync with EC2])
-    end
+      it "should have an 'Account' link" do
+        response.should have_tag('a', %r[Account])
+      end
 
-    it "should have a 'Dashboard' link" do
-      response.should have_tag('a', %r[Dashboard])
-    end
+      it "should have a 'Sync with EC2' link" do
+        response.should have_tag("a", %r[Sync with EC2])
+      end
 
-    it "should have an 'Addresses' link" do
-      response.should have_tag('a', %r[Addresses])
-    end
-
-    it "should have an 'Images' link" do
-      response.should have_tag('a', %r[Images])
-    end
-
-    it "should have an 'Key Pairs' link" do
-      response.should have_tag('a', %r[Key Pairs])
-    end
-
-    it "should have an 'Security Groups' link" do
-      response.should have_tag('a', %r[Security Groups])
+      it "should have a 'Logout' link" do
+        response.should have_tag('a', %r[Logout])
+      end
     end
   end
 

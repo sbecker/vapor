@@ -39,6 +39,10 @@ describe Account do
       Account.should have_many(:images).with_options({:extend=>[], :order=>"aws_location"})
     end
 
+    it "should have many instances" do
+      Account.should have_many(:instances).with_options({:extend=>[]})
+    end
+
     it "should have many security groups" do
       Account.should have_many(:security_groups).with_options({:extend=>[], :order=>"aws_group_name"})
     end

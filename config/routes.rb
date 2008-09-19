@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :account, :member     => {:sync    => :post}
   map.resources :addresses
   map.resources :images,  :collection => {:vendors => :get, :others  => :get}
+  map.resources :instances
   map.resources :key_pairs
   map.resources :security_groups
 

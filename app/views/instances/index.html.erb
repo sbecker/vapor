@@ -1,0 +1,54 @@
+<h1>Listing instances</h1>
+
+<table>
+  <tr>
+    <th>Launch Index</th>
+    <th>Availability Zone</th>
+    <th>Groups</th>
+    <th>Image</th>
+    <th>Instance</th>
+    <th>Instance Type</th>
+    <th>Kernel ID</th>
+    <th>Launched At</th>
+    <th>Owner</th>
+    <th>Product Codes</th>
+    <th>Ramdisk ID</th>
+    <th>Reason</th>
+    <th>Reservation</th>
+    <th>State</th>
+    <th>State Code</th>
+    <th>DNS Mame</th>
+    <th>Private DNS Name</th>
+    <th>SSK Key Name</th>
+  </tr>
+
+<% for instance in @instances %>
+  <tr>
+    <td><%=h instance.ami_launch_index %></td>
+    <td><%=h instance.aws_availability_zone %></td>
+    <td><%=h instance.aws_groups.join(', ') %></td>
+    <td><%=h instance.aws_image_id %></td>
+    <td><%=h instance.aws_instance_id %></td>
+    <td><%=h instance.aws_instance_type %></td>
+    <td><%=h instance.aws_kernel_id %></td>
+    <td><%=h instance.aws_launch_time.to_s(:long) %></td>
+    <td><%=h instance.aws_owner %></td>
+    <td><%=h instance.aws_product_codes.join(', ') %></td>
+    <td><%=h instance.aws_ramdisk_id %></td>
+    <td><%=h instance.aws_reason %></td>
+    <td><%=h instance.aws_reservation_id %></td>
+    <td><%=h instance.aws_state %></td>
+    <td><%=h instance.aws_state_code %></td>
+    <td><%=h instance.dns_name %></td>
+    <td><%=h instance.private_dns_name %></td>
+    <td><%=h instance.ssh_key_name %></td>
+    <td><%= link_to 'Show', instance %></td>
+    <td><%= link_to 'Edit', edit_instance_path(instance) %></td>
+    <td><%= link_to 'Destroy', instance, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New instance', new_instance_path %>

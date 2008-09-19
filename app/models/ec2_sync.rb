@@ -10,7 +10,7 @@ class EC2Sync
       :address           => :public_ip,
       :availability_zone => :zone_name,
       :image             => :aws_id,
-      ###:instance          => :aws_instance_id,
+      :instance          => :aws_instance_id,
       :key_pair          => :aws_key_name,
       :security_group    => :aws_group_name#,
       ###:snapshot          => :aws_id,
@@ -66,7 +66,7 @@ class EC2Sync
     if(@model_name == 'images')
       ::Image.available.all(:conditions => ["aws_is_public = ? OR account_id = ?", true, @account.id])
     else
-      @account.send(@model_name).all
+      @account.send(@model_name)
     end
   end
 

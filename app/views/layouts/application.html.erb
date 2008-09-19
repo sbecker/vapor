@@ -10,10 +10,12 @@
   <body>
     <% if logged_in? %>
       <%= link_to "Dashboard", dashboard_path %> |
-      <%= link_to "Addresses", addresses_path %> |
+      <%= link_to "Instances", instances_path %> |
       <%= link_to "Images", images_path %> |
       <%= link_to "Key Pairs", key_pairs_path %> |
       <%= link_to "Security Groups", security_groups_path %> |
+      <%= link_to "Addresses", addresses_path %> |
+
       <%= link_to "Account", account_path %> |
       <%= link_to "Sync with EC2", sync_account_path, :method => :post %> |
       <%= link_to "Logout", logout_path %>

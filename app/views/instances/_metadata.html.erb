@@ -1,0 +1,89 @@
+<p>
+  <b>Instance ID:</b>
+  <%=h @instance.aws_instance_id %>
+</p>
+
+<p>
+  <b>Image ID:</b>
+  <%=h @instance.aws_image_id %>
+</p>
+
+<p>
+  <b>Kernel ID:</b>
+  <%=h @instance.aws_kernel_id %>
+</p>
+
+<p>
+  <b>Ramdisk ID:</b>
+  <%=h @instance.aws_ramdisk_id %>
+</p>
+
+<p>
+  <b>Instance Type:</b>
+  <%=h @instance.aws_instance_type %>
+</p>
+
+<p>
+  <b>Launch Index:</b>
+  <%=h @instance.ami_launch_index %>
+</p>
+
+<p>
+  <b>Availability Zone:</b>
+  <%=h @instance.aws_availability_zone %>
+</p>
+
+<p>
+  <b>Groups:</b>
+  <%=h @instance.aws_groups.join(', ') %>
+</p>
+
+<p>
+  <b>Launch Time:</b>
+  <%=h @instance.aws_launch_time.to_s(:long) %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%=h @instance.aws_owner %>
+</p>
+
+<p>
+  <b>Product Codes:</b>
+  <%=h @instance.aws_product_codes.join(', ') %>
+</p>
+
+<p>
+  <b>Reason:</b>
+  <%=h @instance.aws_reason %>
+</p>
+
+<p>
+  <b>Reservation:</b>
+  <%=h @instance.aws_reservation_id %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @instance.aws_state %>
+</p>
+
+<p>
+  <b>State Code:</b>
+  <%=h @instance.aws_state_code %>
+</p>
+
+<p>
+  <b>DNS Name:</b>
+  <%=h @instance.dns_name %>
+</p>
+
+<p>
+  <b>Private DNS Name:</b>
+  <%=h @instance.private_dns_name %>
+</p>
+
+<p>
+  <b>SSH Key Name:</b>
+  <%=h @instance.ssh_key_name %>
+</p>

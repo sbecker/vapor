@@ -104,7 +104,6 @@ describe EC2Sync do
       it "should get the accounts associated objects via the model name" do
         resources = mock('resources')
         @account.should_receive(:send).with('resources').and_return(resources)
-        resources.should_receive(:all)
         @ec2sync.get_locals
       end
     end

@@ -19,6 +19,12 @@ describe Image do
     Image.create!(@valid_attributes)
   end
 
+  describe "associations" do
+    it "should belong to an account" do
+      Image.should belong_to(:account)
+    end
+  end
+
   describe "named scopes" do
     # Want a better way to test this.
     it "should have an are_public named scope" do
