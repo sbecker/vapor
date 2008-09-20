@@ -5,9 +5,8 @@ describe "/snapshots/new.html.erb" do
 
   before(:each) do
     assigns[:snapshot] = stub_model(Snapshot,
-      :new_record?  => true,
-      :aws_progress => "value for aws_progress",
-      :aws_status   => "value for aws_status"
+      :new_record?   => true,
+      :aws_volume_id => "value for aws_volume_id"
     )
   end
 
@@ -15,8 +14,7 @@ describe "/snapshots/new.html.erb" do
     render "/snapshots/new.html.erb"
     
     response.should have_tag("form[action=?][method=post]", snapshots_path) do
-      with_tag("input#snapshot_aws_progress[name=?]", "snapshot[aws_progress]")
-      with_tag("input#snapshot_aws_status[name=?]", "snapshot[aws_status]")
+      with_tag("input#snapshot_aws_volume_id[name=?]", "snapshot[aws_volume_id]")
     end
   end
 end

@@ -43,23 +43,19 @@ describe Image do
   describe "accessible attributes" do
     before do
       @image = Image.new(@valid_attributes)
+      @accessible_attributes = %w( name description ).map{|a| a.to_sym }
+      @inaccessible_attributes = @valid_attributes.keys - @accessible_attributes
     end
 
-    it "should include 'name'" do
-      @image.name.should == @valid_attributes[:name]
+    it "should set accessible attributes - name and description" do
+      @accessible_attributes.each do |attr|
+        @image.send(attr).should == @valid_attributes[attr]
+      end
     end
 
-    it "should include 'description'" do
-      @image.description.should == @valid_attributes[:description]
-    end
-
-    it "should not include any other attributes" do
-      inaccessible_attributes = @valid_attributes
-      inaccessible_attributes.delete(:name)
-      inaccessible_attributes.delete(:description)
-
-      inaccessible_attributes.each_key do |key|
-        @image.send(key).should be_nil
+    it "should not set any other attributes" do
+      @inaccessible_attributes.each do |attr|
+        @image.send(attr).should be_nil
       end
     end
   end

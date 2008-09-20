@@ -1,5 +1,11 @@
 
 Todo:
 -----
+- Add name and description to Instance, allow editing of those things
+- Remove edit ability for fields that don't make sense for all models
+- Protect non-editable fields
+
 - Remove restful actions which dont make sense (some ec2 resources can be created or deleted but not edited)
 - Implement ec2 resource creation (run instances, create elastic ips, associate them to instances, etc, etc.)
+
+- Give the UI some love

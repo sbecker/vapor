@@ -2,23 +2,6 @@
 
 <% form_for(@snapshot) do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :aws_id %><br />
-    <%= f.text_field :aws_id %>
-  </p>
-  <p>
-    <%= f.label :aws_progress %><br />
-    <%= f.text_field :aws_progress %>
-  </p>
-  <p>
-    <%= f.label :aws_started_at %><br />
-    <%= f.datetime_select :aws_started_at %>
-  </p>
-  <p>
-    <%= f.label :aws_status %><br />
-    <%= f.text_field :aws_status %>
-  </p>
   <p>
     <%= f.label :aws_volume_id %><br />
     <%= f.text_field :aws_volume_id %>
