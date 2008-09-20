@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080919212841) do
+ActiveRecord::Schema.define(:version => 20080919232628) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -118,5 +118,21 @@ ActiveRecord::Schema.define(:version => 20080919212841) do
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+
+  create_table "volumes", :force => true do |t|
+    t.integer  "account_id"
+    t.datetime "aws_attached_at"
+    t.string   "aws_attachment_status"
+    t.datetime "aws_created_at"
+    t.string   "aws_device"
+    t.string   "aws_id"
+    t.string   "aws_instance_id"
+    t.integer  "aws_size"
+    t.string   "aws_status"
+    t.string   "snapshot_id"
+    t.string   "zone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

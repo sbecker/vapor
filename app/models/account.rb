@@ -6,6 +6,7 @@ class Account < ActiveRecord::Base
   has_many :instances
   has_many :security_groups,    :order => 'aws_group_name'
   has_many :users
+  has_many :volumes
 
   # Common Vendor Owner IDs
   module Vendors

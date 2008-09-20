@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :instances
   map.resources :key_pairs
   map.resources :security_groups
+  map.resources :volumes
 
   map.root :controller => 'dashboard'
 

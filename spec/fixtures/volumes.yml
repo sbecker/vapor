@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  account_id: 1
+  aws_attached_at: 2008-09-19 16:26:27
+  aws_attachment_status: MyString
+  aws_created_at: 2008-09-19 16:26:27
+  aws_device: MyString
+  aws_id: MyString
+  aws_instance_id: MyString
+  aws_size: 1
+  aws_status: MyString
+  snapshot_id: MyString
+  zone: MyString
+
+two:
+  account_id: 1
+  aws_attached_at: 2008-09-19 16:26:27
+  aws_attachment_status: MyString
+  aws_created_at: 2008-09-19 16:26:27
+  aws_device: MyString
+  aws_id: MyString
+  aws_instance_id: MyString
+  aws_size: 1
+  aws_status: MyString
+  snapshot_id: MyString
+  zone: MyString

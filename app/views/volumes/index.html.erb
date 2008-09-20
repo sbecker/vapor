@@ -1,0 +1,38 @@
+<h2>Listing Volumes</h2>
+
+<table>
+  <tr>
+    <th>Attached At</th>
+    <th>Attachment Status</th>
+    <th>Created At</th>
+    <th>Device</th>
+    <th>AWS ID</th>
+    <th>Instance ID</th>
+    <th>Size</th>
+    <th>Status</th>
+    <th>Snapshot</th>
+    <th>Zone</th>
+  </tr>
+
+<% for volume in @volumes %>
+  <tr>
+    <td><%=h volume.aws_attached_at %></td>
+    <td><%=h volume.aws_attachment_status %></td>
+    <td><%=h volume.aws_created_at.to_s(:long) %></td>
+    <td><%=h volume.aws_device %></td>
+    <td><%=h volume.aws_id %></td>
+    <td><%=h volume.aws_instance_id %></td>
+    <td><%=h volume.aws_size %> GB</td>
+    <td><%=h volume.aws_status %></td>
+    <td><%=h volume.snapshot_id %></td>
+    <td><%=h volume.zone %></td>
+    <td><%= link_to 'Show', volume %></td>
+    <td><%= link_to 'Edit', edit_volume_path(volume) %></td>
+    <td><%= link_to 'Destroy', volume, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New volume', new_volume_path %>

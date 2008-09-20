@@ -1,0 +1,55 @@
+<h2>New Volume</h2>
+
+<% form_for(@volume) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :account_id %><br />
+    <%= f.text_field :account_id %>
+  </p>
+  <p>
+    <%= f.label :aws_attached_at %><br />
+    <%= f.datetime_select :aws_attached_at %>
+  </p>
+  <p>
+    <%= f.label :aws_attachment_status %><br />
+    <%= f.text_field :aws_attachment_status %>
+  </p>
+  <p>
+    <%= f.label :aws_created_at %><br />
+    <%= f.datetime_select :aws_created_at %>
+  </p>
+  <p>
+    <%= f.label :aws_device %><br />
+    <%= f.text_field :aws_device %>
+  </p>
+  <p>
+    <%= f.label :aws_id %><br />
+    <%= f.text_field :aws_id %>
+  </p>
+  <p>
+    <%= f.label :aws_instance_id %><br />
+    <%= f.text_field :aws_instance_id %>
+  </p>
+  <p>
+    <%= f.label :aws_size %><br />
+    <%= f.text_field :aws_size %>
+  </p>
+  <p>
+    <%= f.label :aws_status %><br />
+    <%= f.text_field :aws_status %>
+  </p>
+  <p>
+    <%= f.label :snapshot_id %><br />
+    <%= f.text_field :snapshot_id %>
+  </p>
+  <p>
+    <%= f.label :zone %><br />
+    <%= f.text_field :zone %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', volumes_path %>

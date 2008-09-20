@@ -12,6 +12,7 @@ describe DashboardController do
       @current_account.stub!(:instances).and_return(mock("Array",       :count => 3))
       @current_account.stub!(:key_pairs).and_return(mock("Array",       :count => 4))
       @current_account.stub!(:security_groups).and_return(mock("Array", :count => 5))
+      @current_account.stub!(:volumes).and_return(mock("Array",         :count => 6))
     end
 
     it "should be successful" do
@@ -28,7 +29,8 @@ describe DashboardController do
           :image_count          => 2,
           :instance_count       => 3,
           :key_pair_count       => 4,
-          :security_group_count => 5
+          :security_group_count => 5,
+          :volume_count         => 6
         }
       end
 
@@ -54,6 +56,11 @@ describe DashboardController do
 
       it "should get a count of security groups" do
         @current_account.security_groups.should_receive(:count).and_return(5)
+        get 'index'
+      end
+
+      it "should get a count of volumes" do
+        @current_account.volumes.should_receive(:count).and_return(6)
         get 'index'
       end
 

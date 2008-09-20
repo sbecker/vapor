@@ -12,9 +12,9 @@ class EC2Sync
       :image             => :aws_id,
       :instance          => :aws_instance_id,
       :key_pair          => :aws_key_name,
-      :security_group    => :aws_group_name#,
+      :security_group    => :aws_group_name,
       ###:snapshot          => :aws_id,
-      ###:volume            => :aws_id
+      :volume            => :aws_id
     }.each_pair do |model_name, unique_attribute|
       new(account, model_name, unique_attribute).sync!
     end

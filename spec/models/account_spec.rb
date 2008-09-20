@@ -46,6 +46,10 @@ describe Account do
     it "should have many security groups" do
       Account.should have_many(:security_groups).with_options({:extend=>[], :order=>"aws_group_name"})
     end
+
+    it "should have many volumes" do
+      Account.should have_many(:volumes).with_options({:extend=>[]})
+    end
   end
 
   describe "ec2 proxy" do

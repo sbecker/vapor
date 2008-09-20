@@ -1,0 +1,58 @@
+<p>
+  <b>Account:</b>
+  <%=h @volume.account_id %>
+</p>
+
+<p>
+  <b>Aws attached at:</b>
+  <%=h @volume.aws_attached_at %>
+</p>
+
+<p>
+  <b>Aws attachment status:</b>
+  <%=h @volume.aws_attachment_status %>
+</p>
+
+<p>
+  <b>Aws created at:</b>
+  <%=h @volume.aws_created_at %>
+</p>
+
+<p>
+  <b>Aws device:</b>
+  <%=h @volume.aws_device %>
+</p>
+
+<p>
+  <b>Aws:</b>
+  <%=h @volume.aws_id %>
+</p>
+
+<p>
+  <b>Aws instance:</b>
+  <%=h @volume.aws_instance_id %>
+</p>
+
+<p>
+  <b>Aws size:</b>
+  <%=h @volume.aws_size %>
+</p>
+
+<p>
+  <b>Aws status:</b>
+  <%=h @volume.aws_status %>
+</p>
+
+<p>
+  <b>Snapshot:</b>
+  <%=h @volume.snapshot_id %>
+</p>
+
+<p>
+  <b>Zone:</b>
+  <%=h @volume.zone %>
+</p>
+
+
+<%= link_to 'Edit', edit_volume_path(@volume) %> |
+<%= link_to 'Back', volumes_path %>
