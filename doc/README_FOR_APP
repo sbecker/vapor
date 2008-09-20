@@ -1,10 +1,4 @@
 # Remaining unimplemented models
-
-Image (needs some more columns)
-      :aws_product_codes
-      :aws_ramdisk_id
-      :aws_kernel_id
-
 Instance
       :aws_image_id          => "ami-e444444d",
       :aws_reason            => "",   # ???
@@ -42,3 +36,49 @@ Volume
       :aws_attachment_status => "attached",
       :aws_attached_at       => Wed Jun 18 08:19:28 UTC 2008,
       :aws_instance_id       => "i-c014c0a9",
+
+./script/generate rspec_scaffold instance \
+  account_id:integer \
+  ami_launch_index:integer \
+  aws_availability_zone:string \
+  aws_groups:string \
+  aws_image_id:string \
+  aws_instance_id:string \
+  aws_instance_type:string \
+  aws_kernel_id:string \
+  aws_launch_time:datetime \
+  aws_owner:string \
+  aws_product_codes:string \
+  aws_ramdisk_id:string \
+  aws_reason:string \
+  aws_reservation_id:string \
+  aws_state:string \
+  aws_state_code:string \
+  dns_name:string \
+  private_dns_name:string \
+  ssh_key_name:string
+
+./script/generate rspec_scaffold snapshot \
+  account_id:integer \
+  aws_id:string \
+  aws_progress:string \
+  aws_started_at:datetime \
+  aws_status:string \
+  aws_volume_id:string
+
+
+./script/generate rspec_scaffold volume \
+  account_id:integer \
+  aws_attached_at:datetime \
+  aws_attachment_status:string \
+  aws_created_at:datetime \
+  aws_device:string \
+  aws_id:string \
+  aws_instance_id:string \
+  aws_size:integer \
+  aws_status:string \
+  snapshot_id:string \
+  zone:string
+
+modify controllers to require login and scope finds to account
+remove restful actions which dont make sense (some ec2 resources can be created or deleted but not edited)
