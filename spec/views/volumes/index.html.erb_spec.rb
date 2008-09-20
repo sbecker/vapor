@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/volumes/index.html.erb" do
   include VolumesHelper
-  
+
   before(:each) do
     assigns[:volumes] = [
       stub_model(Volume,

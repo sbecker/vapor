@@ -1,0 +1,33 @@
+<p>
+  <b>Account:</b>
+  <%=h @snapshot.account_id %>
+</p>
+
+<p>
+  <b>AWS ID:</b>
+  <%=h @snapshot.aws_id %>
+</p>
+
+<p>
+  <b>Progress:</b>
+  <%=h @snapshot.aws_progress %>
+</p>
+
+<p>
+  <b>Started At:</b>
+  <%=h @snapshot.aws_started_at %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @snapshot.aws_status %>
+</p>
+
+<p>
+  <b>Volume:</b>
+  <%=h @snapshot.aws_volume_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_snapshot_path(@snapshot) %> |
+<%= link_to 'Back', snapshots_path %>

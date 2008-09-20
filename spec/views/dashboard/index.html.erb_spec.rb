@@ -8,7 +8,8 @@ describe "/dashboard/index" do
       :instance_count       => 3,
       :key_pair_count       => 4,
       :security_group_count => 5,
-      :volume_count         => 6
+      :snapshot_count       => 6,
+      :volume_count         => 7
     }
     render 'dashboard/index'
   end
@@ -37,6 +38,10 @@ describe "/dashboard/index" do
 
     it "should list number of security groups" do
       response.should have_tag('li', %r[Security Groups: #{@ec2_stats[:security_group_count]}])
+    end
+
+    it "should list number of snapshots" do
+      response.should have_tag('li', %r[Snapshots: #{@ec2_stats[:snapshot_count]}])
     end
 
     it "should list number of volumes" do

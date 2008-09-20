@@ -47,8 +47,12 @@ describe Account do
       Account.should have_many(:security_groups).with_options({:extend=>[], :order=>"aws_group_name"})
     end
 
+    it "should have many snapshots" do
+      Account.should have_many(:snapshots).with_options({:extend=>[], :order=>"aws_started_at"})
+    end
+
     it "should have many volumes" do
-      Account.should have_many(:volumes).with_options({:extend=>[]})
+      Account.should have_many(:volumes).with_options({:extend=>[], :order=>"aws_created_at"})
     end
   end
 

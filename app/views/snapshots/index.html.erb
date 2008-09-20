@@ -1,0 +1,28 @@
+<h2>Listing Snapshots</h2>
+
+<table>
+  <tr>
+    <th>AWS ID</th>
+    <th>Progress</th>
+    <th>Started At</th>
+    <th>Status</th>
+    <th>Volume ID</th>
+  </tr>
+
+<% for snapshot in @snapshots %>
+  <tr>
+    <td><%=h snapshot.aws_id %></td>
+    <td><%=h snapshot.aws_progress %></td>
+    <td><%=h snapshot.aws_started_at %></td>
+    <td><%=h snapshot.aws_status %></td>
+    <td><%=h snapshot.aws_volume_id %></td>
+    <td><%= link_to 'Show', snapshot %></td>
+    <td><%= link_to 'Edit', edit_snapshot_path(snapshot) %></td>
+    <td><%= link_to 'Destroy', snapshot, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New snapshot', new_snapshot_path %>

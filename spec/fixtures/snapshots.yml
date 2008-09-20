@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  account_id: 1
+  aws_id: MyString
+  aws_progress: MyString
+  aws_started_at: 2008-09-19 17:07:21
+  aws_status: MyString
+  aws_volume_id: MyString
+
+two:
+  account_id: 1
+  aws_id: MyString
+  aws_progress: MyString
+  aws_started_at: 2008-09-19 17:07:21
+  aws_status: MyString
+  aws_volume_id: MyString

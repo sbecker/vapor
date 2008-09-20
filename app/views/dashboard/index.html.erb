@@ -2,10 +2,11 @@
 
 <h3>EC2</h3>
 <ul>
-  <li>Addresses: <%= @ec2_stats[:address_count] %></li>
-  <li>Images: <%= @ec2_stats[:image_count] %></li>
   <li>Instances: <%= @ec2_stats[:instance_count] %></li>
-  <li>Key Pairs: <%= @ec2_stats[:key_pair_count] %></li>
+  <li>Images: <%= @ec2_stats[:image_count] %></li>
+  <li>Addresses: <%= @ec2_stats[:address_count] %></li>
   <li>Security Groups: <%= @ec2_stats[:security_group_count] %></li>
+  <li>Key Pairs: <%= @ec2_stats[:key_pair_count] %></li>
   <li>Volumes: <%= @ec2_stats[:volume_count] %></li>
+  <li>Snapshots: <%= @ec2_stats[:snapshot_count] %></li>
 </ul>

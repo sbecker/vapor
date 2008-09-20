@@ -16,8 +16,11 @@ describe EC2Sync do
       EC2Sync.should_receive(:new).with(@account, :address, :public_ip).and_return(@mock_sync)
       EC2Sync.should_receive(:new).with(@account, :availability_zone, :zone_name).and_return(@mock_sync)
       EC2Sync.should_receive(:new).with(@account, :image, :aws_id).and_return(@mock_sync)
+      EC2Sync.should_receive(:new).with(@account, :instance, :aws_instance_id).and_return(@mock_sync)
       EC2Sync.should_receive(:new).with(@account, :key_pair, :aws_key_name).and_return(@mock_sync)
       EC2Sync.should_receive(:new).with(@account, :security_group, :aws_group_name).and_return(@mock_sync)
+      EC2Sync.should_receive(:new).with(@account, :snapshot, :aws_id).and_return(@mock_sync)
+      EC2Sync.should_receive(:new).with(@account, :volume, :aws_id).and_return(@mock_sync)
     end
 
     after do

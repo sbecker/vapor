@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080919232628) do
+ActiveRecord::Schema.define(:version => 20080920000721) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -96,6 +96,17 @@ ActiveRecord::Schema.define(:version => 20080919232628) do
     t.string   "aws_description"
     t.string   "aws_owner"
     t.text     "aws_perms"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "snapshots", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "aws_id"
+    t.string   "aws_progress"
+    t.datetime "aws_started_at"
+    t.string   "aws_status"
+    t.string   "aws_volume_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

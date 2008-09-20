@@ -34,6 +34,10 @@ describe "/layouts/application" do
         response.should have_tag('a', %r[Security Groups])
       end
 
+      it "should have an 'Snapshots' link" do
+        response.should have_tag('a', %r[Snapshots])
+      end
+
       it "should have an 'Volumes' link" do
         response.should have_tag('a', %r[Volumes])
       end
