@@ -1,4 +1,6 @@
 module SecurityGroupsHelper
+
+  # Useful for formatting the serialized SecurityGroup#aws_perms attribute
   def format_permissions(permissions)
     permissions.map do |permission|
       if permission.has_key?(:group)
@@ -8,4 +10,5 @@ module SecurityGroupsHelper
       end
     end.join("")
   end
+
 end

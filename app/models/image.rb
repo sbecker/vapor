@@ -25,6 +25,9 @@ class Image < ActiveRecord::Base
                        " AND aws_owner != '#{Account::Vendors::Scalr}'")
   end
 
+  # Associates the image with an account if an account exists for that owner
+  # using Account#ids_from_account_numbers which returns a hash
+  # with account numbers as keys and account ids as values
   def aws_owner=(val)
     self.account_id = Account.ids_from_account_numbers[val]
     write_attribute :aws_owner, val

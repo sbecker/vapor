@@ -128,7 +128,8 @@ describe Image do
 
   describe "aws location short" do
     it "should remove the meaningless '.manifest.xml' from the end of the name and titleize it" do
-      image = Image.new(:aws_location => 'redhat-cloud/RHEL-5-Server/5.1/i386/kernels/kernel-2.6.18-53.1.4.el5xen.manifest.xml')
+      image = Image.new
+      image.aws_location = 'redhat-cloud/RHEL-5-Server/5.1/i386/kernels/kernel-2.6.18-53.1.4.el5xen.manifest.xml'
       image.aws_location_short.should == 'Redhat Cloud/Rhel 5 Server/5.1/I386/Kernels/Kernel 2.6.18 53.1.4.El5xen'
     end
   end

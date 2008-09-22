@@ -19,6 +19,8 @@ class Account < ActiveRecord::Base
     Scalr      = '788921246207'
   end
 
+  # Returns a hash with account numbers as keys and account ids as values
+  # Used by Image#aws_owner= method (associates the image with an account if an account exists for that owner)
   def self.ids_from_account_numbers(refresh=false)
     if refresh || !defined? @@ids_from_account_numbers
       all_accounts = all(:select => "aws_account_number, id")
@@ -34,4 +36,5 @@ class Account < ActiveRecord::Base
   def ec2
     @ec2 ||= RightAws::Ec2.new(aws_access_key, aws_secret_access_key)
   end
+
 end
