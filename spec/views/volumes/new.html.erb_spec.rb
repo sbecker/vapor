@@ -10,15 +10,17 @@ describe "/volumes/new.html.erb" do
       :snapshot_id => "value for snapshot_id",
       :zone        => "value for zone"
     )
+
+    assigns[:availability_zones] = [mock(AvailabilityZone, :zone_name => 'foo')]
   end
 
   it "should render new form" do
     render "/volumes/new.html.erb"
-    
+
     response.should have_tag("form[action=?][method=post]", volumes_path) do
       with_tag("input#volume_aws_size[name=?]", "volume[aws_size]")
       with_tag("input#volume_snapshot_id[name=?]", "volume[snapshot_id]")
-      with_tag("input#volume_zone[name=?]", "volume[zone]")
+      with_tag("select#volume_zone[name=?]", "volume[zone]")
     end
   end
 end

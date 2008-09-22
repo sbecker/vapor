@@ -26,6 +26,7 @@ class VolumesController < ApplicationController
   # GET /volumes/new.xml
   def new
     @volume = current_account.volumes.new
+    @availability_zones = current_account.availability_zones.available.for_select
 
     respond_to do |format|
       format.html # new.html.erb

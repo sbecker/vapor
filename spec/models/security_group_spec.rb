@@ -15,7 +15,20 @@ describe SecurityGroup do
     SecurityGroup.create!(@valid_attributes)
   end
 
-  it "should belong to an account" do
-    SecurityGroup.should belong_to(:account)
+  describe "associations" do
+
+    it "should belong to an account" do
+      SecurityGroup.should belong_to(:account)
+    end
+
   end
+
+  describe "named scopes" do
+
+    it "should have a 'for_select' named scope which only returns the 'aws_group_name'" do
+      SecurityGroup.should have_named_scope(:for_select, :select => 'aws_group_name')
+    end
+
+  end
+
 end

@@ -52,6 +52,8 @@ end
 # Restful Authentication Test Helper
 include AuthenticatedTestHelper
 
+include NamedScopeSpecHelper
+
 def stub_logged_in
   @controller.stub!(:login_required).and_return(true)
   @current_user = mock_model(User, :account => mock_model(Account))
@@ -66,4 +68,30 @@ def stub_account_with_ec2
   @account.id = 1
   @account.aws_account_number = "AAAATLBUXIEON5NQVUUX6OMPWBZIAAAA"
   @account.stub!(:ec2).and_return(@ec2)
+end
+
+def puts_response_body
+  puts response.body.gsub(/</, '&lt;').gsub(/\n/, '<br />')
+end
+
+module Spec
+  module Mocks
+    module Methods
+
+      def stub_method_chain(scope_string, value)
+        scope_chain = scope_string.split('.')
+        method_name = scope_chain.first
+
+        if scope_chain.length > 1
+          scope_mock = Spec::Mocks::Mock.new(method_name, {})
+          scope_mock.stub_method_chain(scope_chain[1..scope_chain.length].join('.'), value)
+        else
+          scope_mock = value
+        end
+
+        self.stub!(method_name).and_return(scope_mock)
+      end
+
+    end
+  end
 end

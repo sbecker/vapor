@@ -64,7 +64,7 @@ class EC2Sync
   # Get an array of objects from local source
   def get_locals
     if(@model_name == 'images')
-      ::Image.available.all(:conditions => ["aws_is_public = ? OR account_id = ?", true, @account.id])
+      Image.available.allowed_for(@account)
     else
       @account.send(@model_name)
     end
@@ -73,7 +73,7 @@ class EC2Sync
   # Get a new instance of a local model
   def new_local
     if(@model_name == 'images')
-      ::Image.new
+      Image.new
     else
       locals.new
     end

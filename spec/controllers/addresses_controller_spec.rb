@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AddressesController do
   before do
     stub_logged_in
-    @current_account.stub!(:addresses).and_return([])
+    @current_account.stub!(:addresses => [])
   end
 
   def mock_address(stubs={})

@@ -4,7 +4,7 @@ describe KeyPairsController do
 
   before do
     stub_logged_in
-    @current_account.stub!(:key_pairs).and_return([])
+    @current_account.stub!(:key_pairs => [])
   end
 
   def mock_key_pair(stubs={})

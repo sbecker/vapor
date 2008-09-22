@@ -5,7 +5,7 @@ describe InstancesController do
   before do
     stub_logged_in
     @account_instances = mock("Instance")
-    @current_user.stub!(:account).and_return(mock_model(Account, :id => 1, :aws_account_number => "1234", :instances => @account_instances))
+    @current_account.stub!(:instances => @account_instances)
   end
 
   def mock_instance(stubs={})
@@ -57,11 +57,52 @@ describe InstancesController do
   end
 
   describe "responding to GET new" do
-  
-    it "should expose a new instance as @instance" do
-      @account_instances.should_receive(:new).and_return(mock_instance)
+
+    before do
+      @account_instances.stub!(:new).and_return(mock_instance)
+
+      @current_user.account.stub_method_chain 'images.machines.available.for_select', ['account_machines']
+      @current_user.account.stub_method_chain 'availability_zones.available.for_select', ['availability_zones']
+      @current_user.account.stub_method_chain 'security_groups.for_select', ['security_groups']
+      @current_user.account.stub_method_chain 'key_pairs.for_select', ['key_pairs']
+
+      Image.stub_method_chain 'machines.available.are_public.for_select', ['all_machines']
+      Image.stub_method_chain 'kernels.available.are_public.for_select', ['kernels']
+      Image.stub_method_chain 'ramdisks.available.are_public.for_select', ['ramdisks']
+
       get :new
+    end
+
+    it "should expose a new instance as @instance" do
       assigns[:instance].should equal(mock_instance)
+    end
+
+    it "should expose an array of items as @account_machines" do
+      assigns[:account_machines].should == ['account_machines']
+    end
+
+    it "should expose an array of items as @all_machines" do
+      assigns[:all_machines].should == ['all_machines']
+    end
+
+    it "should expose an array of items as @kernels" do
+      assigns[:kernels].should == ['kernels']
+    end
+
+    it "should expose an array of items as @ramdisks" do
+      assigns[:ramdisks].should == ['ramdisks']
+    end
+
+    it "should expose an array of items as @availability_zones" do
+      assigns[:availability_zones].should == ['availability_zones']
+    end
+
+    it "should expose an array of items as @security_groups" do
+      assigns[:security_groups].should == ['security_groups']
+    end
+
+    it "should expose an array of items as @key_pairs" do
+      assigns[:key_pairs].should == ['key_pairs']
     end
 
   end

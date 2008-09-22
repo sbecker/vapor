@@ -5,8 +5,7 @@ describe SnapshotsController do
   before do
     stub_logged_in
     @account_snapshots = mock('Snapshot')
-    @current_account.stub!(:snapshots).and_return(@account_snapshots)
-    #@current_user.stub!(:account).and_return(mock_model(Account, :id => 1, :aws_account_number => "1234", :instances => @account_instances))
+    @current_account.stub!(:snapshots => @account_snapshots)
   end
 
   def mock_snapshot(stubs={})
@@ -58,11 +57,19 @@ describe SnapshotsController do
   end
 
   describe "responding to GET new" do
-  
-    it "should expose a new snapshot as @snapshot" do
-      @account_snapshots.should_receive(:new).and_return(mock_snapshot)
+
+    before do
+      @account_snapshots.stub!(:new => mock_snapshot)
+      @current_account.stub!(:volumes => ['volumes'])
       get :new
+    end
+
+    it "should expose a new snapshot as @snapshot" do
       assigns[:snapshot].should equal(mock_snapshot)
+    end
+
+    it "should expose an array of volumes as @volumes" do
+      assigns[:volumes].should == ['volumes']
     end
 
   end

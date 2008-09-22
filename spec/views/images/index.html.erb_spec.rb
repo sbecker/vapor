@@ -7,24 +7,24 @@ describe "/images/index.html.erb" do
   before(:each) do
     assigns[:images] = [
       stub_model(Image,
-        :aws_architecture => "value for architecture",
-        :aws_is_public    => false,
-        :aws_id           => "value for aws id",
-        :aws_location     => "value for location",
-        :aws_state        => "value for state",
-        :aws_image_type   => "value for image_type",
-        :description      => "value for description",
-        :name             => "value for name"
+        :aws_architecture   => "value for architecture",
+        :aws_is_public      => false,
+        :aws_id             => "value for aws id",
+        :aws_location_short => "value for aws_location_short",
+        :aws_state          => "value for state",
+        :aws_image_type     => "value for image_type",
+        :description        => "value for description",
+        :name               => "value for name"
       ),
       stub_model(Image,
-        :aws_architecture => "value for architecture",
-        :aws_is_public    => false,
-        :aws_id           => "value for aws id",
-        :aws_location     => "value for location",
-        :aws_state        => "value for state",
-        :aws_image_type   => "value for image_type",
-        :description      => "value for description",
-        :name             => "value for name"
+        :aws_architecture   => "value for architecture",
+        :aws_is_public      => false,
+        :aws_id             => "value for aws id",
+        :aws_location_short => "value for aws_location_short",
+        :aws_state          => "value for state",
+        :aws_image_type     => "value for image_type",
+        :description        => "value for description",
+        :name               => "value for name"
       )
     ]
 
@@ -44,7 +44,7 @@ describe "/images/index.html.erb" do
     response.should have_tag("tr>td", "value for description", 2)
     response.should have_tag("tr>td", "false", 2)
     response.should have_tag("tr>td", "value for aws id", 2)
-    response.should have_tag("tr>td", "value for location", 2)
+    response.should have_tag("tr>td", "value for aws_location_short", 2)
     response.should have_tag("tr>td", "value for name", 2)
     response.should have_tag("tr>td", "value for state", 2)
     response.should have_tag("tr>td", "value for image_type", 2)

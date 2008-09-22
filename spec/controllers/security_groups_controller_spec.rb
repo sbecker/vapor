@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe SecurityGroupsController do
   before do
     stub_logged_in
-    @current_account.stub!(:security_groups).and_return([])
+    @current_account.stub!(:security_groups => [])
   end
 
   def mock_security_group(stubs={})

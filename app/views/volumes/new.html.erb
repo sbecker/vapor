@@ -4,7 +4,7 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :aws_size %><br />
+    <%= f.label :aws_size, 'Size (in GB)' %><br />
     <%= f.text_field :aws_size %>
   </p>
   <p>
@@ -12,8 +12,8 @@
     <%= f.text_field :snapshot_id %>
   </p>
   <p>
-    <%= f.label :zone %><br />
-    <%= f.text_field :zone %>
+    <%= f.label :zone, 'Availability Zone' %><br />
+    <%= f.select :zone, format_array_for_select(@availability_zones, :zone_name) %>
   </p>
   <p>
     <%= f.submit "Create" %>

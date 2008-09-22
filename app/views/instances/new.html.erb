@@ -4,32 +4,32 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :aws_image_id %><br />
-    <%= f.text_field :aws_image_id %>
+    <%= f.label :aws_image_id, 'Machine Image' %><br />
+    <%= f.select :aws_image_id, format_array_for_select(@account_machines, :aws_location_short, :aws_id) + ["-----"] + format_array_for_select(@all_machines, :aws_location_short, :aws_id) %>
   </p>
   <p>
-    <%= f.label :aws_kernel_id %><br />
-    <%= f.text_field :aws_kernel_id %>
+    <%= f.label :aws_kernel_id, 'Kernel Image' %><br />
+    <%= f.select :aws_kernel_id, [["n/a", ""]] + format_array_for_select(@kernels, :aws_location_short, :aws_id) %>
   </p>
   <p>
-    <%= f.label :aws_ramdisk_id %><br />
-    <%= f.text_field :aws_ramdisk_id %>
+    <%= f.label :aws_ramdisk_id, 'Ramdisk Image' %><br />
+    <%= f.select :aws_ramdisk_id, [["n/a", ""]] + format_array_for_select(@ramdisks, :aws_location_short, :aws_id) %>
   </p>
   <p>
-    <%= f.label :ssh_key_name %><br />
-    <%= f.text_field :ssh_key_name %>
+    <%= f.label :ssh_key_name, 'SSH Key Name' %><br />
+    <%= f.select :ssh_key_name, [["n/a", ""]] + format_array_for_select(@key_pairs, :aws_key_name) %>
   </p>
   <p>
-    <%= f.label :aws_groups %><br />
-    <%= f.text_field :aws_groups %>
+    <%= f.label :aws_groups, 'Security Groups' %><br />
+    <%= f.select :aws_groups, format_array_for_select(@security_groups, :aws_group_name), {}, {:multiple => true} %>
   </p>
   <p>
-    <%= f.label :aws_instance_type %><br />
-    <%= f.text_field :aws_instance_type %>
+    <%= f.label :aws_instance_type, 'Instance Type' %><br />
+    <%= f.select :aws_instance_type, instance_types %>
   </p>
   <p>
-    <%= f.label :aws_availability_zone %><br />
-    <%= f.text_field :aws_availability_zone %>
+    <%= f.label :aws_availability_zone, 'Availability Zone' %><br />
+    <%= f.select :aws_availability_zone, [["any", ""]] + format_array_for_select(@availability_zones, :zone_name) %>
   </p>
   <p>
     <%= f.submit "Create" %>

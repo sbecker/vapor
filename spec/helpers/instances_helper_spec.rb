@@ -1,11 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InstancesHelper do
-  
-  #Delete this example and add some real ones or delete this file
-  it "should be included in the object returned by #helper" do
-    included_modules = (class << helper; self; end).send :included_modules
-    included_modules.should include(InstancesHelper)
+  include InstancesHelper
+
+  describe "instance types" do
+    it "should return an array of instance types" do
+      instance_types.should == %w(m1.small m1.large m1.xlarge c1.medium c1.xlarge)
+    end
   end
-  
+
 end

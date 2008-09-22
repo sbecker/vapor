@@ -5,13 +5,13 @@ describe VolumesController do
   before do
     stub_logged_in
     @account_volumes = mock("Volume")
-    @current_user.stub!(:account).and_return(mock_model(Account, :id => 1, :aws_account_number => "1234", :volumes => @account_volumes))
+    @current_account.stub!(:volumes => @account_volumes)
   end
 
   def mock_volume(stubs={})
     @mock_volume ||= mock_model(Volume, stubs)
   end
-  
+
   describe "responding to GET index" do
 
     it "should expose all volumes as @volumes" do
@@ -21,7 +21,7 @@ describe VolumesController do
     end
 
     describe "with mime type of xml" do
-  
+
       it "should render all volumes as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
         @account_volumes.should_receive(:all).and_return(volumes = mock("Array of Volumes"))
@@ -29,7 +29,7 @@ describe VolumesController do
         get :index
         response.body.should == "generated XML"
       end
-    
+
     end
 
   end
@@ -41,7 +41,7 @@ describe VolumesController do
       get :show, :id => "37"
       assigns[:volume].should equal(mock_volume)
     end
-    
+
     describe "with mime type of xml" do
 
       it "should render the requested volume as xml" do
@@ -53,21 +53,29 @@ describe VolumesController do
       end
 
     end
-    
+
   end
 
   describe "responding to GET new" do
-  
-    it "should expose a new volume as @volume" do
-      @account_volumes.should_receive(:new).and_return(mock_volume)
+
+    before do
+      @account_volumes.stub!(:new).and_return(mock_volume)
+      @current_account.stub_method_chain 'availability_zones.available.for_select', ['availability_zones']
       get :new
+    end
+
+    it "should expose a new volume as @volume" do
       assigns[:volume].should equal(mock_volume)
+    end
+
+    it "should expose a new volume as @volume" do
+      assigns[:availability_zones].should == ['availability_zones']
     end
 
   end
 
   describe "responding to GET edit" do
-  
+
     it "should expose the requested volume as @volume" do
       @account_volumes.should_receive(:find).with("37").and_return(mock_volume)
       get :edit, :id => "37"
@@ -79,7 +87,7 @@ describe VolumesController do
   describe "responding to POST create" do
 
     describe "with valid params" do
-      
+
       it "should expose a newly created volume as @volume" do
         @account_volumes.should_receive(:new).with({'these' => 'params'}).and_return(mock_volume(:save => true))
         post :create, :volume => {:these => 'params'}
@@ -91,9 +99,9 @@ describe VolumesController do
         post :create, :volume => {}
         response.should redirect_to(volume_url(mock_volume))
       end
-      
+
     end
-    
+
     describe "with invalid params" do
 
       it "should expose a newly created but unsaved volume as @volume" do
@@ -107,9 +115,9 @@ describe VolumesController do
         post :create, :volume => {}
         response.should render_template('new')
       end
-      
+
     end
-    
+
   end
 
   describe "responding to PUT udpate" do
@@ -135,7 +143,7 @@ describe VolumesController do
       end
 
     end
-    
+
     describe "with invalid params" do
 
       it "should update the requested volume" do
@@ -167,7 +175,7 @@ describe VolumesController do
       mock_volume.should_receive(:destroy)
       delete :destroy, :id => "37"
     end
-  
+
     it "should redirect to the volumes list" do
       @account_volumes.stub!(:find).and_return(mock_volume(:destroy => true))
       delete :destroy, :id => "1"

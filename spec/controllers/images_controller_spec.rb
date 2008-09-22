@@ -4,7 +4,7 @@ describe ImagesController do
   before do
     stub_logged_in
     @user_images = mock("Image")
-    @current_user.stub!(:account).and_return(mock_model(Account, :id => 1, :aws_account_number => "1234", :images => @user_images))
+    @current_account.stub!(:images => @user_images)
   end
 
   def mock_image(stubs={})

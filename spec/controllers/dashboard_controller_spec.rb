@@ -7,13 +7,13 @@ describe DashboardController do
 
   describe "GET 'index'" do
     before do
-      @current_account.stub!(:addresses).and_return(mock("Array",       :count => 1))
-      @current_account.stub!(:images).and_return(mock("Array",          :count => 2))
-      @current_account.stub!(:instances).and_return(mock("Array",       :count => 3))
-      @current_account.stub!(:key_pairs).and_return(mock("Array",       :count => 4))
-      @current_account.stub!(:security_groups).and_return(mock("Array", :count => 5))
-      @current_account.stub!(:snapshots).and_return(mock("Array",       :count => 6))
-      @current_account.stub!(:volumes).and_return(mock("Array",         :count => 7))
+      @current_account.stub!(:addresses       => mock("Array", :count => 1),
+                             :images          => mock("Array", :count => 2),
+                             :instances       => mock("Array", :count => 3),
+                             :key_pairs       => mock("Array", :count => 4),
+                             :security_groups => mock("Array", :count => 5),
+                             :snapshots       => mock("Array", :count => 6),
+                             :volumes         => mock("Array", :count => 7))
     end
 
     it "should be successful" do

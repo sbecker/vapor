@@ -26,18 +26,41 @@ describe Image do
   end
 
   describe "named scopes" do
-    # Want a better way to test this.
-    it "should have an are_public named scope" do
-      Image.singleton_methods.should include("are_public")
+
+    it "should have an 'are_public' named scope where 'aws_is_public' is true" do
+      Image.should have_named_scope(:are_public, :order => 'aws_location', :conditions => {:aws_is_public => true})
     end
 
-    it "should have an not_public named scope" do
-      Image.singleton_methods.should include("not_public")
+    it "should have a 'not_public' named scope where 'aws_is_public' is false" do
+      Image.should have_named_scope(:not_public, :order => 'aws_location', :conditions => {:aws_is_public => false})
     end
 
-    it "should have an available named scope" do
-      Image.singleton_methods.should include("available")
+    it "should have an 'available' named scope where 'aws_state' equals 'available'" do
+      Image.should have_named_scope(:available,  :order => 'aws_location', :conditions => {:aws_state => 'available'})
     end
+
+    it "should have a 'machines' named scope where 'aws_image_type' is 'machine'" do
+      Image.should have_named_scope(:machines, :order => 'aws_location', :conditions => {:aws_image_type => 'machine'})
+    end
+
+    it "should have a 'kernels' named scope where 'aws_image_type' is 'kernel'" do
+      Image.should have_named_scope(:kernels, :order => 'aws_location', :conditions => {:aws_image_type => 'kernel'})
+    end
+
+    it "should have a 'ramdisks' named scope where 'aws_image_type' is 'ramdisk'" do
+      Image.should have_named_scope(:ramdisks, :order => 'aws_location', :conditions => {:aws_image_type => 'ramdisk'})
+    end
+
+    it "should have a 'for_select' named scope which only returns the 'aws_id' and 'aws_location'" do
+      Image.should have_named_scope(:for_select, :select => 'aws_id, aws_location')
+    end
+
+    it "should have a 'allowed_for' named scope where either 'aws_is_public' is true or 'account_id' matches the id for the passed in account" do
+      Image.should have_named_scope(:allowed_for,
+        lambda { |account| { :conditions => ["aws_is_public = ? OR account_id = ?", true, account.id] }},
+        mock('Account', :id => 1))
+    end
+
   end
 
   describe "accessible attributes" do
@@ -102,4 +125,12 @@ describe Image do
       @image.aws_owner = "foo"
     end
   end
+
+  describe "aws location short" do
+    it "should remove the meaningless '.manifest.xml' from the end of the name and titleize it" do
+      image = Image.new(:aws_location => 'redhat-cloud/RHEL-5-Server/5.1/i386/kernels/kernel-2.6.18-53.1.4.el5xen.manifest.xml')
+      image.aws_location_short.should == 'Redhat Cloud/Rhel 5 Server/5.1/I386/Kernels/Kernel 2.6.18 53.1.4.El5xen'
+    end
+  end
+
 end

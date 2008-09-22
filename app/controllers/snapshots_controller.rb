@@ -26,6 +26,7 @@ class SnapshotsController < ApplicationController
   # GET /snapshots/new.xml
   def new
     @snapshot = current_account.snapshots.new
+    @volumes  = current_account.volumes
 
     respond_to do |format|
       format.html # new.html.erb

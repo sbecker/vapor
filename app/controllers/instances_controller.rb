@@ -27,6 +27,14 @@ class InstancesController < ApplicationController
   def new
     @instance = current_account.instances.new
 
+    @account_machines   = current_account.images.machines.available.for_select
+    @all_machines       = Image.machines.available.are_public.for_select
+    @kernels            = Image.kernels.available.are_public.for_select
+    @ramdisks           = Image.ramdisks.available.are_public.for_select
+    @availability_zones = current_account.availability_zones.available.for_select
+    @security_groups    = current_account.security_groups.for_select
+    @key_pairs          = current_account.key_pairs.for_select
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @instance }

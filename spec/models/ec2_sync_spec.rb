@@ -117,7 +117,7 @@ describe EC2Sync do
 
         available = mock("available")
         Image.stub!(:available).and_return(available)
-        available.should_receive(:all).with(:conditions => ["aws_is_public = ? OR account_id = ?", true, @account.id]).and_return([])
+        available.should_receive(:allowed_for).with(@account).and_return([])
         @ec2sync.get_locals
       end
     end
