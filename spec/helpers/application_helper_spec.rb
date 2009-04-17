@@ -17,7 +17,7 @@ describe ApplicationHelper do
       end
 
       it "should use the second argument in the search query link to AWS" do
-        aws_search_link(@name, @query).should have_tag("a[href=http://developer.amazonwebservices.com/connect/isearch.jspa?searchQuery=#{@query}&x=0&y=0&searchKB=true&searchForums=true]")
+        aws_search_link(@name, @query).should have_tag("a[href=http://developer.amazonwebservices.com/connect/isearch.jspa?searchQuery=#{@query}&amp;x=0&amp;y=0&amp;searchKB=true&amp;searchForums=true]")
       end
 
     end

@@ -21,9 +21,9 @@ describe "/accounts/show.html.erb" do
     response.should have_text(%r[#{@account.name}])
     response.should have_text(%r[#{@account.aws_account_number}])
     response.should have_text(%r[#{@account.aws_access_key}])
-    response.should have_text(%r[#{template.truncate(@account.aws_secret_access_key, 20)}])
-    response.should have_text(%r[#{template.truncate(@account.aws_x_509_key, 60)}])
-    response.should have_text(%r[#{template.truncate(@account.aws_x_509_certificate, 60)}])
+    response.should have_text(%r[#{template.truncate(@account.aws_secret_access_key, :length => 20)}])
+    response.should have_text(%r[#{template.truncate(@account.aws_x_509_key, :length => 60)}])
+    response.should have_text(%r[#{template.truncate(@account.aws_x_509_certificate, :length => 60)}])
   end
 end
 

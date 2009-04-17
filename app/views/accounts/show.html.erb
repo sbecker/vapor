@@ -17,17 +17,17 @@
 
 <p>
   <b>Aws secret access key:</b>
-  <%=h truncate(@account.aws_secret_access_key, 20) %>
+  <%=h truncate(@account.aws_secret_access_key, :length => 20) %>
 </p>
 
 <p>
   <b>Aws x 509 key:</b>
-  <%=h truncate(@account.aws_x_509_key, 60) %>
+  <%=h truncate(@account.aws_x_509_key, :length => 60) %>
 </p>
 
 <p>
   <b>Aws x 509 certificate:</b>
-  <%=h truncate(@account.aws_x_509_certificate, 60) %>
+  <%=h truncate(@account.aws_x_509_certificate, :length => 60) %>
 </p>
 
 
