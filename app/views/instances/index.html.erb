@@ -1,46 +1,69 @@
 <h2>Listing Instances</h2>
 
-<table>
+<style>
+  td {
+    font-size: 13px;
+    padding: 4px;
+    border-bottom: 1px solid #ccc;
+  }
+  tr.image td {
+    background-color: #ccc;
+  }
+</style>
+
+<table cellspacing="0">
   <tr>
     <th>Launch Index</th>
     <th>Availability Zone</th>
-    <th>Groups</th>
+    <!-- <th>Groups</th> -->
     <th>Image</th>
     <th>Instance</th>
-    <th>Instance Type</th>
-    <th>Kernel ID</th>
+    <th>Type</th>
+    <!-- <th>Kernel ID</th> -->
     <th>Launched At</th>
-    <th>Owner</th>
-    <th>Product Codes</th>
-    <th>Ramdisk ID</th>
-    <th>Reason</th>
-    <th>Reservation</th>
+    <!-- <th>Owner</th> -->
+    <!-- <th>Product Codes</th> -->
+    <!-- <th>Ramdisk ID</th> -->
+    <!-- <th>Reason</th> -->
+    <!-- <th>Reservation</th> -->
     <th>State</th>
-    <th>State Code</th>
+    <!-- <th>State Code</th> -->
     <th>DNS Mame</th>
-    <th>Private DNS Name</th>
+    <!-- <th>Private DNS Name</th> -->
     <th>SSK Key Name</th>
   </tr>
 
+<% previous_image_id = "" %>
 <% for instance in @instances %>
+  <% if previous_image_id != instance.aws_image_id %>
+    <% image = Image.find_by_aws_id(instance.aws_image_id) %>
+    <tr class="image">
+      <% if image %>
+        <td colspan="99"><%= image.aws_location_short %></td>
+      <% else %>
+        <td colspan="99" style="color: red">Deregistered Image</td>
+      <% end %>
+    </tr>
+    <% previous_image_id = instance.aws_image_id %>
+  <% end %>
   <tr>
     <td><%=h instance.ami_launch_index %></td>
     <td><%=h instance.aws_availability_zone %></td>
-    <td><%=h instance.aws_groups.join(', ') %></td>
+    <!-- <td><%=h instance.aws_groups.join(', ') %></td> -->
     <td><%=h instance.aws_image_id %></td>
     <td><%=h instance.aws_instance_id %></td>
     <td><%=h instance.aws_instance_type %></td>
-    <td><%=h instance.aws_kernel_id %></td>
-    <td><%=h instance.aws_launch_time.to_s(:long) %></td>
-    <td><%=h instance.aws_owner %></td>
-    <td><%=h instance.aws_product_codes.join(', ') %></td>
-    <td><%=h instance.aws_ramdisk_id %></td>
-    <td><%=h instance.aws_reason %></td>
-    <td><%=h instance.aws_reservation_id %></td>
+    <!-- <td><%=h instance.aws_kernel_id %></td> -->
+    <td><%=h instance.aws_launch_time.to_s(:short) %></td>
+    <!-- <td><%=h instance.aws_owner %></td> -->
+    <!-- <td><%=h instance.aws_product_codes.join(', ') %></td> -->
+    <!-- <td><%=h instance.aws_ramdisk_id %></td> -->
+    <!-- <td><%=h instance.aws_reason %></td> -->
+    <!-- <td><%=h instance.aws_reservation_id %></td> -->
     <td><%=h instance.aws_state %></td>
-    <td><%=h instance.aws_state_code %></td>
+    <!-- <td><%=h instance.aws_state_code %></td> -->
     <td><%=h instance.dns_name %></td>
-    <td><%=h instance.private_dns_name %></td>
+    <!-- <td><%=h instance.private_dns_name %></td> -->
     <td><%=h instance.ssh_key_name %></td>
     <td><%= link_to 'Show', instance %></td>
     <td><%= link_to 'Edit', edit_instance_path(instance) %></td>

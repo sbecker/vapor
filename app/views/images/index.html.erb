@@ -17,6 +17,7 @@
     <th>Description</th>
     <th>Type</th>
     <th>Architecture</th>
+    <th># Running</th>
     <th>AWS ID</th>
     <th>Location</th>
     <th>Is public</th>
@@ -30,6 +31,7 @@
     <td><%=h image.description %></td>
     <td><%=h image.aws_image_type %></td>
     <td><%=h image.aws_architecture %></td>
+    <td><%=h Instance.count(:conditions => ["aws_image_id = ? AND aws_state = 'running'", image.aws_id]) %></td>
     <td><%=h image.aws_id %></td>
     <td><%=h image.aws_location_short %></td>
     <td><%=h image.aws_is_public %></td>

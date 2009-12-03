@@ -5,7 +5,7 @@ class InstancesController < ApplicationController
   # GET /instances
   # GET /instances.xml
   def index
-    @instances = current_account.instances.all
+    @instances = current_account.instances.all(:order => "aws_image_id asc")
 
     respond_to do |format|
       format.html # index.html.erb

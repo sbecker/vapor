@@ -2,10 +2,10 @@
 
 one:
   account_id: 1
-  name: MyString
-  state: MyString
+  zone_name: MyString
+  zone_state: MyString
 
 two:
   account_id: 1
-  name: MyString
-  state: MyString
+  zone_name: MyString
+  zone_state: MyString
